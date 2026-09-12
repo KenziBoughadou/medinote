@@ -1,7 +1,7 @@
 # Recette MediNote — 12 septembre 2026
 
 Application : implémentée, validations locale et CI réussies, images publiées et accessibles anonymement.
-Publication : GitHub/GHCR vérifiés ; raccordement de production en attente.
+Publication : GitHub/GHCR, DNS, certificat et site HTTPS vérifiés ; supervision et accès SSH du runner à confirmer.
 Étude : en attente de générations réelles et de revue humaine.
 
 Le SHA applicatif et la CI sont consignés dans le suivi de livraison ci-dessous. Aucun appel
@@ -41,18 +41,15 @@ Les tests simulés constituent une preuve logicielle, pas une évaluation du mod
 | 07 — interface | Clavier, source active, responsive, ancienne réponse ignorée, erreurs sans perte de note, exports, null et mode hors ligne | Vérifié Vitest/Playwright/axe |
 | 08 — évaluation | Calcul à la main, alignement, dénominateurs, bootstrap apparié, intégrité, aveuglement et provenance ; parcours complet simulé | Vérifié localement |
 | 10 — conteneurs | Configurations et digests figés ; non-root, ressources, réseau privé et secret readonly | Statique et intégration CI vérifiés ; images sous les plafonds |
-| 11 — CI/CD | Workflows, archives whitelistées, SHA/digests, préflight, flock, rollback et SQLite conservée | CI verte, GHCR anonyme et archive vérifiés ; production bloquée par prérequis externes |
-| 09 — expériences | Douze sorties dev, 80 principales, 40 stress et annotations réelles | Non réalisé : première publication et clé propres au projet manquantes |
-| 12 — portfolio | README FR/EN, cartes, commandes, captures et script vidéo ; états séparés | Dépôt public, démo locale, CI, documents et vidéo vérifiés ; HTTPS de production en attente |
+| 11 — CI/CD | Workflows, archives whitelistées, SHA/digests, préflight, flock, rollback et SQLite conservée | CI verte, GHCR anonyme, archive et HTTPS vérifiés ; transport initial depuis la session serveur |
+| 09 — expériences | Douze sorties dev, 80 principales, 40 stress et annotations réelles | Non réalisé : clé propre au projet et campagne réelles en attente |
+| 12 — portfolio | README FR/EN, cartes, commandes, captures et script vidéo ; états séparés | Dépôt public, démo locale, CI, documents, vidéo et HTTPS vérifiés |
 
 ## Dépendances externes ouvertes
 
-- `/opt/medinote`, `/var/lib/medinote` et le secret central MediNote ne sont pas préparés.
-  Le bootstrap doit réellement être exécuté par l’administrateur ; aucun contournement de
-  privilèges via Docker n’a été utilisé.
-- DNS `medinote.kbcompany.fr` non résolu au contrôle. HTTPS public non vérifié.
-- Secrets SSH et empreinte known_hosts de l’environnement GitHub `production` non renseignés
-  par cette implémentation. Destination DNS à confirmer depuis l’hébergeur.
+- Le runner GitHub n’atteint pas le port SSH du VPS (timeout avant transfert).
+  Les quatre secrets sont configurés et la clé dédiée fonctionne depuis le serveur.
+  La première mise en ligne utilise la session serveur existante avec l’archive CI exacte.
 - Clé OpenAI propre à MediNote et activation live absentes. Accès réel au snapshot non testé.
 - Contrôles Uptime Kuma à créer par l’opérateur, sans nouveau destinataire de notification.
 - Corpus/gold et notes finales à relire par une personne identifiée ; aucune revue humaine
@@ -96,3 +93,22 @@ Les commits documentaires ultérieurs peuvent avoir leur propre release CI ; les
 ci-dessus désignent exactement la release vérifiée dans ce relevé.
 
 La liste exhaustive des fichiers créés est dans [FILES_CHANGED.md](FILES_CHANGED.md).
+
+## Mise en production — 12 septembre 2026
+
+- L’opérateur a exécuté le bootstrap administrateur et créé l’enregistrement Cloudflare A
+  `medinote`, proxifié, vers l’IP du VPS confirmée. Aucun contournement de privilèges.
+- Release d’ouverture : `026183052a9548aa03529adea19c7c5970f13260`, issue de la
+  [CI réussie](https://github.com/KenziBoughadou/medinote/actions/runs/34705714136).
+- `/opt/medinote/current` activé après succès du contrôle HTTPS. Certificat Let's Encrypt
+  pour `medinote.kbcompany.fr` vérifié ; `/`, `/healthz`, `/api/health/ready`, `/api/examples`
+  et `/api/health/live` répondent 200, version attendue et six exemples présents.
+- Les deux conteneurs sont healthy, sans port hôte, avec les UID, limites et réseaux prévus.
+- Huit tests Playwright/axe réussis contre `https://medinote.kbcompany.fr` ; les relances
+  y sont simulées par interception, sans appel fournisseur.
+- Les sites existants `relay-ai.fr` et `api.relay-ai.fr/health` répondent toujours 200.
+- Relances réelles désactivées ; rapport `awaiting_runs`, métriques nulles.
+- Corrections d’exploitation : identifiant de sonde HTTP explicite, attente TLS bornée,
+  contrôle de taille Docker par plafond avec digest strict, et nettoyage sans `previous`
+  pour une première installation. Cette dernière erreur est survenue après activation
+  du site et n’a pas interrompu le service ; le cas est couvert par un test de régression.

@@ -12,9 +12,9 @@ This compares complete pipelines, including different writing methods. B is not 
 to outperform A. [Français](README.md) · [Locked implementation plan](IMPLEMENTATION_PLAN.md) ·
 [Actual acceptance status](docs/ACCEPTANCE.md) · [Three-minute video](docs/assets/demo.webm).
 
-The intended public domain is `https://medinote.kbcompany.fr`; administrator setup, DNS
-and verified HTTPS publication remain external dependencies. The local demo works without
-an API key. Its twelve current notes are **AI-prepared editorial illustrations**, with no
+[Open the live demo](https://medinote.kbcompany.fr) — HTTPS and browser workflows verified.
+No account is required; live AI generation remains disabled. The local demo also works
+without an API key. Its twelve current notes are **AI-prepared editorial illustrations**, with no
 invented generation metadata or performance metrics.
 
 ## Run locally

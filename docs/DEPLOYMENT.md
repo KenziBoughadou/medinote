@@ -25,6 +25,17 @@ projet ou du Compose global n’est modifié.
 Le bootstrap et les raccordements externes ne sont pas réalisés par le code. Leur statut
 vérifié se trouve dans [ACCEPTANCE.md](ACCEPTANCE.md).
 
+La première mise en ligne HTTPS a été vérifiée le 12 septembre 2026. Le bootstrap et le DNS
+ont été réalisés par l’opérateur. Les quatre secrets GitHub de l’environnement `production`
+sont configurés, avec une clé SSH dédiée et une clé hôte vérifiée depuis le serveur.
+La connexion au port 22 depuis le runner GitHub a expiré avant transfert ; le filtrage réseau
+reste à vérifier par l’opérateur. Aucun changement de pare-feu global n’a été effectué.
+
+Pour cette première mise en ligne, l’archive de la CI réussie a été téléchargée directement
+depuis la session serveur autorisée, extraite par `unpack_release.py`, puis appliquée par
+`deploy.sh`. Images, digests, configuration, verrou, contrôles et activation sont identiques
+au workflow. Cette adaptation concerne uniquement le transport de l’archive.
+
 ## CI et release
 
 La CI installe les dépendances verrouillées, teste Python/frontend/corpus/contrats,
@@ -43,6 +54,12 @@ l’artefact exact, sans reconstruction ni git pull. Le serveur refuse les archi
 traversées, liens, périphériques, fichiers supplémentaires, digests/SHA incohérents et DB
 incompatible. Sous flock, il exige les inodes et l’espace définis au plan, avant toute
 mutation puis après le pull.
+
+Les sondes publiques envoient un `User-Agent` explicite `MediNote-Healthcheck/1.0` pour
+éviter le rejet du client Python générique par Cloudflare. La vérification HTTPS est reprise
+de façon bornée pendant l’émission initiale du certificat. Le digest garantit l’identité
+de l’image ; la taille locale Docker est contrôlée contre le plafond, car sa comptabilisation
+peut différer légèrement de celle du runner après téléchargement.
 
 Commande serveur appliquée par le workflow :
 

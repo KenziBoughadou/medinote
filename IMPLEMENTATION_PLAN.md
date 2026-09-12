@@ -771,3 +771,11 @@ CI du commit `fa507635bcbc5eff42bd24b074ef2712a24e68b9` réussie : 70 tests Pyth
 conservé. Les deux images GHCR sont publiées et leurs manifests accessibles anonymement.
 Archive de release vérifiée ; vidéo de 180 secondes et 17,94 Mio. DNS, bootstrap serveur,
 SSH, supervision, générations réelles et revue humaine restent les dépendances ouvertes.
+
+12 septembre 2026 — production : bootstrap administrateur et DNS réalisés par l’opérateur ;
+HTTPS, santé et huit tests navigateur vérifiés sur `medinote.kbcompany.fr`. Première
+activation de la release `026183052a9548aa03529adea19c7c5970f13260`, issue d’une CI verte.
+Le runner GitHub étant bloqué en connexion SSH, son archive exacte a été appliquée depuis
+la session serveur autorisée avec le script prévu. Aucun changement global du pare-feu
+ou des autres projets. Supervision, accès distant du runner, appels réels et revue humaine
+restent explicitement suivis dans `docs/ACCEPTANCE.md`.

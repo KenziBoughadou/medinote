@@ -38,7 +38,8 @@ rollback_release() {
 prune_medinote_releases() {
   local active previous directory
   active=$(readlink -f "$BASE/current")
-  previous=$(readlink -f "$BASE/previous" 2>/dev/null || true)
+  previous=''
+  if [[ -L "$BASE/previous" ]]; then previous=$(readlink -f "$BASE/previous"); fi
   for directory in "$BASE"/releases/*; do
     [[ -d "$directory" && ! -L "$directory" && "$(basename "$directory")" =~ ^[0-9a-f]{40}$ ]] || continue
     [[ "$directory" != "$active" && "$directory" != "$previous" ]] || continue

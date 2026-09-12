@@ -14,9 +14,9 @@ Aucune supériorité de B n’est présupposée.
 [Plan verrouillé](IMPLEMENTATION_PLAN.md) · [English](README.en.md) ·
 [Recette et état réel](docs/ACCEPTANCE.md) · [Vidéo de trois minutes](docs/assets/demo.webm)
 
-Le domaine de publication prévu est `https://medinote.kbcompany.fr`. Son raccordement
-administrateur/DNS/HTTPS reste à réaliser ; il n’est pas présenté comme une livraison vérifiée.
-La démo locale est consultable sans clé et sans compte. Les douze notes actuelles sont
+[Ouvrir la démonstration en ligne](https://medinote.kbcompany.fr) — HTTPS et parcours navigateur
+vérifiés. La démo est consultable sans compte ; les relances IA restent désactivées.
+La démo locale fonctionne aussi sans clé. Les douze notes actuelles sont
 **illustratives, préparées par IA**, sans faux modèle, coût, latence ou score.
 
 ![Comparaison MediNote](docs/assets/demo-desktop.png)

@@ -90,3 +90,46 @@ rollback_release "" /candidate
 """
     result = subprocess.run(["bash", "-c", script], capture_output=True, text=True)
     assert result.returncode == 1 and "compose:/candidate stop" in result.stdout
+
+
+def test_first_activation_cleanup_without_previous(root, tmp_path, monkeypatch):
+    monkeypatch.syspath_prepend(str(root / "scripts"))
+    from package_release import package_release
+
+    base = tmp_path / "medinote"
+    active = base / "releases" / ("a" * 40)
+    obsolete = base / "releases" / ("b" * 40)
+    for folder, digit in [(active, "1"), (obsolete, "2")]:
+        package_release(
+            root,
+            folder,
+            folder.name,
+            "ghcr.io/kenziboughadou/medinote-api@sha256:" + digit * 64,
+            "ghcr.io/kenziboughadou/medinote-frontend@sha256:" + digit * 64,
+            200000000,
+            60000000,
+        )
+    (base / "current").symlink_to(active)
+    bin_path = tmp_path / "bin"
+    bin_path.mkdir()
+    docker = bin_path / "docker"
+    docker.write_text("#!/bin/sh\nexit 0\n")
+    docker.chmod(0o755)
+    import os
+
+    result = subprocess.run(
+        [
+            "bash",
+            "-c",
+            f'''source "{root}/scripts/deploy.sh"
+BASE="{base}"
+prune_medinote_releases
+''',
+        ],
+        env={**os.environ, "PATH": str(bin_path) + ":" + os.environ["PATH"]},
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    assert active.is_dir() and not obsolete.exists()
+    assert not (base / "previous").exists()
