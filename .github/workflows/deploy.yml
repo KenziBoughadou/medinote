@@ -48,7 +48,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/medinote-ssh"
           printf '%s\n' "$DEPLOY_SSH_KEY" > "$RUNNER_TEMP/medinote-ssh/key"
           printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$RUNNER_TEMP/medinote-ssh/known_hosts"
-          SSH_ARGS=(-i "$RUNNER_TEMP/medinote-ssh/key" -o "UserKnownHostsFile=$RUNNER_TEMP/medinote-ssh/known_hosts" -o StrictHostKeyChecking=yes)
+          SSH_ARGS=(-i "$RUNNER_TEMP/medinote-ssh/key" -o "UserKnownHostsFile=$RUNNER_TEMP/medinote-ssh/known_hosts" -o StrictHostKeyChecking=yes -o BatchMode=yes -o ConnectTimeout=20 -o ConnectionAttempts=1)
           scp "${SSH_ARGS[@]}" ".release/release-$CANDIDATE_SHA.tar.gz" scripts/unpack_release.py scripts/package_release.py "$DEPLOY_USER@$DEPLOY_HOST:/opt/medinote/incoming/"
           ssh "${SSH_ARGS[@]}" "$DEPLOY_USER@$DEPLOY_HOST" "python3 /opt/medinote/incoming/unpack_release.py --archive /opt/medinote/incoming/release-$CANDIDATE_SHA.tar.gz --destination /opt/medinote/releases/$CANDIDATE_SHA && bash /opt/medinote/releases/$CANDIDATE_SHA/scripts/deploy.sh --release-dir /opt/medinote/releases/$CANDIDATE_SHA"
       - name: Retirer la clé temporaire du runner

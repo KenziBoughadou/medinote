@@ -11,7 +11,14 @@ wait_ready() {
   compose_release "$release" exec -T frontend wget -q -O /dev/null http://127.0.0.1:8080/healthz || return 1
   compose_release "$release" exec -T api python -c 'import json,urllib.request; r=urllib.request.urlopen("http://127.0.0.1:8000/api/health/ready",timeout=5); assert r.status==200; assert len(json.load(urllib.request.urlopen("http://127.0.0.1:8000/api/examples",timeout=5)))==6'
 }
-smoke_public() { python3 "$1/scripts/smoke.py" --origin https://medinote.kbcompany.fr --sha "$(basename "$1")"; }
+smoke_public() {
+  local attempt
+  for attempt in 1 2 3 4 5 6; do
+    python3 "$1/scripts/smoke.py" --origin https://medinote.kbcompany.fr --sha "$(basename "$1")" && return 0
+    [[ "$attempt" == 6 ]] || sleep 5
+  done
+  return 1
+}
 atomic_link() { local name=$1 target=$2; ln -s "$target" "$BASE/.$name.new.$$"; mv -Tf "$BASE/.$name.new.$$" "$BASE/$name"; }
 activate_release() {
   local candidate=$1 old=$2
