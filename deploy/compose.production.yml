@@ -1,0 +1,67 @@
+name: medinote
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: 5m
+    max-file: "2"
+x-security: &security
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  restart: unless-stopped
+  logging: *logging
+services:
+  frontend:
+    <<: *security
+    image: ${MEDINOTE_FRONTEND_IMAGE:?Digest frontend requis}
+    user: "101:101"
+    mem_limit: 128m
+    memswap_limit: 128m
+    tmpfs: [/tmp:size=16m, /var/cache/nginx:size=16m, /var/run:size=1m]
+    networks: [public, private]
+    depends_on:
+      api:
+        condition: service_healthy
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: web
+      traefik.http.routers.medinote.rule: Host(`medinote.kbcompany.fr`)
+      traefik.http.routers.medinote.entrypoints: websecure
+      traefik.http.routers.medinote.tls.certresolver: letsencrypt
+      traefik.http.routers.medinote.service: medinote
+      traefik.http.services.medinote.loadbalancer.server.port: "8080"
+  api:
+    <<: *security
+    image: ${MEDINOTE_API_IMAGE:?Digest API requis}
+    user: "10001:10001"
+    mem_limit: 512m
+    memswap_limit: 512m
+    tmpfs: [/tmp:size=32m]
+    environment:
+      MEDINOTE_ENV: production
+      MEDINOTE_ROOT: /app
+      MEDINOTE_STATE_DIR: /var/lib/medinote
+      MEDINOTE_PUBLIC_ORIGIN: https://medinote.kbcompany.fr
+    networks:
+      private:
+        aliases: [medinote-api]
+    volumes:
+      - type: bind
+        source: /var/lib/medinote
+        target: /var/lib/medinote
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /opt/secrets/medinote.env
+        target: /run/secrets/medinote.env
+        read_only: true
+        bind:
+          create_host_path: false
+    labels:
+      traefik.enable: "false"
+networks:
+  public:
+    external: true
+    name: web
+  private:
+    driver: bridge

@@ -1,0 +1,2 @@
+import { test, expect } from '@playwright/test'
+test('API indisponible : consultation locale explicite, live désactivé',async({page})=>{await page.route(url=>url.pathname.startsWith('/api/'),route=>route.abort());await page.goto('/');await expect(page.getByText(/Mode hors ligne — bundle local/)).toBeVisible();await expect(page.locator('.note-pane').first().getByRole('button',{name:'Relancer l’IA'})).toBeDisabled();await expect(page.getByText('Illustration éditoriale · IA')).toHaveCount(2)})

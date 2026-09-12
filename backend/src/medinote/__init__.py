@@ -1,0 +1,1 @@
+"""MediNote : consultations synthétiques uniquement."""

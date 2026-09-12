@@ -1,0 +1,56 @@
+name: Deploy
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: SHA complet appartenant à main avec CI réussie
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: medinote-production
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Vérifier le SHA et la CI puis récupérer l’artefact exact
+        env:
+          CANDIDATE_SHA: ${{ inputs.commit_sha }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [[ "$CANDIDATE_SHA" =~ ^[0-9a-f]{40}$ ]]
+          git merge-base --is-ancestor "$CANDIDATE_SHA" origin/main
+          RUN_ID=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow ci.yml --commit "$CANDIDATE_SHA" --status success --json databaseId,event --jq '[.[]|select(.event=="push")][0].databaseId')
+          [[ "$RUN_ID" =~ ^[0-9]+$ ]]
+          gh run download "$RUN_ID" --repo "$GITHUB_REPOSITORY" --name "release-$CANDIDATE_SHA" --dir .release
+          git checkout --detach "$CANDIDATE_SHA"
+      - name: Transférer et appliquer la release validée
+        env:
+          CANDIDATE_SHA: ${{ inputs.commit_sha }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          [[ "$DEPLOY_USER" == kenzi && -n "$DEPLOY_HOST" && -n "$DEPLOY_SSH_KEY" && -n "$DEPLOY_KNOWN_HOSTS" ]]
+          [[ "$DEPLOY_HOST" =~ ^[a-zA-Z0-9.-]+$ ]]
+          umask 077
+          mkdir -p "$RUNNER_TEMP/medinote-ssh"
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$RUNNER_TEMP/medinote-ssh/key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$RUNNER_TEMP/medinote-ssh/known_hosts"
+          SSH_ARGS=(-i "$RUNNER_TEMP/medinote-ssh/key" -o "UserKnownHostsFile=$RUNNER_TEMP/medinote-ssh/known_hosts" -o StrictHostKeyChecking=yes)
+          scp "${SSH_ARGS[@]}" ".release/release-$CANDIDATE_SHA.tar.gz" scripts/unpack_release.py scripts/package_release.py "$DEPLOY_USER@$DEPLOY_HOST:/opt/medinote/incoming/"
+          ssh "${SSH_ARGS[@]}" "$DEPLOY_USER@$DEPLOY_HOST" "python3 /opt/medinote/incoming/unpack_release.py --archive /opt/medinote/incoming/release-$CANDIDATE_SHA.tar.gz --destination /opt/medinote/releases/$CANDIDATE_SHA && bash /opt/medinote/releases/$CANDIDATE_SHA/scripts/deploy.sh --release-dir /opt/medinote/releases/$CANDIDATE_SHA"
+      - name: Retirer la clé temporaire du runner
+        if: always()
+        run: rm -f "$RUNNER_TEMP/medinote-ssh/key"

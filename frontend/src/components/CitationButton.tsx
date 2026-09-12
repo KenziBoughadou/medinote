@@ -1,0 +1,2 @@
+import type { Citation } from '../api/client'
+export function CitationButton({citation,onSelect}:{citation:Citation,onSelect:(id:string,button:HTMLButtonElement)=>void}){return citation.resolvable?<button className="citation" aria-label={`Afficher la source ${citation.segment_id}`} onClick={e=>onSelect(citation.segment_id,e.currentTarget)}>{citation.segment_id}</button>:<span className="unresolved">Source introuvable ({citation.segment_id})</span>}

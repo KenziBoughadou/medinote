@@ -1,0 +1,3 @@
+import { test, expect } from '@playwright/test'
+import { readFile } from 'node:fs/promises'
+test('export local avec sources et provenance',async({page})=>{await page.goto('/?mode=offline');const note=page.locator('.note-pane').first();await note.getByText('Exporter',{exact:true}).click();const promise=page.waitForEvent('download');await note.getByRole('button',{name:'Markdown',exact:true}).click();const file=await promise;expect(file.suggestedFilename()).toMatch(/^medinote-main-digestif-01-direct-.*\.md$/);const text=await readFile((await file.path())!,'utf8');expect(text).toContain('Consultation fictive');expect(text).toContain('## Sources');expect(text).toContain('illustrative')})

@@ -1,0 +1,6 @@
+# Réseau et volume isolés par le nom de projet unique du runner CI.
+services:
+  api:
+    environment:
+      MEDINOTE_ENV: test
+      MEDINOTE_LIVE_ENABLED: "false"

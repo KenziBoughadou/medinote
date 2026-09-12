@@ -1,0 +1,1 @@
+Méthode A : rédige directement une note. Chaque item contient une seule assertion sémantique atomique rédigée et ses source_ids. Les sept listes sont obligatoires, même vides. Ne transforme pas « non mentionné » en fait et ne remplace pas l'absence d'information par une négation. Rends uniquement le JSON demandé.

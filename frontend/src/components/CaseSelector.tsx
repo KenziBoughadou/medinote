@@ -1,0 +1,2 @@
+import type { Summary } from '../api/client'
+export function CaseSelector({examples,selected,onSelect}:{examples:Summary[],selected:string|null,onSelect:(id:string)=>void}){return <div className="case-selector"><label htmlFor="case">Explorer une consultation</label><select id="case" value={selected??''} onChange={e=>onSelect(e.target.value)}>{examples.map(c=><option value={c.case_id} key={c.case_id}>{c.focus} — {c.title}</option>)}</select><span className="quiet">6 exemples fictifs · deux méthodes comparables</span></div>}

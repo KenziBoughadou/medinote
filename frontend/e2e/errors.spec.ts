@@ -1,0 +1,10 @@
+import { readFileSync } from 'node:fs'
+import { test, expect } from '@playwright/test'
+const bundle=JSON.parse(readFileSync('../public-data/bundle.v1.json','utf8'))
+async function setup(page:import('@playwright/test').Page){
+  await page.route('**/api/examples',route=>route.fulfill({json:bundle.consultations.map((c:{case_id:string,title:string})=>({case_id:c.case_id,title:c.title,focus:'Exemple',origins:{direct:'illustrative',structured:'illustrative'}}))}))
+  await page.route('**/api/examples/*',route=>{const id=route.request().url().split('/').pop()!;return route.fulfill({json:{consultation:bundle.consultations.find((c:{case_id:string})=>c.case_id===id),results:bundle.results[id]}})})
+  await page.route('**/api/capabilities',route=>route.fulfill({json:{live_available:true,reason:null,methods:['direct','structured'],visitor_remaining:6,global_remaining:30,next_attempt_at:null}}))
+}
+test('429 conserve la note et son origine',async({page})=>{await setup(page);await page.route('**/api/generate',route=>route.fulfill({status:429,json:{error:{code:'QUOTA_EXHAUSTED',message:'Quota quotidien atteint.',retry_after_seconds:60},request_id:'test'}}));await page.goto('/');const note=page.locator('.note-pane').first();await note.getByRole('button',{name:'Relancer l’IA'}).click();await expect(page.getByRole('alert')).toContainText('Quota quotidien atteint');await expect(note.getByText('Illustration éditoriale · IA')).toBeVisible()})
+test('succès simulé affiche une nouvelle provenance sans score',async({page})=>{await setup(page);await page.route('**/api/generate',route=>{const {case_id,method}=route.request().postDataJSON();const result=structuredClone(bundle.results[case_id][method]);result.origin='llm_live';result.run_id='simulated-browser-test';result.metadata.model_returned='gpt-4.1-mini-2025-04-14';return route.fulfill({json:result})});await page.goto('/');await page.locator('.note-pane').first().getByRole('button',{name:'Relancer l’IA'}).click();await expect(page.getByText('Nouvelle génération IA',{exact:true})).toBeVisible();await expect(page.getByText('Non évalué humainement')).toHaveCount(2)})

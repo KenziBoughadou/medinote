@@ -1,0 +1,46 @@
+name: medinote-local
+services:
+  frontend:
+    image: ${MEDINOTE_FRONTEND_IMAGE:?Image frontend requise}
+    user: "101:101"
+    ports: [127.0.0.1:18080:8080]
+    networks: [private]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp:size=16m, /var/cache/nginx:size=16m, /var/run:size=1m]
+    mem_limit: 128m
+    memswap_limit: 128m
+    depends_on:
+      api:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options: {max-size: 5m, max-file: "2"}
+  api:
+    image: ${MEDINOTE_API_IMAGE:?Image API requise}
+    user: "10001:10001"
+    environment:
+      MEDINOTE_ENV: development
+      MEDINOTE_LIVE_ENABLED: "false"
+      MEDINOTE_ROOT: /app
+      MEDINOTE_STATE_DIR: /var/lib/medinote
+      MEDINOTE_PUBLIC_ORIGIN: http://127.0.0.1:18080
+    networks:
+      private:
+        aliases: [medinote-api]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp:size=32m]
+    volumes: [local-state:/var/lib/medinote]
+    mem_limit: 512m
+    memswap_limit: 512m
+    logging:
+      driver: json-file
+      options: {max-size: 5m, max-file: "2"}
+networks:
+  private:
+    driver: bridge
+volumes:
+  local-state:

@@ -1,0 +1,24 @@
+[project]
+name = "medinote"
+version = "0.1.0"
+description = "Comparaison traçable de brouillons cliniques fictifs"
+requires-python = ">=3.12,<3.13"
+dependencies = ["fastapi>=0.115,<1", "pydantic>=2,<3", "pydantic-settings>=2,<3", "openai>=2,<3", "httpx>=0.28,<1", "tiktoken>=0.11,<1", "uvicorn>=0.35,<1"]
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "ruff>=0.12,<1", "pyyaml>=6,<7"]
+eval = ["numpy>=2,<3", "matplotlib>=3.10,<4"]
+[project.scripts]
+medinote = "medinote.cli:main"
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+[tool.hatch.build.targets.wheel]
+packages = ["backend/src/medinote"]
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["backend/tests"]
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

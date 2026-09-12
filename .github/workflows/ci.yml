@@ -1,0 +1,113 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: medinote-ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      MEDINOTE_API_IMAGE: ghcr.io/kenziboughadou/medinote-api:sha-${{ github.sha }}
+      MEDINOTE_FRONTEND_IMAGE: ghcr.io/kenziboughadou/medinote-frontend:sha-${{ github.sha }}
+      COMPOSE_PROJECT_NAME: medinote-ci-${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version-file: .node-version
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e
+        with:
+          version: '0.12.13'
+      - name: Python et corpus
+        run: |
+          uv sync --frozen --group dev --group eval
+          uv run ruff check backend scripts
+          uv run pytest backend/tests
+          uv run medinote corpus validate --root .
+      - name: Frontend et contrats
+        run: |
+          npm --prefix frontend ci
+          uv run python scripts/export_openapi.py
+          npm --prefix frontend run generate:api
+          git diff --exit-code -- contracts/openapi.json frontend/src/api/schema.d.ts
+          npm --prefix frontend run lint
+          npm --prefix frontend run typecheck
+          npm --prefix frontend run test -- --run
+          npm --prefix frontend run build
+      - name: Images et intégration isolée
+        run: |
+          docker build --platform linux/amd64 --build-arg BUILD_SHA="$GITHUB_SHA" -f backend/Dockerfile -t "$MEDINOTE_API_IMAGE" .
+          docker build --platform linux/amd64 --build-arg BUILD_SHA="$GITHUB_SHA" -f frontend/Dockerfile -t "$MEDINOTE_FRONTEND_IMAGE" .
+          uv run python scripts/check_images.py --api "$MEDINOTE_API_IMAGE" --frontend "$MEDINOTE_FRONTEND_IMAGE" --sha "$GITHUB_SHA"
+          uv run python scripts/check_deployment_config.py
+          python scripts/test_compose_integration.py
+      - name: Playwright et axe
+        env:
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:18080
+        run: |
+          cd frontend
+          npx playwright install --with-deps chromium
+          npm run test:e2e
+      - name: Arrêter uniquement le projet CI
+        if: always()
+        run: docker compose -p "$COMPOSE_PROJECT_NAME" -f deploy/compose.local.yml -f deploy/compose.ci.yml down
+      - name: Images validées pour publication
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          mkdir -p .release
+          docker save "$MEDINOTE_API_IMAGE" "$MEDINOTE_FRONTEND_IMAGE" | gzip > .release/images.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          name: tested-images-${{ github.sha }}
+          path: .release/images.tar.gz
+          retention-days: 1
+          include-hidden-files: true
+  publish:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: tested-images-${{ github.sha }}
+          path: .release
+      - name: Publier les images testées et archiver la configuration exacte
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gzip -dc .release/images.tar.gz | docker load
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          API="ghcr.io/kenziboughadou/medinote-api:sha-$GITHUB_SHA"
+          FRONT="ghcr.io/kenziboughadou/medinote-frontend:sha-$GITHUB_SHA"
+          docker push "$API"
+          docker push "$FRONT"
+          API_REF=$(docker image inspect "$API" --format '{{index .RepoDigests 0}}')
+          FRONT_REF=$(docker image inspect "$FRONT" --format '{{index .RepoDigests 0}}')
+          API_SIZE=$(docker image inspect "$API" --format '{{.Size}}')
+          FRONT_SIZE=$(docker image inspect "$FRONT" --format '{{.Size}}')
+          python scripts/package_release.py --output .release/package --sha "$GITHUB_SHA" --api-ref "$API_REF" --frontend-ref "$FRONT_REF" --api-size "$API_SIZE" --frontend-size "$FRONT_SIZE"
+          docker logout ghcr.io
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: release-${{ github.sha }}
+          path: .release/release-${{ github.sha }}.tar.gz
+          retention-days: 30
+          include-hidden-files: true
