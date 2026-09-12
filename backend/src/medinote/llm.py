@@ -54,6 +54,37 @@ def build_generation_request(case, method: Method) -> GenerationRequest:
         (PROMPTS / "common.v1.txt").read_text() + "\n" + (PROMPTS / f"{method}.v1.txt").read_text()
     )
     schema = to_strict_json_schema(OUTPUT_TYPES[method])
+    if method == Method.structured:
+        # Pydantic's cross-field validator is not exported by JSON Schema generation.
+        # Express the existing Subject invariant in the provider-supported nested union.
+        subject = schema["$defs"]["Subject"]
+        label = next(
+            variant
+            for variant in subject["properties"]["label"]["anyOf"]
+            if variant.get("type") == "string"
+        )
+        schema["$defs"]["Subject"] = {
+            "anyOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "kind": {"type": "string", "enum": ["patient"]},
+                        "label": {"type": "null"},
+                    },
+                    "required": ["kind", "label"],
+                    "additionalProperties": False,
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "kind": {"type": "string", "enum": ["relative", "other"]},
+                        "label": label,
+                    },
+                    "required": ["kind", "label"],
+                    "additionalProperties": False,
+                },
+            ]
+        }
     source = {
         "case_id": case.case_id,
         "locale": case.locale,

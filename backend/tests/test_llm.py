@@ -37,6 +37,46 @@ def test_cost_unknown():
     assert estimated_micro_usd(100, 100) == 200
 
 
+@pytest.mark.parametrize(
+    "kind,label,valid",
+    [
+        ("patient", None, True),
+        ("patient", "sœur", False),
+        ("relative", "sœur", True),
+        ("relative", None, False),
+        ("other", "voisin", True),
+        ("other", None, False),
+        ("relative", "", False),
+    ],
+)
+def test_provider_subject_constraint_matches_local_validator(root, kind, label, valid):
+    from medinote.schemas import Subject
+
+    request = build_generation_request(
+        CorpusRepository(root).load().list_public_cases()[0], "structured"
+    )
+    branches = request.payload["text"]["format"]["schema"]["$defs"]["Subject"]["anyOf"]
+    accepted = False
+    for branch in branches:
+        assert branch["additionalProperties"] is False
+        assert set(branch["required"]) == {"kind", "label"}
+        props = branch["properties"]
+        if kind not in props["kind"]["enum"]:
+            continue
+        rule = props["label"]
+        accepted = (
+            (label is None)
+            if rule["type"] == "null"
+            else (isinstance(label, str) and rule["minLength"] <= len(label) <= rule["maxLength"])
+        )
+    assert accepted is valid
+    if valid:
+        Subject(kind=kind, label=label)
+    else:
+        with pytest.raises(ValueError):
+            Subject(kind=kind, label=label)
+
+
 @pytest.mark.parametrize("kind", ["completed", "refusal", "truncated"])
 async def test_sdk_usage_before_validation(root, kind):
     fixture = json.loads((root / "backend/tests/fixtures/provider-responses.json").read_text())[
