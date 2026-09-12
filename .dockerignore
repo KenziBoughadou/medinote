@@ -12,6 +12,10 @@ __pycache__/
 *.key
 node_modules/
 dist/
+**/node_modules/
+**/dist/
+**/__pycache__/
+**/*.tsbuildinfo
 frontend/public/data/
 frontend/test-results/
 frontend/playwright-report/
