@@ -151,3 +151,27 @@ label, proches explicitement identifiés, négation portée une seule fois, cons
 des précisions et certitudes. Modèle, schémas, rendu et corpus sont inchangés. Cette
 modification suit l’étape 09.2 et exige une nouvelle image CI avant les nouveaux essais
 et le gel. Aucun cas test n’a servi à cet ajustement.
+
+## Campagne v1 réelle et publication des résultats d’exécution
+
+Le gel utilise le commit `3138ec963c32c6c5acfac93ffddbf0490f5c08ca`, après correction
+du schéma fournisseur qui n’exprimait pas la contrainte croisée de sujet déjà imposée
+par Pydantic. Modèle, champs, renderer et corpus restent inchangés. Trois essais dev
+ciblés ont confirmé la correction, y compris le cas précédemment rejeté.
+
+- 132 tentatives réelles archivées : 12 démos, 80 test et 40 stress ; aucune reprise,
+  aucune tentative supprimée, toutes techniquement valides. Coût estimé : 0,153097 $.
+- Manifest, réponses brutes, notes et empreintes vérifiés depuis le checkout sans nouvel
+  appel. L’historique des essais dev et son incident d’archivage restent explicites.
+- 120 documents aveugles et formulaires vierges exportés. Mapping conservé dans l’état
+  privé du serveur ; aucun événement humain ni annotation complétée inventé.
+- Bundle public composé des douze sorties réelles `llm_recorded` ; rapport
+  `awaiting_annotation`, métriques nulles et liens vers les artefacts d’exécution.
+- 95 tests backend et 7 Vitest réussis. Les huit scénarios Playwright/axe passent : six
+  lors du premier passage, puis les deux attentes de provenance corrigées et revérifiées.
+  Build frontend, lint Python/TypeScript et intégrité des archives réussis.
+
+Les critères logiciels et d’exécution de l’étape 09 sont remplis. Le critère des scores
+finaux reste en attente de revue humaine complète. Les figures, bootstrap et métriques
+sémantiques ne sont donc pas créés. La publication de la release de résultats réutilise
+la CI et le déploiement par archive validée. Les anciennes captures montrent les illustrations.

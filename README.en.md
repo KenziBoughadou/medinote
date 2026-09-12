@@ -13,9 +13,10 @@ to outperform A. [Français](README.md) · [Locked implementation plan](IMPLEMEN
 [Actual acceptance status](docs/ACCEPTANCE.md) · [Three-minute video](docs/assets/demo.webm).
 
 [Open the live demo](https://medinote.kbcompany.fr) — HTTPS and browser workflows verified.
-No account is required; live AI generation remains disabled. The local demo also works
-without an API key. Its twelve current notes are **AI-prepared editorial illustrations**, with no
-invented generation metadata or performance metrics.
+No account is required; live AI generation is available within quotas. The local demo also works
+without an API key. Its twelve archived notes are **actual model generations**, with raw responses,
+tokens, latency and estimated cost. Semantic performance metrics await annotation.
+Screenshots and the video show the earlier illustrative release.
 
 ## Run locally
 
@@ -51,7 +52,7 @@ semantic faithfulness.
 80 synthetic dialogues: 60 main parents in ten families (20 development, 40 test), plus
 ten independent negation stress pairs. Six development cases are public. Source spans
 use Unicode code points. Texts and gold references were prepared by AI; **human reference
-review, paid generations and final annotations remain pending**. Missing metrics are null.
+review and final annotations remain pending; actual generations are archived**. Missing metrics are null.
 
 ```bash
 uv run medinote corpus validate --root .

@@ -2,6 +2,11 @@
 
 Tous les chemins sont relatifs à `/home/kenzi/medinote`. Aucun fichier d’un projet voisin n’a été modifié.
 
+La campagne réelle ajoute `eval/frozen-manifest.v1.json`, `docs/DEV_TRIALS.md` et les
+archives sous `eval/results/v1/` (manifests, index JSONL, réponses brutes et notes).
+L’inventaire exact des artefacts et leurs empreintes est dans `eval/results/v1/runs.jsonl`.
+Les formulaires vierges et le mapping d’annotation restent dans l’état privé, hors Git.
+
 - `.dockerignore`
 - `.editorconfig`
 - `.github/workflows/ci.yml`

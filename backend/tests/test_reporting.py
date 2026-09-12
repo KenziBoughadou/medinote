@@ -13,4 +13,4 @@ def test_report_refuses_missing_annotations():
 def test_cli_corpus_and_status(root, capsys):
     assert main(["corpus", "validate", "--root", str(root)]) == 0
     assert main(["plan-status", "--root", str(root)]) == 0
-    assert "awaiting_runs" in capsys.readouterr().out
+    assert "awaiting_annotation" in capsys.readouterr().out

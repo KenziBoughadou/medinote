@@ -17,3 +17,7 @@ corriger silencieusement v1. Une modification après gel exige un amendement.
 
 Revue éditoriale et sémantique humaine en attente. Les annotations humaines doivent
 porter sur les empreintes exactes et provenir d'un relecteur identifié.
+
+Les illustrations historiques restent dans `illustrative-notes.v1.json`. Le bundle public
+utilise désormais les douze générations dev réelles archivées sous `eval/results/v1/demo/`.
+Leur origine est `llm_recorded` ; elles ne constituent pas une validation sémantique.

@@ -15,9 +15,11 @@ Aucune supériorité de B n’est présupposée.
 [Recette et état réel](docs/ACCEPTANCE.md) · [Vidéo de trois minutes](docs/assets/demo.webm)
 
 [Ouvrir la démonstration en ligne](https://medinote.kbcompany.fr) — HTTPS et parcours navigateur
-vérifiés. La démo est consultable sans compte ; les relances IA restent désactivées.
-La démo locale fonctionne aussi sans clé. Les douze notes actuelles sont
-**illustratives, préparées par IA**, sans faux modèle, coût, latence ou score.
+vérifiés. La démo est consultable sans compte ; les relances IA sont disponibles sous quotas.
+La démo locale fonctionne aussi sans clé. Les douze notes archivées sont désormais de
+**vraies générations du modèle**, avec réponses brutes, tokens, durées et coûts estimés.
+Leur fidélité reste à annoter ; aucun score sémantique n’est encore publié.
+Les captures et la vidéo montrent la première version illustrative, antérieure à cette campagne.
 
 ![Comparaison MediNote](docs/assets/demo-desktop.png)
 
@@ -63,8 +65,11 @@ entre méthodes n’est appliqué.
 
 80 dialogues fictifs : 60 parents principaux dans dix familles (20 dev, 40 test), plus
 10 paires de stress à négation contrôlée. Six cas dev sont publics. Chaque dialogue possède
-ses références sourcées et une provenance IA explicite. **Aucune revue humaine ni campagne
-réelle n’a encore eu lieu. Les métriques de performance sont absentes, pas égales à zéro.**
+ses références sourcées et une provenance IA explicite. **Les générations réelles sont
+archivées ; la revue humaine des références et des notes reste en attente. Les métriques
+de performance sont absentes, pas égales à zéro.**
+
+[Artefacts de la campagne v1](eval/results/v1/README.md) · [Historique des essais dev](docs/DEV_TRIALS.md)
 
 ```bash
 uv run medinote corpus validate --root .

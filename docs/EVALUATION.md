@@ -1,7 +1,8 @@
 # Protocole d’évaluation
 
 Le protocole machine est `eval/protocol.v1.json`, le guide humain
-`eval/annotation-guide.v1.md`. Aucune campagne réelle n’est incluse à ce stade.
+`eval/annotation-guide.v1.md`. Les artefacts réels sont sous `eval/results/v1/` ;
+la revue humaine et les métriques sémantiques restent en attente.
 Les fixtures de tests sont artificielles et distinctes des observations scientifiques.
 
 Le [dossier de relecture des références](REFERENCE_REVIEW.md) permet de préparer les

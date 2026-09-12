@@ -55,3 +55,9 @@ sont [prises en charge par Structured Outputs](https://developers.openai.com/api
 
 Cette correction précède le gel et ne repose sur aucune sortie test. Une nouvelle image
 et un essai réel doivent confirmer sa prise en charge avant d’exécuter la campagne.
+
+La correction a été confirmée dans la release `3138ec963c32c6c5acfac93ffddbf0490f5c08ca`
+sur `main-neurologique-01`, `main-prevention-02` et `main-digestif-01` : trois sorties
+structurées techniquement valides, archivées dans `pilot-dev-subject-schema`. Les prompts
+ont alors été stabilisés et le manifest v1 figé avant toute génération test. Ces trois
+succès ne constituent pas un score de fidélité ni une preuve de supériorité de B.
