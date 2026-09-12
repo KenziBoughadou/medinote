@@ -36,7 +36,7 @@ def main():
     old_ip = details["IPAddress"]
     run("stop", "api")
     run("rm", "-f", "api")
-    holder = "medinote-ci-ip-holder"
+    holder = os.environ.get("COMPOSE_PROJECT_NAME", "medinote-ci") + "-ip-holder"
     subprocess.run(
         [
             "docker",
@@ -62,6 +62,9 @@ def main():
     )
     try:
         run("up", "-d", "--no-deps", "--wait", "--wait-timeout", "120", "api")
+        new_id = run("ps", "-q", "api", capture=True).stdout.strip()
+        new_info = json.loads(subprocess.check_output(["docker", "inspect", new_id], text=True))[0]
+        assert new_info["NetworkSettings"]["Networks"][network]["IPAddress"] != old_ip
         time.sleep(6)
         subprocess.run(
             ["python", "scripts/smoke.py", "--origin", "http://127.0.0.1:18080"], check=True

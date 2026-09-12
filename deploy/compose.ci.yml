@@ -4,3 +4,8 @@ services:
     environment:
       MEDINOTE_ENV: test
       MEDINOTE_LIVE_ENABLED: "false"
+networks:
+  private:
+    ipam:
+      config:
+        - subnet: 172.30.73.0/24
