@@ -31,9 +31,14 @@ def deployment_preflight(directory, after_pull=False, inspect=False, base=Path("
                 != manifest["commit_sha"]
             ):
                 raise ValueError("Images de commits différents")
-            if image["ref"] not in info["RepoDigests"] or info["Size"] != image["size_bytes"]:
-                raise ValueError("Digest ou taille d’image discordants")
-            if info["Architecture"] != "amd64":
+            if image["ref"] not in info["RepoDigests"]:
+                raise ValueError("Digest d’image discordant")
+            # Docker's local size accounting can differ after save/load/pull.
+            # Content identity is established by the immutable registry digest.
+            maximum = {"api": 600, "frontend": 128}[kind] * 1024**2
+            if type(info["Size"]) is not int or not 0 < info["Size"] <= maximum:
+                raise ValueError("Taille locale d’image hors plafond")
+            if info["Architecture"] != "amd64" or info["Os"] != "linux":
                 raise ValueError("Architecture incorrecte")
     return manifest
 

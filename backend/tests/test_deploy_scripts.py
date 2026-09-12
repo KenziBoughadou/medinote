@@ -1,7 +1,46 @@
+import json
 import subprocess
 from types import SimpleNamespace
 
 import pytest
+
+
+@pytest.mark.parametrize("mutation", [None, "digest", "size", "sha"])
+def test_local_image_accounting_keeps_digest_and_limits(root, monkeypatch, tmp_path, mutation):
+    monkeypatch.syspath_prepend(str(root / "scripts"))
+    import deployment_preflight as pre
+
+    ref = "ghcr.io/kenziboughadou/medinote-api@sha256:" + "a" * 64
+    manifest = {"commit_sha": "b" * 40, "images": {"api": {"ref": ref, "size_bytes": 289497163}}}
+    info = {
+        "Config": {"Labels": {"org.opencontainers.image.revision": "b" * 40}},
+        "RepoDigests": [ref],
+        "Size": 289518701,
+        "Architecture": "amd64",
+        "Os": "linux",
+    }
+    if mutation == "digest":
+        info["RepoDigests"] = []
+    elif mutation == "size":
+        info["Size"] = 601 * 1024**2
+    elif mutation == "sha":
+        info["Config"]["Labels"]["org.opencontainers.image.revision"] = "c" * 40
+    monkeypatch.setattr(pre, "validate_release", lambda _: manifest)
+    monkeypatch.setattr(
+        pre.os,
+        "statvfs",
+        lambda _: SimpleNamespace(f_bavail=5 * 1024**3, f_frsize=1, f_favail=20000),
+    )
+    monkeypatch.setattr(pre.subprocess, "run", lambda *a, **kw: None)
+    monkeypatch.setattr(pre.subprocess, "check_output", lambda *a, **kw: json.dumps([info]))
+    if mutation:
+        with pytest.raises(ValueError):
+            pre.deployment_preflight(tmp_path, after_pull=True, inspect=True, base=tmp_path)
+    else:
+        assert (
+            pre.deployment_preflight(tmp_path, after_pull=True, inspect=True, base=tmp_path)
+            == manifest
+        )
 
 
 def test_preflight_before_mutation(root, monkeypatch, tmp_path):
