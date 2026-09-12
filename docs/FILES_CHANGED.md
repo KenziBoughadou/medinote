@@ -158,6 +158,10 @@ Tous les chemins sont relatifs à `/home/kenzi/medinote`. Aucun fichier d’un p
 - `public-data/report.v1.json`
 - `pyproject.toml`
 - `scripts/bootstrap-admin.sh`
+- `scripts/configure-live-admin.py`
+- `scripts/prepare_reference_review.py`
+- `backend/tests/test_live_admin.py`
+- `docs/REFERENCE_REVIEW.md`
 - `scripts/build_public_bundle.py`
 - `scripts/check_deployment_config.py`
 - `scripts/check_images.py`

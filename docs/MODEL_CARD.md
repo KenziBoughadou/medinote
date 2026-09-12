@@ -23,4 +23,9 @@ Références officielles consultées le 11 septembre 2026 :
 [modèle et tarifs](https://developers.openai.com/api/docs/models/gpt-4.1-mini),
 [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).
 Les prix sont enregistrés dans `eval/pricing.v1.json` et doivent être revérifiés avant
-le premier appel réel. La disponibilité du snapshot dans le compte n’a pas été testée.
+le premier appel réel. Le snapshot et les tarifs standards ont été revérifiés le
+12 septembre 2026 : 0,40 $ / million de tokens en entrée et 1,60 $ en sortie
+([tarification officielle](https://developers.openai.com/api/docs/pricing)).
+L’accès réel au snapshot a été confirmé sur les cas dev avec les deux pipelines,
+dans l’API de production et avec la comptabilité partagée. Cette vérification technique
+ne constitue pas une mesure de fidélité sémantique.

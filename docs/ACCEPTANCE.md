@@ -112,3 +112,42 @@ La liste exhaustive des fichiers créés est dans [FILES_CHANGED.md](FILES_CHANG
   contrôle de taille Docker par plafond avec digest strict, et nettoyage sans `previous`
   pour une première installation. Cette dernière erreur est survenue après activation
   du site et n’a pas interrompu le service ; le cas est couvert par un test de régression.
+
+## Préparation des expériences — 12 septembre 2026
+
+- Initialisation administrateur des clés préparée dans `scripts/configure-live-admin.py` :
+  saisie masquée, HMAC aléatoire, permissions root:10001 / 0440, remplacement atomique,
+  refus d’écraser une configuration renseignée. Aucun appel fournisseur dans ce script.
+- 83 tests backend réussis, dont huit contrôles de cette initialisation ; Ruff et
+  `git diff --check` réussis. Aucun changement frontend ne nécessite de nouveau build.
+- Export local de relecture : 20 dialogues dev, 40 test et 20 variantes stress ;
+  800 faits complets, empreintes vérifiées. Aucun événement humain ajouté.
+- Snapshot `gpt-4.1-mini-2025-04-14` toujours documenté officiellement ; tarifs standards
+  revérifiés : 0,40 $ / million de tokens d’entrée et 1,60 $ en sortie
+  ([modèle](https://developers.openai.com/api/docs/models/gpt-4.1-mini),
+  [tarifs](https://developers.openai.com/api/docs/pricing)). L’accès du compte reste à tester.
+- Santé HTTPS vérifiée. Clé absente dans l’API active, relances désactivées : l’essai dev,
+  le gel, les 132 tentatives et l’annotation restent en attente. Aucune métrique inventée.
+
+Ces deux scripts auxiliaires préparent les opérations administratives et la relecture
+déjà prévues ; ils ne changent ni les huit commandes de la CLI, ni l’architecture,
+ni les données, les prompts ou les critères scientifiques du plan.
+
+## Activation et essais dev — 12 septembre 2026
+
+L’administrateur a configuré puis remplacé la clé API via la saisie masquée. L’API a été
+recréée depuis la release active : configuration chargée, santé HTTPS vérifiée et relances
+activées. Aucun secret n’est copié dans le checkout.
+
+Sur les vingt cas dev, 40 essais A/B ont été archivés sous l’état privé de production :
+39 sorties techniquement valides et un rejet du schéma (B attribuait le label d’un proche
+au sujet patient). Un premier essai supplémentaire a rencontré une erreur du script
+d’archivage après génération ; sa dépense et l’incident sont conservés, sa sortie n’est
+pas présentée comme archivée. Total partagé à cette étape : 41 tentatives, 0,043863 $
+estimés, toutes hors campagne figée. Ces nombres ne sont pas des scores sémantiques.
+
+Le prompt B est précisé avant gel, exclusivement à partir de dev : sujet patient sans
+label, proches explicitement identifiés, négation portée une seule fois, conservation
+des précisions et certitudes. Modèle, schémas, rendu et corpus sont inchangés. Cette
+modification suit l’étape 09.2 et exige une nouvelle image CI avant les nouveaux essais
+et le gel. Aucun cas test n’a servi à cet ajustement.

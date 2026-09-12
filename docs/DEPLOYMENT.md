@@ -12,6 +12,16 @@ projet ou du Compose global n’est modifié.
 2. Administrateur : renseigner ultérieurement la clé OpenAI propre au projet et une clé
    HMAC d’au moins 32 octets aléatoires en hexadécimal dans le seul fichier central,
    propriétaire root, groupe 10001, mode 0440. Ne jamais afficher ou copier ces valeurs.
+   Pour initialiser le fichier issu du bootstrap :
+   `sudo python3 /home/kenzi/medinote/scripts/configure-live-admin.py`.
+   La saisie est masquée, la clé HMAC est générée localement et le script refuse une
+   configuration déjà renseignée. Il n’effectue aucun appel payant. Recréer ensuite
+   le seul service API depuis la release active (`up -d --no-deps --force-recreate api`)
+   pour prendre en compte le remplacement atomique du fichier bind-monté, puis vérifier
+   la santé et les capacités. Les relances publiques deviennent alors disponibles.
+   Pour remplacer une clé révoquée, réexécuter ce script avec `--rotate` : seule la clé
+   API change, sans réinitialiser le HMAC, les quotas ou la DB. Ne transmettre aucune clé
+   dans le chat ou en argument de commande ; la saisir uniquement à l’invite masquée.
 3. GitHub : dépôt public et packages `medinote-api`/`medinote-frontend` publics. Vérifier
    leur visibilité effective ; une publication GHCR réussie ne garantit pas cette visibilité.
 4. Environnement GitHub `production` : `DEPLOY_HOST`, `DEPLOY_USER=kenzi`, `DEPLOY_SSH_KEY`,

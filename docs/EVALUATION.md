@@ -4,6 +4,9 @@ Le protocole machine est `eval/protocol.v1.json`, le guide humain
 `eval/annotation-guide.v1.md`. Aucune campagne réelle n’est incluse à ce stade.
 Les fixtures de tests sont artificielles et distinctes des observations scientifiques.
 
+Le [dossier de relecture des références](REFERENCE_REVIEW.md) permet de préparer les
+dialogues et preuves dans un format lisible, sans créer d’événement humain.
+
 Avant tout appel réel : publication technique de la release, clé MediNote autorisée,
 comptabilité persistante partagée, vérification du snapshot et du prix. Ajuster les prompts
 sur dev uniquement. Geler corpus, gold, code, paramètres, prix, schémas, rendu et lockfiles.
