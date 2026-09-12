@@ -765,3 +765,9 @@ scientifiques. La publication serveur et l’étape 09 restent dépendantes du b
 administrateur, des raccordements externes et d’une clé propre au projet ; la revue humaine
 reste une action réelle à effectuer. Voir `docs/ACCEPTANCE.md` pour les preuves et états
 actualisés, sans modification des décisions verrouillées ci-dessus.
+
+CI du commit `fa507635bcbc5eff42bd24b074ef2712a24e68b9` réussie : 70 tests Python,
+7 tests Vitest, 8 scénarios Playwright/axe, intégration Compose et rollback avec budget
+conservé. Les deux images GHCR sont publiées et leurs manifests accessibles anonymement.
+Archive de release vérifiée ; vidéo de 180 secondes et 17,94 Mio. DNS, bootstrap serveur,
+SSH, supervision, générations réelles et revue humaine restent les dépendances ouvertes.

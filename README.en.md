@@ -1,5 +1,7 @@
 # MediNote
 
+[![CI](https://github.com/KenziBoughadou/medinote/actions/workflows/ci.yml/badge.svg)](https://github.com/KenziBoughadou/medinote/actions/workflows/ci.yml)
+
 Compare two AI/NLP pipelines on fictional French consultations and inspect the source
 of each assertion. **Drafts for review, without clinical validation.**
 
