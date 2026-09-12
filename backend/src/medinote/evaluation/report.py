@@ -236,13 +236,39 @@ def _figures(output, report, costs):
         ),
         (
             "coverage-cost.svg",
-            "Couverture fidèle (coûts détaillés dans metrics.json)",
+            "Couverture fidèle et coût par tentative",
             ["coverage"],
         ),
         ("stress-pairs.svg", "Réussite des paires de stress", []),
     ]:
         fig, ax = plt.subplots(figsize=(8, 4))
-        if keys:
+        if filename == "coverage-cost.svg":
+            unknown = []
+            for i, method in enumerate(Method):
+                measure = costs[method]
+                attempts = len(measure["durations_ms"])
+                coverage = report.metrics.by_method[method]["coverage"].value
+                if measure["unknown_cost_runs"] or not attempts or coverage is None:
+                    unknown.append(str(method))
+                    continue
+                cost = measure["known_cost_usd"] / attempts
+                ax.scatter(cost, coverage, label=str(method))
+                ax.annotate(
+                    str(method),
+                    (cost, coverage),
+                    xytext=(5, 8 + i * 12),
+                    textcoords="offset points",
+                )
+            ax.set_xlabel("Coût moyen estimé par tentative (USD HT, sans remise cache)")
+            if unknown:
+                ax.text(
+                    0.02,
+                    0.95,
+                    "Coût ou couverture inconnu : " + ", ".join(unknown),
+                    transform=ax.transAxes,
+                    va="top",
+                )
+        elif keys:
             for i, method in enumerate(Method):
                 vals = [report.metrics.by_method[method][key].value for key in keys]
                 for j, v in enumerate(vals):

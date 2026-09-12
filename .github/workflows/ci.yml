@@ -61,7 +61,9 @@ jobs:
           npm run test:e2e
       - name: Arrêter uniquement le projet CI
         if: always()
-        run: docker compose -p "$COMPOSE_PROJECT_NAME" -f deploy/compose.local.yml -f deploy/compose.ci.yml down
+        run: |
+          docker compose -p "$COMPOSE_PROJECT_NAME" -f deploy/compose.local.yml -f deploy/compose.ci.yml logs --no-color --tail 80
+          docker compose -p "$COMPOSE_PROJECT_NAME" -f deploy/compose.local.yml -f deploy/compose.ci.yml down
       - name: Images validées pour publication
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |

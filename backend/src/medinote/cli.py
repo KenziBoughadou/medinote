@@ -82,7 +82,7 @@ def _publish(settings, args):
     from medinote.publication import build_public_bundle
     from medinote.schemas import GenerationResult, Method, PublishedReport
 
-    runs = collect_runs(args.demo_batch, args.root)
+    runs = collect_runs(args.demo_batch, settings.root)
     if len(runs) != 12 or {(r.case_id, r.method) for r in runs} != {
         (cid, m) for cid in DEMO_IDS for m in Method
     }:

@@ -1,8 +1,10 @@
 """Campagne complète simulée dans tmp_path ; jamais un résultat scientifique publié."""
 
 import json
+from types import SimpleNamespace
 
 import pytest
+from medinote.cli import _publish
 from medinote.config import MODEL_ID, Settings
 from medinote.corpus import CorpusRepository
 from medinote.evaluation.blinding import export_blind_bundle, import_annotations
@@ -99,6 +101,21 @@ async def test_complete_simulated_evaluation_flow(root, tmp_path, monkeypatch):
     assert report.metrics.stress["direct"].value == 0
     assert (tmp_path / "report/bootstrap-indices.json.gz").is_file()
     assert len(list((tmp_path / "report/figures").glob("*.svg"))) == 3
+    await run_batch(root, manifest_path, "demo", tmp_path / "demo", service)
+    _publish(
+        settings,
+        SimpleNamespace(
+            demo_batch=tmp_path / "demo", report=tmp_path / "report", output=tmp_path / "public"
+        ),
+    )
+    published = json.loads((tmp_path / "public/bundle.v1.json").read_text())
+    assert len(published["results"]) == 6
+    assert all(
+        result["origin"] == "llm_recorded"
+        for methods in published["results"].values()
+        for result in methods.values()
+    )
+    assert provider.calls == 132
     with pytest.raises(FileExistsError):
         import_annotations(root, study, annotations)
     frozen_path = study / "main-test/frozen-manifest.json"
