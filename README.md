@@ -13,7 +13,7 @@ C’est un projet de **NLP appliqué et d’évaluation de LLM**. Le modèle est
 | Stress | 10 paires testant une inversion de négation |
 | Méthodes | 2 pipelines LLM et 2 comparateurs sans modèle génératif |
 | Sorties archivées | 132 générations LLM et, séparément, 160 extraits |
-| Évaluation | Annotation humaine en attente ; bootstrap apparié prévu |
+| Évaluation | Annotation en attente ; bootstrap apparié prévu |
 | Application | React, TypeScript, Python, FastAPI et API OpenAI |
 
 [Résultats](#résultats) · [Méthode](#méthode) · [Démo](#démo) · [Architecture](#architecture) · [Limites et suite](#limites-et-suite) · [English](README.en.md)
