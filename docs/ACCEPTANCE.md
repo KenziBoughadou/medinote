@@ -312,3 +312,18 @@ réussis, deux conteneurs sains, rapport `human_reviewed` et résultats contrôl
 le navigateur public. La comptabilité reste à 199 tentatives et 238 374 microdollars.
 Le contrôle d’affichage a également conduit à préciser les écarts et leurs intervalles
 en points de pourcentage dans l’interface, sans changer les valeurs calculées.
+
+## Préparation de la release v1
+
+Les cinq décisions ouvertes sont closes et les 120 annotations sont complètes.
+Un nouveau calcul local reproduit à l’octet les métriques, les rapports et les
+10 000 tirages bootstrap de l’évaluation v1.1, sans appel fournisseur.
+
+L’analyse de neuf observations sur huit notes est publiée dans `docs/ERROR_ANALYSIS.md`.
+Chaque exemple renvoie aux sources, à la note et à l’annotation. Le cas de « moins »
+transformé en absence est présenté comme un désaccord à examiner, sans modifier les
+comptages existants. Les README français et anglais présentent cette analyse.
+
+Le tag de livraison `v1` désigne la version du projet. Les artefacts scientifiques
+conservent leurs versions : campagne v1 et évaluation amendée v1.1. La release
+est publiée après validation de son commit par la CI.

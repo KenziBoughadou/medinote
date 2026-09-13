@@ -105,6 +105,10 @@ par méthode et par cas. Une meilleure couverture de A dans cette campagne ne pr
 pas une supériorité générale du résumé direct. Aucun gain de temps professionnel,
 entraînement de modèle ou usage clinique validé n’est démontré.
 
+L’[analyse de neuf erreurs et points à revoir](ERROR_ANALYSIS.md) donne des exemples
+concrets avec le dialogue, la note et l’annotation correspondante. Elle inclut un
+désaccord repéré après le calcul, sans modifier les scores publiés.
+
 ## Reproduire le calcul
 
 Depuis la racine du dépôt, dans l’environnement Python verrouillé :
