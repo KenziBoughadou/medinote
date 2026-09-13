@@ -1,24 +1,38 @@
-# Démonstration et entretien
+# Présenter MediNote en quelques minutes
 
-La vidéo utilise uniquement les illustrations identifiées tant que les vraies générations
-ne sont pas disponibles. Le fournisseur est inaccessible pendant la capture.
+La vidéo archivée montre la première version illustrative. Pour une présentation
+actuelle, on peut suivre le parcours ci-dessous sur le site avec les notes enregistrées,
+sans lancer de nouvel appel au modèle.
 
-Vidéo trois minutes :
+## Parcours de trois minutes
 
-- 0–30 s : choisir le cas de négation, présenter la consultation fictive.
-- 30–80 s : comparer A/B, cliquer les sources et revenir à la citation au clavier.
-- 80–120 s : ouvrir la provenance, montrer la relance indisponible, exporter Markdown.
-- 120–160 s : ouvrir le rapport en attente puis la méthodologie, sans scores fabriqués.
-- 160–180 s : expliquer le rendu Python de B et montrer le lien GitHub.
+De 0 à 30 secondes, on choisit un cas de négation et on présente le dialogue fictif.
 
-Entretien cinq minutes : problème de traçabilité ; négation et source ; architecture
-un appel A/un appel B et rendu fixe ; protocole avec segmentation des notes finales ;
-coûts réservés et erreurs visibles ; limites synthétiques et revue humaine en attente.
-La partie « résultats et cas d’échec réel » sera ajoutée uniquement après campagne réelle.
-Actuellement, démontrer l’outil d’évaluation sur ses fixtures de tests et annoncer explicitement
-qu’il ne s’agit pas d’un résultat du modèle.
+De 30 à 80 secondes, on compare les notes A et B, puis on ouvre une citation pour
+retrouver le passage utilisé. On peut montrer le retour au bouton avec le clavier.
 
-Reproduction : `npm --prefix frontend run record:demo` avec le frontend lancé sur 5173.
-Le script écrit les captures 1440 px/390 px et une vidéo 1280×720 de 180 secondes.
-Si nécessaire, il normalise l’horloge de capture à 180 secondes en conservant le parcours
-complet et réencode en VP9 600 kbit/s sans audio. La taille doit rester sous 25 Mio.
+De 80 à 120 secondes, on affiche le modèle, le coût et la durée de génération,
+puis on exporte une note en Markdown.
+
+De 120 à 160 secondes, on ouvre les résultats : A couvre 345 faits attendus sur 360,
+contre 333 pour B. On explique une omission et pourquoi le test strict de négation
+échoue pour les deux méthodes malgré une bonne couverture sur le test principal.
+
+De 160 à 180 secondes, on résume le rendu Python de B et on ouvre le dépôt GitHub.
+
+## Pour un entretien plus long
+
+On peut développer l’usage envisagé au travail : préparer un compte rendu organisé,
+puis vérifier ses sources avant de le transmettre. Le gain de temps reste à mesurer.
+On présente ensuite les deux méthodes, leur coût et les erreurs observées.
+
+Les limites à expliquer sont le corpus fictif, la relecture par une seule personne,
+le choix d’un seul modèle et l’absence de validation clinique. Une seconde annotation
+permettrait de comparer les décisions avant de lancer une nouvelle expérience.
+
+## Enregistrement local
+
+`npm --prefix frontend run record:demo` s’utilise avec le frontend lancé sur le port 5173.
+Le script écrit les captures à 1440 et 390 pixels et une vidéo de 1280 × 720 pixels,
+d’une durée de 180 secondes. Le fournisseur est bloqué pendant l’enregistrement.
+La vidéo reste sous 25 Mio, sans audio, avec réencodage VP9 si nécessaire.

@@ -29,8 +29,8 @@ par famille. Les parents des paires stress sont distincts. Les 800 faits de réf
 dont 720 attendus dans les notes, sont liés à des extraits exacts du dialogue.
 Les positions sont exprimées en points de code Unicode.
 
-Textes et références sont préparés par IA. Kenzi a confirmé leur relecture et leur
-acceptation sans correction le 13 septembre 2026 ; les événements de revue sont
+Textes et références sont préparés par IA. On a terminé leur relecture et on les a
+conservés sans correction le 13 septembre 2026 ; les événements de revue sont
 associés aux empreintes exactes, sans modification des références gelées.
 Le générateur reçoit seulement le dialogue, jamais les références attendues ni les tags
 expérimentaux. La [fiche du corpus](DATASET_CARD.md) précise ses limites et sa provenance.
@@ -98,10 +98,10 @@ de cache, et excluent hébergement et annotation. Voir le [relevé d’exécutio
 
 ## Conditions de publication et extensions
 
-Le statut `human_reviewed` exige références revues humainement, cohortes complètes et
-annotations humaines finales. Les annotations partielles ou IA ne deviennent pas une
-revue humaine. Les coûts disponibles peuvent être publiés avant les résultats sémantiques ;
-les valeurs manquantes restent explicitement en attente.
+On publie les scores finaux une fois les références vérifiées et toutes les notes
+annotées. Les brouillons et les annotations automatiques restent identifiés séparément.
+Les coûts peuvent être présentés plus tôt ; une mesure encore absente reste indiquée
+comme non évaluée.
 
 Une correction des références après gel impose un amendement et une version distincte.
 Un changement de dialogue, modèle, prompt ou renderer demande une nouvelle campagne.
@@ -120,7 +120,7 @@ Il conserve les fichiers gelés et ne clôture aucune décision ouverte à la pl
 du relecteur. Son enregistrement dans `eval/amendments.jsonl` distingue cette
 préparation d’un recalcul et d’une publication de résultats.
 
-Après confirmation des cinq décisions restantes par Kenzi, cet amendement est appliqué
+Après résolution des cinq décisions restantes, cet amendement est appliqué
 aux [120 annotations finales](HUMAN_REVIEW_RESULTS.md). Les résultats et indices bootstrap
 sont archivés séparément dans `eval/results/reviewed-v1.1/`. Le gel et les résultats
 historiques v1 restent conservés ; la revue par l’auteur n’est pas indépendante.

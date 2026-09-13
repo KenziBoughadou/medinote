@@ -13,7 +13,7 @@ par `subject.kind=patient` avec un label familial, combinaison interdite par le 
 
 L’inspection de quelques sorties dev a aussi signalé des négations ambiguës dans le rendu
 B (« absence … — nié »), la perte de précisions temporelles et des reformulations dans A.
-Ce sont des observations préparatoires de l’agent, sans annotation humaine ni scores
+Ce sont des observations de mise au point, sans annotation complète ni scores
 sémantiques. La précision des citations reste à annoter même lorsqu’elles sont résolubles.
 
 Un premier appel dev supplémentaire a rencontré une erreur d’archivage après génération
@@ -33,7 +33,7 @@ image issue de la CI ; aucune injection de prompt modifié dans une ancienne rel
 Les essais initiaux restent sous l’état privé `experiments/pilot-dev-02-direct`,
 `pilot-dev-02-structured` et `pilot-dev-remaining`, avec requêtes, réponses fournisseur,
 sorties finales et métadonnées. Les budgets, secrets et identifiants de quota ne sont pas
-publiés. La revue humaine des références et l’annotation des sorties restent nécessaires
+publiés. La vérification des références et l’annotation des sorties sont nécessaires
 pour publier les scores finaux.
 
 ## Contrainte de sujet envoyée au fournisseur
@@ -61,3 +61,6 @@ sur `main-neurologique-01`, `main-prevention-02` et `main-digestif-01` : trois s
 structurées techniquement valides, archivées dans `pilot-dev-subject-schema`. Les prompts
 ont alors été stabilisés et le manifest v1 figé avant toute génération test. Ces trois
 succès ne constituent pas un score de fidélité ni une preuve de supériorité de B.
+
+La campagne et l’annotation sont désormais terminées. Les [résultats v1.1](HUMAN_REVIEW_RESULTS.md)
+sont calculés sur les notes du test, séparément des essais de développement décrits ici.

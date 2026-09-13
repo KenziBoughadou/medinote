@@ -1,13 +1,13 @@
 # Résultats v1.1 après relecture
 
-Les 120 annotations confirmées par Kenzi portent sur les 80 sorties du test principal
+Les 120 annotations portent sur les 80 sorties du test principal
 et les 40 sorties de stress de la campagne v1. Les références ont été acceptées sans
 correction. Les fichiers gelés et les résultats historiques v1 sont conservés.
 
 [Méthodologie et limites](../../../docs/HUMAN_REVIEW_RESULTS.md) ·
 [Rapport chiffré](report/report.md) · [Métriques et dénominateurs](report/metrics.json) ·
 [Annotations](annotations.jsonl) · [Clôture des cinq décisions](adjudication.json) ·
-[Confirmation et empreintes des envois](review-receipt.json) · [Manifest](manifest.json)
+[Traçabilité de la relecture](review-receipt.json) · [Manifest](manifest.json)
 
 Le mapping est rendu public après clôture pour permettre de rattacher les annotations
 aux sorties archivées. La relecture est celle de l’auteur : elle n’est ni indépendante

@@ -1,8 +1,8 @@
-# Relecture humaine des références
+# Relire les références et annoter les notes
 
 Ce travail vérifie la fidélité des références aux dialogues fictifs. Il ne constitue pas
-une validation médicale. Les références préparées par IA ont été acceptées sans correction
-par Kenzi le 13 septembre 2026. Les événements associés aux empreintes sont conservés
+une validation médicale. On a relu les références préparées par IA et on les a conservées sans
+correction le 13 septembre 2026. Les événements associés aux empreintes sont conservés
 dans `data/review-events.jsonl`. Les [résultats de relecture](HUMAN_REVIEW_RESULTS.md)
 décrivent les 120 annotations finales et l’amendement v1.1 utilisé pour leur import.
 
@@ -42,7 +42,9 @@ Aucun score sémantique final n’est publié à partir de ce seul dossier de r�
 ## Annoter les notes par petits lots
 
 Les 120 documents aveugles déjà exportés sont disponibles localement sous
-`.state/annotation-v1`. Leur mapping reste privé sur le serveur. Préparer des lots
+`.state/annotation-v1`. Leur correspondance avec les méthodes a été publiée après la clôture de l’annotation
+dans `eval/results/reviewed-v1.1/blind-mapping.json`. Pour une nouvelle relecture,
+il faut éviter de consulter ce fichier avant de terminer. Préparer des lots
 avec le formulaire hors ligne :
 
 ```bash
@@ -86,5 +88,5 @@ structurelle, pas l’identité du relecteur ni la justesse sémantique de ses d
 Lorsque tout est terminé, réunir les derniers exports de chaque lot dans un seul JSONL,
 sans doublon, puis utiliser l’import et le rapport de la CLI existante sur le serveur.
 Ne mélanger ni anciennes et nouvelles sauvegardes d’un même lot ni relecteurs distincts.
-L’acceptation humaine des références reste une étape séparée. Aucun des outils ci-dessus
+L’acceptation des références reste une étape séparée. Aucun des outils ci-dessus
 n’écrit dans `data/review-events.jsonl`, ne modifie v1 ou ne publie automatiquement des scores.

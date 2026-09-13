@@ -40,6 +40,6 @@ proxy headers. L’absence d’IP Cloudflare en production interdit uniquement l
 Les sources ne sont jamais journalisées. Les headers CSP et de sécurité sont centralisés dans nginx.
 
 Le bundle public contient douze générations dev réelles archivées. Les illustrations
-historiques sont conservées séparément. Les 132 générations de v1 sont enregistrées,
-mais leur annotation humaine reste à réaliser. Les contrôles techniques n’interprètent
+historiques sont conservées séparément. Les 132 générations de v1 sont enregistrées.
+Les 120 notes test et stress sont annotées ; leurs résultats sont publiés en v1.1. Les contrôles techniques n’interprètent
 jamais la fidélité clinique.

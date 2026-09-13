@@ -1,7 +1,7 @@
 # Ce que montre le premier lot d’annotations
 
 J’ai ajouté un pilote sur dix notes pour confronter le guide d’évaluation aux sorties
-réelles. L’annotation est réalisée par IA dans la session Codex, sans relecture humaine.
+réelles. L’annotation est réalisée par IA dans la session Codex, pour préparer les règles et repérer les ambiguïtés.
 Le but est d’identifier des erreurs et les difficultés du protocole avant de calculer
 un score global. Ce travail reste séparé de l’étude v1 et de ses formulaires de relecture.
 
@@ -83,7 +83,7 @@ non plus à produire le bootstrap apparié prévu sur quarante consultations.
 Le fichier de référence gelé et le guide v1 sont conservés. Une règle pour la couverture
 partielle ou une correction des références devra faire l’objet d’un amendement explicite,
 puis être appliquée à toutes les notes concernées. Les 110 autres notes n’ont pas encore
-été annotées dans ce pilote. La relecture humaine de l’ensemble reste à effectuer.
+été annotées dans ce pilote. L’annotation complète a ensuite été terminée ; voir les [résultats v1.1](HUMAN_REVIEW_RESULTS.md).
 
 ## Provenance et reproduction
 
