@@ -10,6 +10,7 @@ test('six cas, A/B, sources et navigation',async({page})=>{
   await page.getByRole('link',{name:'Résultats',exact:true}).click();await expect(page.getByText('Références et sorties revues humainement')).toBeVisible()
   const coverage=page.getByRole('row').filter({has:page.getByRole('rowheader',{name:'Couverture fidèle',exact:true})})
   await expect(coverage).toContainText('95,8');await expect(coverage).toContainText('92,5')
+  await expect(coverage.getByRole('cell').last()).toHaveText('-3,3 points · [-5,3 points ; -1,4 points]')
   await expect(page.getByRole('link',{name:'Méthode de relecture'})).toHaveAttribute('href','https://github.com/KenziBoughadou/medinote/blob/main/docs/HUMAN_REVIEW_RESULTS.md')
   await page.goto('/?mode=offline#methodology')
   await expect(page.getByRole('link',{name:'Lire le protocole expérimental'})).toHaveAttribute('href','https://github.com/KenziBoughadou/medinote/blob/main/docs/EXPERIMENT_PROTOCOL.md')
