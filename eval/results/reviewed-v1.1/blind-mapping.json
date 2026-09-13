@@ -1,0 +1,722 @@
+{
+  "blind-0001": {
+    "case_id": "main-musculosquelettique-05",
+    "method": "structured",
+    "note_path": "main-test/notes/cda9e2e013fd46bf99b0c7d5a10b186c.json",
+    "run_id": "2c179995e60f4e2bab54b8bbe42dfc71"
+  },
+  "blind-0002": {
+    "case_id": "main-respiratoire-04",
+    "method": "structured",
+    "note_path": "main-test/notes/1719897d72ce4126a7f386bb4400959e.json",
+    "run_id": "72c38cb57c724d2a9e2e634b5324536a"
+  },
+  "blind-0003": {
+    "case_id": "main-respiratoire-04",
+    "method": "direct",
+    "note_path": "main-test/notes/9c8b56cf18984b16972b67450b10893a.json",
+    "run_id": "a513407a39ac46629fb613f978e6bfb5"
+  },
+  "blind-0004": {
+    "case_id": "stress-04-positive",
+    "method": "structured",
+    "note_path": "stress/notes/8c40f6941972406f90b322e0c69862ea.json",
+    "run_id": "8dd3b22d65954ca8976f4a8b64f264e9"
+  },
+  "blind-0005": {
+    "case_id": "stress-10-negative",
+    "method": "direct",
+    "note_path": "stress/notes/48ae36ef695c4a6c879f5dd09c677310.json",
+    "run_id": "b6ce9caf3cc64904971dd4452da3a52a"
+  },
+  "blind-0006": {
+    "case_id": "main-musculosquelettique-05",
+    "method": "direct",
+    "note_path": "main-test/notes/0ed57aa559504094872372bee0d97221.json",
+    "run_id": "40fa998908f1486f8fc876610f77bb88"
+  },
+  "blind-0007": {
+    "case_id": "main-neurologique-06",
+    "method": "direct",
+    "note_path": "main-test/notes/1c89a39ae0e945ba91410ae423ac6eaf.json",
+    "run_id": "a37f4a3f3496488fbfb77d9a6ba49556"
+  },
+  "blind-0008": {
+    "case_id": "main-dermatologique-05",
+    "method": "direct",
+    "note_path": "main-test/notes/2eea4ac6f44047fcbca438eb3d5988b0.json",
+    "run_id": "cddc8d8b4eb34c518f34b4497441a0e5"
+  },
+  "blind-0009": {
+    "case_id": "stress-02-negative",
+    "method": "structured",
+    "note_path": "stress/notes/13a610a818014a2c9f2a68eff56c60ea.json",
+    "run_id": "0b6cf6cfcbfe4a8aabd6a36ac5fc67ae"
+  },
+  "blind-0010": {
+    "case_id": "main-suivi-chronique-03",
+    "method": "structured",
+    "note_path": "main-test/notes/b46e58d68306496bbc6bbf01de44a8fe.json",
+    "run_id": "da25aa12b30c42d691e9f7c8615f66b0"
+  },
+  "blind-0011": {
+    "case_id": "main-suivi-chronique-04",
+    "method": "structured",
+    "note_path": "main-test/notes/034898c33f6943349c566804c88bad01.json",
+    "run_id": "0494df119b874cdb8227a4291c29ba0d"
+  },
+  "blind-0012": {
+    "case_id": "stress-04-negative",
+    "method": "structured",
+    "note_path": "stress/notes/b71813b531be422abd5eb92f6b9d0efc.json",
+    "run_id": "7e1df684b1c24e0b8e3f1c1e8d0cc069"
+  },
+  "blind-0013": {
+    "case_id": "main-musculosquelettique-03",
+    "method": "structured",
+    "note_path": "main-test/notes/591d1674566440d68fe7d4d349484843.json",
+    "run_id": "2e20267870b7459691a4128e47c8dca6"
+  },
+  "blind-0014": {
+    "case_id": "stress-06-positive",
+    "method": "structured",
+    "note_path": "stress/notes/b87b17f540a048f48303fe8004c54c06.json",
+    "run_id": "ef55c1da5483483e8b748b24876a18a1"
+  },
+  "blind-0015": {
+    "case_id": "main-digestif-04",
+    "method": "direct",
+    "note_path": "main-test/notes/1ea0f4a81e1646ebbf5aba50e69bc2fd.json",
+    "run_id": "8280b075c1b446d8ab02c70ec0c11c7d"
+  },
+  "blind-0016": {
+    "case_id": "stress-03-positive",
+    "method": "structured",
+    "note_path": "stress/notes/cf097ce417d149c392feb4c0e5287dd1.json",
+    "run_id": "8492f304c33d44d0bb78d4d572825185"
+  },
+  "blind-0017": {
+    "case_id": "main-dermatologique-03",
+    "method": "structured",
+    "note_path": "main-test/notes/8e0d90d3923f486db3790d466fe58ba7.json",
+    "run_id": "d747f96daf77458cb79ea4c1c9dc1783"
+  },
+  "blind-0018": {
+    "case_id": "main-respiratoire-06",
+    "method": "structured",
+    "note_path": "main-test/notes/b0fe6c2a262e486fa9c89696e5759345.json",
+    "run_id": "4217a125c1734c5d8cb02fa02cc32131"
+  },
+  "blind-0019": {
+    "case_id": "main-prevention-05",
+    "method": "structured",
+    "note_path": "main-test/notes/a22fdaaa75584a81b0e05be9dbe22d7d.json",
+    "run_id": "8f08e91c52dc4286ae1ff08894a26543"
+  },
+  "blind-0020": {
+    "case_id": "main-urinaire-06",
+    "method": "structured",
+    "note_path": "main-test/notes/2b156d65323c42dfa755f50474c55630.json",
+    "run_id": "d90d54bad80347bb8fd50cd6f1b52ab7"
+  },
+  "blind-0021": {
+    "case_id": "main-neurologique-06",
+    "method": "structured",
+    "note_path": "main-test/notes/83a01ef3f9b342f6a5cdc59983420ade.json",
+    "run_id": "75babe0da9fa4777921b3dab704993e8"
+  },
+  "blind-0022": {
+    "case_id": "stress-07-positive",
+    "method": "direct",
+    "note_path": "stress/notes/a365b01d80c14904879702436b7ef86a.json",
+    "run_id": "ec4d0c43d905499fa54cdcae10e4e2ec"
+  },
+  "blind-0023": {
+    "case_id": "main-digestif-04",
+    "method": "structured",
+    "note_path": "main-test/notes/5b5305d18ce84d579e90edac389f2eec.json",
+    "run_id": "69450e5dab1d41abb2add7387a669243"
+  },
+  "blind-0024": {
+    "case_id": "main-prevention-06",
+    "method": "direct",
+    "note_path": "main-test/notes/1f5589939e3a49a5946ae207ae6d2378.json",
+    "run_id": "af0788f6b4cf457b82a97c232bba6d0d"
+  },
+  "blind-0025": {
+    "case_id": "stress-03-negative",
+    "method": "structured",
+    "note_path": "stress/notes/0eb635d68bbf4be2b17cc4b44521ef6d.json",
+    "run_id": "6686f6c4e35c4c06bf87cac9abec4ced"
+  },
+  "blind-0026": {
+    "case_id": "main-cardiovasculaire-03",
+    "method": "direct",
+    "note_path": "main-test/notes/3943535804474249b363c098a1fd33d3.json",
+    "run_id": "20e465ca7a464216bcdc542ecdf76952"
+  },
+  "blind-0027": {
+    "case_id": "main-dermatologique-05",
+    "method": "structured",
+    "note_path": "main-test/notes/aab15007e5c74c29967b5c035b90b979.json",
+    "run_id": "34345afc26cc44f9a7c09568d5861fb8"
+  },
+  "blind-0028": {
+    "case_id": "stress-07-negative",
+    "method": "structured",
+    "note_path": "stress/notes/dae034eba17a4f1e80778eb16d409130.json",
+    "run_id": "729e25a049994eb3941c68e961348af8"
+  },
+  "blind-0029": {
+    "case_id": "stress-10-negative",
+    "method": "structured",
+    "note_path": "stress/notes/df4e3af077f14330adf7865f09a52bf0.json",
+    "run_id": "37066596d71b49fe8fb9418a53f37bbf"
+  },
+  "blind-0030": {
+    "case_id": "main-musculosquelettique-03",
+    "method": "direct",
+    "note_path": "main-test/notes/1fe6b9834ba7461e8357140e0abd0e1a.json",
+    "run_id": "bcc08f09fd8a4befa1fa85c28d46403a"
+  },
+  "blind-0031": {
+    "case_id": "main-urinaire-03",
+    "method": "structured",
+    "note_path": "main-test/notes/9943587e1a0448799c7b72c0043e92eb.json",
+    "run_id": "1077b178e26748f581e03ba23a036888"
+  },
+  "blind-0032": {
+    "case_id": "stress-08-negative",
+    "method": "direct",
+    "note_path": "stress/notes/120e622c8f8247598965c72ca3c6ee11.json",
+    "run_id": "84dc36cf09c94dc1af28da7b7257e42d"
+  },
+  "blind-0033": {
+    "case_id": "main-cardiovasculaire-05",
+    "method": "structured",
+    "note_path": "main-test/notes/6eafbab3286d4634a7e79eed6dadec4e.json",
+    "run_id": "d4672a6d99c642448b82fba851474124"
+  },
+  "blind-0034": {
+    "case_id": "main-musculosquelettique-04",
+    "method": "structured",
+    "note_path": "main-test/notes/5ef6c3f4af6c41d2b62194ccaa887617.json",
+    "run_id": "c360be794bdb4990b5485e1d53dfd0cf"
+  },
+  "blind-0035": {
+    "case_id": "main-cardiovasculaire-05",
+    "method": "direct",
+    "note_path": "main-test/notes/e244c6eb4e794d48814009113a857ae5.json",
+    "run_id": "a6eebab2c12840568770773a1d457396"
+  },
+  "blind-0036": {
+    "case_id": "main-sante-psychique-05",
+    "method": "direct",
+    "note_path": "main-test/notes/d14cd9f056e94131b3d31145e9a4f48d.json",
+    "run_id": "5c6d2f57dc2949058124dc8acc160c84"
+  },
+  "blind-0037": {
+    "case_id": "stress-01-negative",
+    "method": "structured",
+    "note_path": "stress/notes/c12229151ddd41b585f8ba9d4fc32580.json",
+    "run_id": "9ebeed6e9f02471796df9b9e52fdeef0"
+  },
+  "blind-0038": {
+    "case_id": "main-musculosquelettique-06",
+    "method": "direct",
+    "note_path": "main-test/notes/c9f0cd99ccce41c780d1593281192f45.json",
+    "run_id": "d3ecd24059d94edb8c5d00e9613a070c"
+  },
+  "blind-0039": {
+    "case_id": "stress-04-positive",
+    "method": "direct",
+    "note_path": "stress/notes/05a507e8a16b4f189d41c3d3422ea012.json",
+    "run_id": "acca6d4befe84566acb6191c4eee5ddc"
+  },
+  "blind-0040": {
+    "case_id": "main-respiratoire-03",
+    "method": "structured",
+    "note_path": "main-test/notes/bbb1b737611d48729ee07e1839487941.json",
+    "run_id": "525dedb191254b758b8a62c37617bf7e"
+  },
+  "blind-0041": {
+    "case_id": "main-digestif-05",
+    "method": "structured",
+    "note_path": "main-test/notes/5ea20ab0ad2f40c68cafc1ff44798825.json",
+    "run_id": "1dd5d20c02a0409f919651a14ae1cae5"
+  },
+  "blind-0042": {
+    "case_id": "main-neurologique-05",
+    "method": "structured",
+    "note_path": "main-test/notes/b035742e11b04ac2b9ff77083ef4fc10.json",
+    "run_id": "3b1b4d4a84ea465a900b9c18636bcb44"
+  },
+  "blind-0043": {
+    "case_id": "main-neurologique-03",
+    "method": "structured",
+    "note_path": "main-test/notes/271498b994624fc7aaab6faa1c109732.json",
+    "run_id": "175e06a55e04418bb60cff1b35949304"
+  },
+  "blind-0044": {
+    "case_id": "stress-09-positive",
+    "method": "direct",
+    "note_path": "stress/notes/d192500bbb6c40d0a8dc1f45d024e8f3.json",
+    "run_id": "2071624c955f4b19bec0a8db0b6a9a00"
+  },
+  "blind-0045": {
+    "case_id": "main-dermatologique-04",
+    "method": "structured",
+    "note_path": "main-test/notes/ab40c8fe670242bbb0a83b1c12a8b9f8.json",
+    "run_id": "c6e191292bc340fcaef8f92068866207"
+  },
+  "blind-0046": {
+    "case_id": "main-dermatologique-06",
+    "method": "structured",
+    "note_path": "main-test/notes/38f18810e5f945a2a340408f955beccf.json",
+    "run_id": "56e3d4cba53f4f4ba878cad99eeefbc0"
+  },
+  "blind-0047": {
+    "case_id": "main-digestif-03",
+    "method": "direct",
+    "note_path": "main-test/notes/8f31430a01654ecabded086d9be420c4.json",
+    "run_id": "19aa9adb248e4efdbbf09a3f53beff3d"
+  },
+  "blind-0048": {
+    "case_id": "main-suivi-chronique-04",
+    "method": "direct",
+    "note_path": "main-test/notes/bc61f1b52b06432482d7b7aa03fd16d5.json",
+    "run_id": "b3f7a6ebc0be421e9f2e6ff6b9787e78"
+  },
+  "blind-0049": {
+    "case_id": "main-neurologique-05",
+    "method": "direct",
+    "note_path": "main-test/notes/5e4ff26044774a4495539e4691d38ae5.json",
+    "run_id": "47570d525da64d39845cbbc3213abf3c"
+  },
+  "blind-0050": {
+    "case_id": "main-sante-psychique-06",
+    "method": "direct",
+    "note_path": "main-test/notes/0967aae1101742aead5a40debd65d18d.json",
+    "run_id": "936e684137d0453ab313c18951415d47"
+  },
+  "blind-0051": {
+    "case_id": "stress-09-negative",
+    "method": "direct",
+    "note_path": "stress/notes/2ea8a80b30f14c249b37446ed1de1709.json",
+    "run_id": "aa10394c084d42d588269c2b1cbe3102"
+  },
+  "blind-0052": {
+    "case_id": "main-cardiovasculaire-06",
+    "method": "structured",
+    "note_path": "main-test/notes/b635819985a2418fae43939f42a26e07.json",
+    "run_id": "290eaea34ea64158b919b11190c8d00f"
+  },
+  "blind-0053": {
+    "case_id": "main-urinaire-05",
+    "method": "direct",
+    "note_path": "main-test/notes/d112ef204e5b47a3bf791094ceb874f8.json",
+    "run_id": "f68cd0ba2e2d497ba862b2931faf28e1"
+  },
+  "blind-0054": {
+    "case_id": "stress-03-negative",
+    "method": "direct",
+    "note_path": "stress/notes/32a9f1c2f0674abd88971c6dc0d011c8.json",
+    "run_id": "de68fc61dc704c81a7f46048a9260e8a"
+  },
+  "blind-0055": {
+    "case_id": "stress-05-positive",
+    "method": "structured",
+    "note_path": "stress/notes/2cbeba0e89a54534886bfe52b9e132b5.json",
+    "run_id": "16ee1f877c0e4e8695ca3851f7acf89f"
+  },
+  "blind-0056": {
+    "case_id": "main-sante-psychique-03",
+    "method": "direct",
+    "note_path": "main-test/notes/81af4b324b354c72be642d63a2aca8f7.json",
+    "run_id": "b2720341f31f4e42b68910a1e76d8c11"
+  },
+  "blind-0057": {
+    "case_id": "main-sante-psychique-04",
+    "method": "direct",
+    "note_path": "main-test/notes/05c89fa651c14df492d7efff6d388bdb.json",
+    "run_id": "63556443a64d496ab677522cbdf4cfa0"
+  },
+  "blind-0058": {
+    "case_id": "stress-10-positive",
+    "method": "direct",
+    "note_path": "stress/notes/fcb042c45a0a4b8ab08789adaa1c8118.json",
+    "run_id": "2b0cd8568e1441d291743506463c38be"
+  },
+  "blind-0059": {
+    "case_id": "main-prevention-04",
+    "method": "direct",
+    "note_path": "main-test/notes/f619bf4751a0464189d81c6516de93e6.json",
+    "run_id": "f3e6e327eac6416c811b2e295acc0aa8"
+  },
+  "blind-0060": {
+    "case_id": "stress-03-positive",
+    "method": "direct",
+    "note_path": "stress/notes/2cd75157607a4d43aed74629c8506b3e.json",
+    "run_id": "a3dd096937d94643bef41e97b50bd8b1"
+  },
+  "blind-0061": {
+    "case_id": "stress-06-negative",
+    "method": "structured",
+    "note_path": "stress/notes/3ac8634e8e694c1085eaf198e7ef6fa3.json",
+    "run_id": "6b8a451f0f004c4e8ca7803d2fada047"
+  },
+  "blind-0062": {
+    "case_id": "main-prevention-04",
+    "method": "structured",
+    "note_path": "main-test/notes/ed961822572f4cd0bf62a8875f3bccb0.json",
+    "run_id": "97e441351ab4457b9abc2ee7c73c1ae9"
+  },
+  "blind-0063": {
+    "case_id": "stress-02-positive",
+    "method": "structured",
+    "note_path": "stress/notes/a49acb2f8b0d4605a5f7304a8b53c56b.json",
+    "run_id": "4761976ab5884a458542a1bf3f0dfae2"
+  },
+  "blind-0064": {
+    "case_id": "main-suivi-chronique-05",
+    "method": "structured",
+    "note_path": "main-test/notes/f6f97c6fddce4a32897171a84f598451.json",
+    "run_id": "5e4aeaa8aa7949d59e20c0e810fafde1"
+  },
+  "blind-0065": {
+    "case_id": "main-sante-psychique-05",
+    "method": "structured",
+    "note_path": "main-test/notes/530ae46f33a642529ed344a40c3cda16.json",
+    "run_id": "8c57bff2bc3f4aa7a83958f841d6a779"
+  },
+  "blind-0066": {
+    "case_id": "main-musculosquelettique-04",
+    "method": "direct",
+    "note_path": "main-test/notes/54aec6d8712e4eb0a61d19360d763e9a.json",
+    "run_id": "8181842b279b40fd92c857603a677f38"
+  },
+  "blind-0067": {
+    "case_id": "main-dermatologique-03",
+    "method": "direct",
+    "note_path": "main-test/notes/e57abdd9dc0b4974bba47795fca456a1.json",
+    "run_id": "b4df51d3829a434093861864e06b4b71"
+  },
+  "blind-0068": {
+    "case_id": "main-prevention-05",
+    "method": "direct",
+    "note_path": "main-test/notes/cca205a148bd4f7f93f95d0d0a00d81d.json",
+    "run_id": "51cc465594b94681b10ad87ba441eeab"
+  },
+  "blind-0069": {
+    "case_id": "main-cardiovasculaire-04",
+    "method": "structured",
+    "note_path": "main-test/notes/86e8a2b6234a43b2a50d97cd6d48541c.json",
+    "run_id": "3185354c7abb48e1a465567b2edb29d3"
+  },
+  "blind-0070": {
+    "case_id": "main-digestif-06",
+    "method": "direct",
+    "note_path": "main-test/notes/207625d3f9ce41bebb20798116ca5b04.json",
+    "run_id": "3ac9d0de1ac541cbb010c9717d1f5b6a"
+  },
+  "blind-0071": {
+    "case_id": "stress-08-positive",
+    "method": "direct",
+    "note_path": "stress/notes/c439a4a820ff4402890962ce0764a706.json",
+    "run_id": "7c6c9b785b964ea6a971513a86715bf4"
+  },
+  "blind-0072": {
+    "case_id": "main-musculosquelettique-06",
+    "method": "structured",
+    "note_path": "main-test/notes/b647f67647434c05ace14e292b963eff.json",
+    "run_id": "b879f4d5d7074fb885bb2ddcca5d8fb9"
+  },
+  "blind-0073": {
+    "case_id": "main-suivi-chronique-06",
+    "method": "direct",
+    "note_path": "main-test/notes/e4abf099cc8e48d8ae3995506b7831f2.json",
+    "run_id": "f250a7a0e30844c2983cf0e2c3450b68"
+  },
+  "blind-0074": {
+    "case_id": "stress-04-negative",
+    "method": "direct",
+    "note_path": "stress/notes/d65a3426ca184c6a9a76a8690d003ad6.json",
+    "run_id": "ce609cd6b95e4705b8a296277d7578ed"
+  },
+  "blind-0075": {
+    "case_id": "main-neurologique-04",
+    "method": "direct",
+    "note_path": "main-test/notes/0f2ce572ac6e4b2c8cababae19e1cadf.json",
+    "run_id": "450dd29bd87b4642a6e271f6574f0dce"
+  },
+  "blind-0076": {
+    "case_id": "main-cardiovasculaire-04",
+    "method": "direct",
+    "note_path": "main-test/notes/dabef0f9f66744dfa091a17c61dedbc7.json",
+    "run_id": "4cdf820cffc84774877174d1d5553d98"
+  },
+  "blind-0077": {
+    "case_id": "stress-06-negative",
+    "method": "direct",
+    "note_path": "stress/notes/97eef64ddd7b48749fe4e16e966e6dd9.json",
+    "run_id": "56d5996823e74704b57b2d5c6e7894e6"
+  },
+  "blind-0078": {
+    "case_id": "main-urinaire-04",
+    "method": "structured",
+    "note_path": "main-test/notes/1911dd4ff7204bd8818b84bb67410569.json",
+    "run_id": "09e9360908764969874d4b0e3558f315"
+  },
+  "blind-0079": {
+    "case_id": "stress-08-negative",
+    "method": "structured",
+    "note_path": "stress/notes/035dd4897e5740cc819c5af362005aeb.json",
+    "run_id": "f297b219a2804ed8adae773d2c96a9d3"
+  },
+  "blind-0080": {
+    "case_id": "stress-01-positive",
+    "method": "structured",
+    "note_path": "stress/notes/5ee974b98aa04e9f95af5671764ce5c6.json",
+    "run_id": "6536625d1d5b4808b25a2725f92d57aa"
+  },
+  "blind-0081": {
+    "case_id": "main-digestif-05",
+    "method": "direct",
+    "note_path": "main-test/notes/70dde8acdec344af9a508ad6e045c8a9.json",
+    "run_id": "d11754b2a7054db5b6617038b262ff1c"
+  },
+  "blind-0082": {
+    "case_id": "stress-01-negative",
+    "method": "direct",
+    "note_path": "stress/notes/d4390072cb9b4693a725cf65759e473f.json",
+    "run_id": "a9efc3c6132f40b2aca5e4e2a8ffd68f"
+  },
+  "blind-0083": {
+    "case_id": "main-respiratoire-05",
+    "method": "structured",
+    "note_path": "main-test/notes/a7be36c80231428c82cdfac2e62236ed.json",
+    "run_id": "11e0b2e25e264a3499762a8779353b9e"
+  },
+  "blind-0084": {
+    "case_id": "main-cardiovasculaire-06",
+    "method": "direct",
+    "note_path": "main-test/notes/164f4834e1cb4fd3b32406a0ce2343d2.json",
+    "run_id": "83990e596bc74bafafc85028085fc3d4"
+  },
+  "blind-0085": {
+    "case_id": "main-sante-psychique-04",
+    "method": "structured",
+    "note_path": "main-test/notes/1275f081b4ea4da3be8fc9ee86afc4a3.json",
+    "run_id": "45ba2f59bf05465bb34d57c4d08d2c58"
+  },
+  "blind-0086": {
+    "case_id": "main-prevention-03",
+    "method": "direct",
+    "note_path": "main-test/notes/a984a72ae5344adeb9275e7c22d56270.json",
+    "run_id": "1417a5ae299a4bc98a7d2d74f524725f"
+  },
+  "blind-0087": {
+    "case_id": "stress-10-positive",
+    "method": "structured",
+    "note_path": "stress/notes/63d8090b6d86454bbf3b55ccfa2f551c.json",
+    "run_id": "23e3695daafa4ff793b6b08751321f20"
+  },
+  "blind-0088": {
+    "case_id": "main-suivi-chronique-06",
+    "method": "structured",
+    "note_path": "main-test/notes/92fed1632c634d51a7c89d8d502e8589.json",
+    "run_id": "973d8447bc234d9b9165fb58dccba72a"
+  },
+  "blind-0089": {
+    "case_id": "main-urinaire-06",
+    "method": "direct",
+    "note_path": "main-test/notes/8bb7ae92f11d4dff9ab41228c77d77d9.json",
+    "run_id": "8e95d508e5a24e1d81e3f4534e7bcb03"
+  },
+  "blind-0090": {
+    "case_id": "stress-02-positive",
+    "method": "direct",
+    "note_path": "stress/notes/1a55043cc9594d0792ed35c30794f472.json",
+    "run_id": "bb74fa6704a946d28dc1d91e90a9ee2a"
+  },
+  "blind-0091": {
+    "case_id": "stress-07-positive",
+    "method": "structured",
+    "note_path": "stress/notes/e322108f336c47049dee774018bda436.json",
+    "run_id": "7ce8796e28884e23b98d2140418cc539"
+  },
+  "blind-0092": {
+    "case_id": "stress-05-positive",
+    "method": "direct",
+    "note_path": "stress/notes/8db00ddf3fa448caacaa223bd9c57da7.json",
+    "run_id": "3d1ad97d729c4d918d871f625dcd5f58"
+  },
+  "blind-0093": {
+    "case_id": "stress-01-positive",
+    "method": "direct",
+    "note_path": "stress/notes/1659dbd5c1b341308a5785a947685850.json",
+    "run_id": "eed8e767e33843009bbccd18972eda42"
+  },
+  "blind-0094": {
+    "case_id": "main-suivi-chronique-05",
+    "method": "direct",
+    "note_path": "main-test/notes/164c349730a64adcb6e7c8f96a6cd79b.json",
+    "run_id": "b518c7ef6c154a34af6a01058fe84c4b"
+  },
+  "blind-0095": {
+    "case_id": "main-urinaire-04",
+    "method": "direct",
+    "note_path": "main-test/notes/6bf69fdf8e974c3f826e12c84d4bbeea.json",
+    "run_id": "37a9c1eaca9749d190c66b2e9125345a"
+  },
+  "blind-0096": {
+    "case_id": "main-dermatologique-06",
+    "method": "direct",
+    "note_path": "main-test/notes/304721d877f84366858f48d1806084c2.json",
+    "run_id": "92b6e3a837744ee186938b9b921078c1"
+  },
+  "blind-0097": {
+    "case_id": "main-respiratoire-03",
+    "method": "direct",
+    "note_path": "main-test/notes/731954bf7e5c4d008cf2afaf85c4ee42.json",
+    "run_id": "f8fcfacf99194c02aed361b7464ef9dc"
+  },
+  "blind-0098": {
+    "case_id": "main-respiratoire-06",
+    "method": "direct",
+    "note_path": "main-test/notes/85bb37c5dd89472ca453bd7eaee10682.json",
+    "run_id": "738133aa8c87427cb8f135a84038e867"
+  },
+  "blind-0099": {
+    "case_id": "stress-09-negative",
+    "method": "structured",
+    "note_path": "stress/notes/324528482ce14880ae322c4804a59172.json",
+    "run_id": "69694c4cbb214783b12835fb27b5fd8e"
+  },
+  "blind-0100": {
+    "case_id": "stress-08-positive",
+    "method": "structured",
+    "note_path": "stress/notes/58e12dcc20c841c5a910621cf57d0dbd.json",
+    "run_id": "7919fe7d75bf4241b17e043e7a4789fc"
+  },
+  "blind-0101": {
+    "case_id": "stress-05-negative",
+    "method": "direct",
+    "note_path": "stress/notes/8f8efebeb58b4cdf98cccebc93ea98f2.json",
+    "run_id": "97e61fcf9eab41a28aa965ebf4d05d7a"
+  },
+  "blind-0102": {
+    "case_id": "main-neurologique-04",
+    "method": "structured",
+    "note_path": "main-test/notes/615687b71a7c4c6fa4dd8e34dc89e64b.json",
+    "run_id": "3e78e6b9a6514b60a6c7e391df8860db"
+  },
+  "blind-0103": {
+    "case_id": "stress-05-negative",
+    "method": "structured",
+    "note_path": "stress/notes/8fa06ccbcfab4054a67467586756c7a9.json",
+    "run_id": "c8c699bfe01c420385621abed426b8ac"
+  },
+  "blind-0104": {
+    "case_id": "main-urinaire-03",
+    "method": "direct",
+    "note_path": "main-test/notes/330e3cd5cce241718932de611129a136.json",
+    "run_id": "5826fcdd50974177bbcc2b2a5de73f76"
+  },
+  "blind-0105": {
+    "case_id": "main-digestif-03",
+    "method": "structured",
+    "note_path": "main-test/notes/32042b7d16384e21820665426dd3e768.json",
+    "run_id": "02b7e9521f8c4fc68a55c591f189fd99"
+  },
+  "blind-0106": {
+    "case_id": "main-neurologique-03",
+    "method": "direct",
+    "note_path": "main-test/notes/17bd9e77b76c40d0827e57a7cd3cb8cd.json",
+    "run_id": "0e422f66744b4460979708443b01a383"
+  },
+  "blind-0107": {
+    "case_id": "main-sante-psychique-06",
+    "method": "structured",
+    "note_path": "main-test/notes/c94bcb054d46423a919a3973a583ad12.json",
+    "run_id": "e4052f0659bf44048a2aaeb0ce604b1b"
+  },
+  "blind-0108": {
+    "case_id": "main-prevention-03",
+    "method": "structured",
+    "note_path": "main-test/notes/2b68ded9cc10419792a9391ae7d2ac8a.json",
+    "run_id": "5bfc5f64ed3c48889ed37ae4ae069b7c"
+  },
+  "blind-0109": {
+    "case_id": "main-respiratoire-05",
+    "method": "direct",
+    "note_path": "main-test/notes/520f03050f2a4c2895b5ae1d838e0924.json",
+    "run_id": "15b7a63e3d2d494b93209ee446620589"
+  },
+  "blind-0110": {
+    "case_id": "stress-07-negative",
+    "method": "direct",
+    "note_path": "stress/notes/f876f0da817343be8336f0876330a344.json",
+    "run_id": "86ec6cabb5514dd385cf9983c2a83152"
+  },
+  "blind-0111": {
+    "case_id": "main-suivi-chronique-03",
+    "method": "direct",
+    "note_path": "main-test/notes/0851d65557f64573a1b04b2dcc3d6d26.json",
+    "run_id": "ac16ce399f6e474da93d34c12fcdd0c4"
+  },
+  "blind-0112": {
+    "case_id": "main-digestif-06",
+    "method": "structured",
+    "note_path": "main-test/notes/ba48f168aac4433bba19c665ea585d3e.json",
+    "run_id": "f62dd4afe52f4424a647f5430d39bbad"
+  },
+  "blind-0113": {
+    "case_id": "stress-02-negative",
+    "method": "direct",
+    "note_path": "stress/notes/8d3a2befb7cd45e694ec72c2d7cc2a04.json",
+    "run_id": "0deb8e42d6fb493986c7300e55e1f4bd"
+  },
+  "blind-0114": {
+    "case_id": "main-dermatologique-04",
+    "method": "direct",
+    "note_path": "main-test/notes/e0fbfadc23e34683a7817c56f9eb9ed3.json",
+    "run_id": "927d4f2f894b41378355756351c89479"
+  },
+  "blind-0115": {
+    "case_id": "stress-09-positive",
+    "method": "structured",
+    "note_path": "stress/notes/888d8be6f98b4ffb8a9705e507fea020.json",
+    "run_id": "7508981c4c3b45bea9e9e87fed243e3c"
+  },
+  "blind-0116": {
+    "case_id": "main-sante-psychique-03",
+    "method": "structured",
+    "note_path": "main-test/notes/04988df7f5644c548928fb2ba5320fb9.json",
+    "run_id": "75aff5c75944458ea10605d462f1c65d"
+  },
+  "blind-0117": {
+    "case_id": "main-cardiovasculaire-03",
+    "method": "structured",
+    "note_path": "main-test/notes/67f803de5be842259dd4d12a4273bfbd.json",
+    "run_id": "10123dea36b1418b9a95fadfda34699c"
+  },
+  "blind-0118": {
+    "case_id": "main-prevention-06",
+    "method": "structured",
+    "note_path": "main-test/notes/5bf07c06a3d94b20808c0169bfc2825f.json",
+    "run_id": "b4e49009a86d4ff0bfe6b955c2dd8057"
+  },
+  "blind-0119": {
+    "case_id": "main-urinaire-05",
+    "method": "structured",
+    "note_path": "main-test/notes/0593bf619ab6480cba92a5f09f436ba9.json",
+    "run_id": "86f98fec5ba546379b2e975d99cb4acf"
+  },
+  "blind-0120": {
+    "case_id": "stress-06-positive",
+    "method": "direct",
+    "note_path": "stress/notes/fdbe5506998b46e4ab67d2f929a914eb.json",
+    "run_id": "6acf3c4e9df549dba4b590127812d76c"
+  }
+}
