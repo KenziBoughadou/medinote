@@ -294,3 +294,10 @@ issue d’une CI réussie, avec vérification publique et conservation de SQLite
 un fait facultatif soutenu sans gold. Les données, prompts, modèle, renderer, formules
 et résultats historiques v1 restent inchangés. La relecture déclarée ne constitue
 ni une validation clinique ni une annotation indépendante.
+
+La release `a04111e4c5a04c68f8fb663c10c5653ca4afba11` a été déployée et vérifiée
+en HTTPS le 13 septembre 2026 : CI 34779156975 et déploiement GitHub 6425814775
+réussis, deux conteneurs sains, rapport `human_reviewed` et résultats contrôlés dans
+le navigateur public. La comptabilité reste à 199 tentatives et 238 374 microdollars.
+Le contrôle d’affichage a également conduit à préciser les écarts et leurs intervalles
+en points de pourcentage dans l’interface, sans changer les valeurs calculées.
