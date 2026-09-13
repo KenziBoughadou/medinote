@@ -106,3 +106,8 @@ Un changement de dialogue, modèle, prompt ou renderer demande une nouvelle camp
 Une amélioration conçue après inspection du test est déclarée post hoc ; ce test ne redevient
 pas indépendant. Les [comparateurs extractifs](RESEARCH_SCOPE.md) ajoutés ensuite restent
 séparés de v1. Aucun entraînement, second fournisseur ou résultat clinique n’est inclus.
+
+Un [pilote d’annotation exploratoire par IA](ANNOTATION_PILOT.md) examine les dix premières
+notes du lot aveugle existant. Ses annotations et décisions ouvertes sont archivées
+séparément. Il ne modifie ni les références gelées ni les conditions de publication
+ci-dessus et ne produit pas de score global sur une cohorte partielle.

@@ -242,3 +242,23 @@ en argument au lieu de dépendre d’un fichier interne implicite ; la provenanc
 Les données, le code scientifique gelé et les observations archivées ne changent pas.
 La revue humaine des références et des sorties reste la dépendance nécessaire pour publier
 des résultats sémantiques finaux. Cette réorganisation documentaire ne la remplace pas.
+# Pilote d’annotation exploratoire — 13 septembre 2026
+
+À la demande de l’auteur, dix notes du lot aveugle existant sont examinées par l’assistant
+IA, avec provenance explicite. Les décisions et sources sont archivées dans
+`eval/results/annotation-pilot-1/` ; la méthode et les cas concrets sont décrits dans
+`docs/ANNOTATION_PILOT.md`. Le README présente ce pilote comme partiel.
+
+Résultat : 103 claims, cinq formulaires complets et cinq brouillons comportant neuf
+décisions ouvertes. Une restitution partielle de faits composés et des propos sourcés
+sans référence compatible empêchent de finaliser certaines annotations dans le schéma v1.
+Ces difficultés sont conservées en `unresolved`, sans modifier le gold ou créer de faux
+ajouts injustifiés. Les 110 autres notes restent à annoter ; les métriques globales et
+la revue humaine restent en attente. Aucune nouvelle génération ou requête API payante.
+
+Validation : `ruff check backend scripts`, 130 tests Python réussis, recompilation exacte
+des annotations et compteurs, empreintes des artefacts vérifiées, liens locaux valides,
+manifest gelé v1 intact et aucun événement de revue humaine ajouté. Les trois nouveaux
+tests vérifient le rejet des brouillons pour finalisation, des extraits ou citations
+incohérents, ainsi que la reproduction sans écrasement des résultats. Aucun changement
+d’architecture ou du runtime public ; ce pilote ne remplace pas l’étude finale prévue.

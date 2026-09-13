@@ -50,6 +50,12 @@ La proportion de mots conservés mesure la compression, pas les omissions de fai
 
 ## Ce qui demande encore une expérience
 
+Le [premier pilote d’annotation](ANNOTATION_PILOT.md) examine dix notes par IA et archive
+103 informations distinguées. Cinq formulaires restent en brouillon, notamment parce
+que le schéma v1 représente mal la couverture partielle d’un fait composé ou un propos
+sourcé sans référence dédiée. Ces constats sont documentés sans modifier le gold gelé
+ni publier de pourcentage sur les seuls formulaires faciles à finaliser.
+
 La priorité avec le budget actuel est la relecture de v1. Un premier lot permet d’estimer
 le temps réel d’annotation ; ses résultats restent partiels et ne sont pas extrapolés à
 la cohorte. Un autre relecteur sur les mêmes notes permettrait ensuite de rechercher les

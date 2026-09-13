@@ -13,7 +13,7 @@ C’est un projet de **NLP appliqué et d’évaluation de LLM**. Le modèle est
 | Stress | 10 paires testant une inversion de négation |
 | Méthodes | 2 pipelines LLM et 2 comparateurs sans modèle génératif |
 | Sorties archivées | 132 générations LLM et, séparément, 160 extraits |
-| Évaluation | Annotation en attente ; bootstrap apparié prévu |
+| Évaluation | Pilote sur 10 notes ; évaluation complète en attente |
 | Application | React, TypeScript, Python, FastAPI et API OpenAI |
 
 [Résultats](#résultats) · [Méthode](#méthode) · [Démo](#démo) · [Architecture](#architecture) · [Limites et suite](#limites-et-suite) · [English](README.en.md)
@@ -21,6 +21,8 @@ C’est un projet de **NLP appliqué et d’évaluation de LLM**. Le modèle est
 ## Résultats
 
 **L’expérience est exécutée, mais sa conclusion sur la fidélité reste à établir.** Les 132 générations respectent le format attendu. Cela ne prouve pas que leur contenu soit correct : les références et les notes doivent encore être relues.
+
+Un [premier lot d’annotations exploratoires](docs/ANNOTATION_PILOT.md), réalisé par IA, examine dix notes. Il met notamment en évidence un délai de suivi perdu et un horaire de prise non restitué. Cinq formulaires sont complets ; cinq restent ouverts à cause d’ambiguïtés ou de limites du guide. Ce pilote ne permet pas encore de donner un score global.
 
 Les coûts et délais ci-dessous proviennent des **40 mêmes consultations test**, avec une génération par méthode et par cas.
 

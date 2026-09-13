@@ -21,6 +21,11 @@ to outperform A. [Français](README.md) · [Experiment protocol](docs/EXPERIMENT
 No account is required; live AI generation is available within quotas. The local demo also works
 without an API key. Its twelve archived notes are **actual model generations**, with raw responses,
 tokens, latency and estimated cost. Semantic performance metrics await annotation.
+
+A separate [AI annotation pilot](docs/ANNOTATION_PILOT.md) examines ten archived notes.
+Five forms are complete and five retain unresolved decisions, including partially
+covered reference facts. The pilot reports concrete omissions and protocol limitations,
+without claiming human review or estimating full-cohort performance.
 Screenshots and the video show the earlier illustrative release.
 
 Two additional extractive comparators, lead-5 and TF-IDF centroid-5, now produce 160
