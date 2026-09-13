@@ -6,7 +6,8 @@ from medinote.schemas import Method
 def test_corpus(root):
     repo = CorpusRepository(root).load()
     report = repo.validate_corpus()
-    assert report["main"] == 60 and report["human_review_events"] == 0
+    assert report["main"] == 60
+    assert report["human_review_events"] == sum(e.kind == "human" for e in repo.review_events)
     for case in repo.cases.values():
         for method in Method:
             req = build_generation_request(case, method)

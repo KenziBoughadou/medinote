@@ -13,32 +13,34 @@ C’est un projet de **NLP appliqué et d’évaluation de LLM**. Le modèle est
 | Stress | 10 paires testant une inversion de négation |
 | Méthodes | 2 pipelines LLM et 2 comparateurs sans modèle génératif |
 | Sorties archivées | 132 générations LLM et, séparément, 160 extraits |
-| Évaluation | Pilote sur 10 notes ; évaluation complète en attente |
+| Évaluation | 120 notes relues ; résultats v1.1 et bootstrap apparié |
 | Application | React, TypeScript, Python, FastAPI et API OpenAI |
 
 [Résultats](#résultats) · [Méthode](#méthode) · [Démo](#démo) · [Architecture](#architecture) · [Limites et suite](#limites-et-suite) · [English](README.en.md)
 
 ## Résultats
 
-**L’expérience est exécutée, mais sa conclusion sur la fidélité reste à établir.** Les 132 générations respectent le format attendu. Cela ne prouve pas que leur contenu soit correct : les références et les notes doivent encore être relues.
+**Sur ce corpus, A conserve davantage de faits attendus que B, pour un coût inférieur.** Les 120 notes de test et de stress ont été relues par Kenzi, qui a aussi accepté les références sans correction. Les résultats ci-dessous sont calculés à partir de ses annotations, avec le [validateur amendé v1.1](docs/ANNOTATION_AMENDMENT_V1_1.md). Il s’agit d’une relecture par l’auteur, sans validation indépendante ou clinique.
 
-Un [premier lot d’annotations exploratoires](docs/ANNOTATION_PILOT.md), réalisé par IA, examine dix notes. Il met notamment en évidence un délai de suivi perdu et un horaire de prise non restitué. Cinq formulaires sont complets ; cinq restent ouverts à cause d’ambiguïtés ou de limites du guide. Ce pilote ne permet pas encore de donner un score global.
+Les mesures portent sur les **40 mêmes consultations test**, avec une génération par méthode et par cas. Les différences de qualité sont exprimées en points de pourcentage ; les coûts et délais sont comparés par un rapport.
 
-Les coûts et délais ci-dessous proviennent des **40 mêmes consultations test**, avec une génération par méthode et par cas.
-
-| Mesure | Direct A | Structuré B | Comparaison B / A | IC 95 % |
+| Mesure | Direct A | Structuré B | Écart B−A ou rapport B/A | IC 95 % de B−A |
 |---|---:|---:|---:|---|
-| Couverture fidèle des faits attendus | Non évaluée | Non évaluée | En attente | En attente |
-| Contradictions et ajouts non soutenus | Non évalués | Non évalués | En attente | En attente |
-| Soutien sémantique des citations | Non évalué | Non évalué | En attente | En attente |
+| Couverture fidèle des faits attendus | 95,83 % | 92,50 % | -3,33 points | [-5,28 ; -1,39] points |
+| Omissions de faits attendus | 4,17 % | 7,22 % | 3,06 points | [1,11 ; 5,00] points |
+| Contradictions dans la note | 0,00 % | 0,23 % | 0,23 points | [0,00 ; 0,71] points |
+| Ajouts non soutenus | 0,00 % | 0,00 % | 0,00 points | [0,00 ; 0,00] points |
+| Soutien sémantique des citations | 99,73 % | 99,54 % | -0,19 points | [-0,95 ; 0,60] points |
 | Coût moyen par note | 0,00079 $ | 0,00158 $ | ×2,00 | Non calculé |
 | Latence médiane | 2,29 s | 4,98 s | ×2,17 | Non calculé |
 
-B coûte et prend environ deux fois plus dans cette campagne. **Je ne sais pas encore si ce surcoût apporte une meilleure fidélité.** Après annotation, les différences de qualité seront présentées en points de pourcentage, avec leurs intervalles bootstrap.
+A reprend **345 des 360 faits attendus**, contre **333 pour B**. B compte 26 omissions et une contradiction, contre 15 omissions et aucune contradiction pour A. Aucun ajout non soutenu n’a été étiqueté dans cette relecture : cela ne prouve pas une absence générale d’hallucinations. Les intervalles bootstrap ne couvrent pas les erreurs possibles de l’annotateur.
+
+Le test de stress reste séparé : **0 paire sur 10 réussie pour chaque méthode** au critère strict, qui exige les deux polarités et tous les faits invariants. L’incertitude sur l’origine de la plainte est omise dans les 40 notes de stress ; ce résultat ne signifie pas que toutes les négations sont erronées. [Méthodologie, dénominateurs et limites](docs/HUMAN_REVIEW_RESULTS.md).
 
 Les 132 appels représentent **0,153097 $ estimés**, hors essais de développement, hébergement et temps de relecture. Les prix utilisés sont archivés dans le [fichier de tarification v1](eval/pricing.v1.json) ; ce ne sont pas une promesse de tarif futur. Lire les résultats enregistrés ne coûte aucun appel API.
 
-[Relevé d’exécution et coûts](eval/results/v1/report.md) · [Sorties brutes](eval/results/v1/) · [Résultats des comparateurs extractifs](eval/results/extractive-posthoc-1/report.md)
+[Rapport et intervalles v1.1](eval/results/reviewed-v1.1/report/report.md) · [Relevé d’exécution et coûts](eval/results/v1/report.md) · [Sorties brutes](eval/results/v1/) · [Résultats des comparateurs extractifs](eval/results/extractive-posthoc-1/report.md)
 
 ## Méthode
 
@@ -50,7 +52,7 @@ Je compare donc **deux pipelines complets**. Comme le mécanisme de rédaction c
 
 Les deux comparateurs gratuits fournissent un repère plus simple : Lead-5 garde les cinq premiers tours de parole ; TF-IDF choisit cinq passages proches du vocabulaire global du dialogue. Ils recopient le texte et les locuteurs, sans utiliser les faits de référence pour sélectionner les extraits. Cet ajout est exploratoire, réalisé après v1. Sa qualité reste à annoter ; la longueur conservée ne mesure pas la couverture des faits.
 
-Pour chaque note, la relecture doit distinguer omissions, contradictions, ajouts sans source et citations insuffisantes. Le code, les données, les consignes et le modèle ont été gelés avant le test. Le protocole prévoit 10 000 tirages bootstrap appariés sur les 40 consultations ; les paires de négation restent séparées.
+La relecture distingue omissions, contradictions, ajouts sans source et citations insuffisantes. Le code, les données, les consignes et le modèle ont été gelés avant le test. L’amendement v1.1, ajouté après la relecture, autorise les faits facultatifs sourcés absents du gold sans modifier les faits attendus. Les 10 000 tirages bootstrap appariés sont calculés sur les 40 consultations ; les paires de négation restent séparées.
 
 [Protocole expérimental](docs/EXPERIMENT_PROTOCOL.md) · [Règles d’évaluation](docs/EVALUATION.md) · [Guide d’annotation](eval/annotation-guide.v1.md)
 
@@ -76,7 +78,7 @@ Le travail logiciel rend les résultats inspectables et reproductibles. Les test
 
 Les dialogues et les références ont été préparés par IA. Ils sont courts, réguliers et peu représentatifs de consultations réelles. L’étude utilise un seul modèle et une seule génération par méthode et par cas. Le style de B peut révéler sa méthode malgré l’annotation en aveugle. Aucune validation clinique, revue indépendante ou supériorité de B n’est revendiquée.
 
-La priorité est de terminer la relecture des références et des 120 notes de test et de stress. L’atelier hors ligne est prêt : douze lots de dix notes, avec export et reprise du travail. Cette étape réutilise les sorties existantes, sans nouvelle dépense de génération.
+La priorité suivante est une seconde relecture, en particulier des faits composés et des couvertures partielles repérés pendant le [pilote exploratoire](docs/ANNOTATION_PILOT.md). Un formulaire accepté par le logiciel ne garantit pas que chaque décision soit juste. Les références et annotations actuelles restent consultables pour discuter ces désaccords sans effacer les résultats.
 
 Ensuite, je pourrai comparer la fidélité des baselines, analyser les erreurs et concevoir une nouvelle expérience sur un jeu réservé. Un deuxième modèle, des répétitions ou un entraînement complémentaire demanderaient un budget et des données adaptés. Avec les moyens actuels, je privilégie la relecture avant de multiplier les appels.
 

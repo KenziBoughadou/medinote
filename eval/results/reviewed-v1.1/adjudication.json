@@ -1,0 +1,357 @@
+[
+  {
+    "note": "blind-0059",
+    "claim_id": "claim-334b2bc55d264ef892c678c046e20efe",
+    "before": {
+      "citation_assessments": [
+        {
+          "citation_id": "reason.001.c001",
+          "claim_id": "claim-334b2bc55d264ef892c678c046e20efe",
+          "justification": "Le passage cité soutient cette information.",
+          "resolvable": true,
+          "supports_claim": true
+        }
+      ],
+      "claim_id": "claim-334b2bc55d264ef892c678c046e20efe",
+      "contradiction_types": [],
+      "evidence": [
+        {
+          "end": 156,
+          "quote": "Je viens pour la clarification d’une allergie ancienne. Cela a commencé aujourd’hui. Je souhaite décrire ce qui se passe sans donner moi-même un diagnostic.",
+          "segment_id": "s002",
+          "start": 0
+        }
+      ],
+      "gold_ids": [],
+      "justification": "Information présente et sourcée dans la note, mais aucun fait de référence compatible n'est disponible.",
+      "label": "unresolved",
+      "normalized_text": "le patient ne pose pas lui-même de diagnostic",
+      "spans": [
+        {
+          "assertion_id": "reason.001",
+          "end": 128,
+          "quote": "Le patient vient pour la clarification d’une allergie ancienne, constatée depuis aujourd’hui, sans poser lui-même de diagnostic.",
+          "start": 0
+        }
+      ]
+    },
+    "after": {
+      "citation_assessments": [
+        {
+          "citation_id": "reason.001.c001",
+          "claim_id": "claim-334b2bc55d264ef892c678c046e20efe",
+          "justification": "Le passage cité soutient cette information.",
+          "resolvable": true,
+          "supports_claim": true
+        }
+      ],
+      "claim_id": "claim-334b2bc55d264ef892c678c046e20efe",
+      "contradiction_types": [],
+      "evidence": [
+        {
+          "end": 156,
+          "quote": "Je viens pour la clarification d’une allergie ancienne. Cela a commencé aujourd’hui. Je souhaite décrire ce qui se passe sans donner moi-même un diagnostic.",
+          "segment_id": "s002",
+          "start": 0
+        }
+      ],
+      "gold_ids": [],
+      "justification": "Kenzi confirme que cette information est facultative et soutenue par le dialogue, même sans référence prédéfinie, le 13 septembre 2026.",
+      "label": "supported_optional",
+      "normalized_text": "le patient ne pose pas lui-même de diagnostic",
+      "spans": [
+        {
+          "assertion_id": "reason.001",
+          "end": 128,
+          "quote": "Le patient vient pour la clarification d’une allergie ancienne, constatée depuis aujourd’hui, sans poser lui-même de diagnostic.",
+          "start": 0
+        }
+      ]
+    },
+    "confirmation": "Décision explicite de Kenzi dans la conversation du 13 septembre 2026."
+  },
+  {
+    "note": "blind-0068",
+    "claim_id": "claim-cfd3acbc5bec4cc59b84a7f803ca8bb0",
+    "before": {
+      "citation_assessments": [
+        {
+          "citation_id": "reason.001.c001",
+          "claim_id": "claim-cfd3acbc5bec4cc59b84a7f803ca8bb0",
+          "justification": "Le passage cité soutient cette information.",
+          "resolvable": true,
+          "supports_claim": true
+        }
+      ],
+      "claim_id": "claim-cfd3acbc5bec4cc59b84a7f803ca8bb0",
+      "contradiction_types": [],
+      "evidence": [
+        {
+          "end": 154,
+          "quote": "Je viens pour un échange sur ma consommation de tabac. Cela a commencé ce mois-ci. Je souhaite décrire ce qui se passe sans donner moi-même un diagnostic.",
+          "segment_id": "s002",
+          "start": 0
+        }
+      ],
+      "gold_ids": [],
+      "justification": "Information présente et sourcée dans la note, mais aucun fait de référence compatible n'est disponible.",
+      "label": "unresolved",
+      "normalized_text": "le patient ne pose pas lui-même de diagnostic",
+      "spans": [
+        {
+          "assertion_id": "reason.001",
+          "end": 117,
+          "quote": "Le patient vient pour un échange sur sa consommation de tabac, débutée ce mois-ci, sans poser lui-même de diagnostic.",
+          "start": 0
+        }
+      ]
+    },
+    "after": {
+      "citation_assessments": [
+        {
+          "citation_id": "reason.001.c001",
+          "claim_id": "claim-cfd3acbc5bec4cc59b84a7f803ca8bb0",
+          "justification": "Le passage cité soutient cette information.",
+          "resolvable": true,
+          "supports_claim": true
+        }
+      ],
+      "claim_id": "claim-cfd3acbc5bec4cc59b84a7f803ca8bb0",
+      "contradiction_types": [],
+      "evidence": [
+        {
+          "end": 154,
+          "quote": "Je viens pour un échange sur ma consommation de tabac. Cela a commencé ce mois-ci. Je souhaite décrire ce qui se passe sans donner moi-même un diagnostic.",
+          "segment_id": "s002",
+          "start": 0
+        }
+      ],
+      "gold_ids": [],
+      "justification": "Kenzi confirme que cette information est facultative et soutenue par le dialogue, même sans référence prédéfinie, le 13 septembre 2026.",
+      "label": "supported_optional",
+      "normalized_text": "le patient ne pose pas lui-même de diagnostic",
+      "spans": [
+        {
+          "assertion_id": "reason.001",
+          "end": 117,
+          "quote": "Le patient vient pour un échange sur sa consommation de tabac, débutée ce mois-ci, sans poser lui-même de diagnostic.",
+          "start": 0
+        }
+      ]
+    },
+    "confirmation": "Décision explicite de Kenzi dans la conversation du 13 septembre 2026."
+  },
+  {
+    "note": "blind-0075",
+    "claim_id": "claim-5839f0d4ad7b416ba5c913d6b6998376",
+    "before": {
+      "citation_assessments": [
+        {
+          "citation_id": "reason.002.c001",
+          "claim_id": "claim-5839f0d4ad7b416ba5c913d6b6998376",
+          "justification": "Le passage cité soutient cette information.",
+          "resolvable": true,
+          "supports_claim": true
+        }
+      ],
+      "claim_id": "claim-5839f0d4ad7b416ba5c913d6b6998376",
+      "contradiction_types": [],
+      "evidence": [
+        {
+          "end": 133,
+          "quote": "Je viens pour des oublis de noms. Cela a commencé trois mois. Je souhaite décrire ce qui se passe sans donner moi-même un diagnostic.",
+          "segment_id": "s002",
+          "start": 0
+        }
+      ],
+      "gold_ids": [],
+      "justification": "Information présente et sourcée dans la note, mais aucun fait de référence compatible n'est disponible.",
+      "label": "unresolved",
+      "normalized_text": "Le patient souhaite décrire la situation sans poser lui-même un diagnostic",
+      "spans": [
+        {
+          "assertion_id": "reason.002",
+          "end": 75,
+          "quote": "Le patient souhaite décrire la situation sans poser lui-même un diagnostic.",
+          "start": 0
+        }
+      ]
+    },
+    "after": {
+      "citation_assessments": [
+        {
+          "citation_id": "reason.002.c001",
+          "claim_id": "claim-5839f0d4ad7b416ba5c913d6b6998376",
+          "justification": "Le passage cité soutient cette information.",
+          "resolvable": true,
+          "supports_claim": true
+        }
+      ],
+      "claim_id": "claim-5839f0d4ad7b416ba5c913d6b6998376",
+      "contradiction_types": [],
+      "evidence": [
+        {
+          "end": 133,
+          "quote": "Je viens pour des oublis de noms. Cela a commencé trois mois. Je souhaite décrire ce qui se passe sans donner moi-même un diagnostic.",
+          "segment_id": "s002",
+          "start": 0
+        }
+      ],
+      "gold_ids": [],
+      "justification": "Kenzi confirme que cette information est facultative et soutenue par le dialogue, même sans référence prédéfinie, le 13 septembre 2026.",
+      "label": "supported_optional",
+      "normalized_text": "Le patient souhaite décrire la situation sans poser lui-même un diagnostic",
+      "spans": [
+        {
+          "assertion_id": "reason.002",
+          "end": 75,
+          "quote": "Le patient souhaite décrire la situation sans poser lui-même un diagnostic.",
+          "start": 0
+        }
+      ]
+    },
+    "confirmation": "Décision explicite de Kenzi dans la conversation du 13 septembre 2026."
+  },
+  {
+    "note": "blind-0098",
+    "claim_id": "claim-ec0bb263facd464bb9085db0bb25c1c7",
+    "before": {
+      "citation_assessments": [
+        {
+          "citation_id": "plan.001.c001",
+          "claim_id": "claim-ec0bb263facd464bb9085db0bb25c1c7",
+          "justification": "Le passage cité soutient cette information.",
+          "resolvable": true,
+          "supports_claim": true
+        }
+      ],
+      "claim_id": "claim-ec0bb263facd464bb9085db0bb25c1c7",
+      "contradiction_types": [],
+      "evidence": [
+        {
+          "end": 148,
+          "quote": "Je souhaite conserver une trace de ce qui a été dit aujourd’hui. Je préfère que les informations manquantes restent indiquées comme non mentionnées.",
+          "segment_id": "s010",
+          "start": 0
+        }
+      ],
+      "gold_ids": [],
+      "justification": "Information présente et sourcée dans la note, mais aucun fait de référence compatible n'est disponible.",
+      "label": "unresolved",
+      "normalized_text": "Le patient souhaite conserver une trace des informations dites aujourd'hui, avec indication des informations manquantes comme non mentionnées",
+      "spans": [
+        {
+          "assertion_id": "plan.001",
+          "end": 142,
+          "quote": "Le patient souhaite conserver une trace des informations dites aujourd'hui, avec indication des informations manquantes comme non mentionnées.",
+          "start": 0
+        }
+      ]
+    },
+    "after": {
+      "citation_assessments": [
+        {
+          "citation_id": "plan.001.c001",
+          "claim_id": "claim-ec0bb263facd464bb9085db0bb25c1c7",
+          "justification": "Le passage cité soutient cette information.",
+          "resolvable": true,
+          "supports_claim": true
+        }
+      ],
+      "claim_id": "claim-ec0bb263facd464bb9085db0bb25c1c7",
+      "contradiction_types": [],
+      "evidence": [
+        {
+          "end": 148,
+          "quote": "Je souhaite conserver une trace de ce qui a été dit aujourd’hui. Je préfère que les informations manquantes restent indiquées comme non mentionnées.",
+          "segment_id": "s010",
+          "start": 0
+        }
+      ],
+      "gold_ids": [],
+      "justification": "Kenzi confirme que cette information est facultative et soutenue par le dialogue, même sans référence prédéfinie, le 13 septembre 2026.",
+      "label": "supported_optional",
+      "normalized_text": "Le patient souhaite conserver une trace des informations dites aujourd'hui, avec indication des informations manquantes comme non mentionnées",
+      "spans": [
+        {
+          "assertion_id": "plan.001",
+          "end": 142,
+          "quote": "Le patient souhaite conserver une trace des informations dites aujourd'hui, avec indication des informations manquantes comme non mentionnées.",
+          "start": 0
+        }
+      ]
+    },
+    "confirmation": "Décision explicite de Kenzi dans la conversation du 13 septembre 2026."
+  },
+  {
+    "note": "blind-0110",
+    "claim_id": "claim-248d48d6867c421686747814614279bf",
+    "before": {
+      "citation_assessments": [
+        {
+          "citation_id": "reason.002.c001",
+          "claim_id": "claim-248d48d6867c421686747814614279bf",
+          "justification": "Le passage cité soutient cette information.",
+          "resolvable": true,
+          "supports_claim": true
+        }
+      ],
+      "claim_id": "claim-248d48d6867c421686747814614279bf",
+      "contradiction_types": [],
+      "evidence": [
+        {
+          "end": 148,
+          "quote": "Je viens pour une rougeur derrière les oreilles. Cela a commencé huit jours. Je souhaite décrire ce qui se passe sans donner moi-même un diagnostic.",
+          "segment_id": "s002",
+          "start": 0
+        }
+      ],
+      "gold_ids": [],
+      "justification": "Information présente et sourcée dans la note, mais aucun fait de référence compatible n'est disponible.",
+      "label": "unresolved",
+      "normalized_text": "Le patient souhaite décrire la situation sans poser lui-même un diagnostic",
+      "spans": [
+        {
+          "assertion_id": "reason.002",
+          "end": 75,
+          "quote": "Le patient souhaite décrire la situation sans poser lui-même un diagnostic.",
+          "start": 0
+        }
+      ]
+    },
+    "after": {
+      "citation_assessments": [
+        {
+          "citation_id": "reason.002.c001",
+          "claim_id": "claim-248d48d6867c421686747814614279bf",
+          "justification": "Le passage cité soutient cette information.",
+          "resolvable": true,
+          "supports_claim": true
+        }
+      ],
+      "claim_id": "claim-248d48d6867c421686747814614279bf",
+      "contradiction_types": [],
+      "evidence": [
+        {
+          "end": 148,
+          "quote": "Je viens pour une rougeur derrière les oreilles. Cela a commencé huit jours. Je souhaite décrire ce qui se passe sans donner moi-même un diagnostic.",
+          "segment_id": "s002",
+          "start": 0
+        }
+      ],
+      "gold_ids": [],
+      "justification": "Kenzi confirme que cette information est facultative et soutenue par le dialogue, même sans référence prédéfinie, le 13 septembre 2026.",
+      "label": "supported_optional",
+      "normalized_text": "Le patient souhaite décrire la situation sans poser lui-même un diagnostic",
+      "spans": [
+        {
+          "assertion_id": "reason.002",
+          "end": 75,
+          "quote": "Le patient souhaite décrire la situation sans poser lui-même un diagnostic.",
+          "start": 0
+        }
+      ]
+    },
+    "confirmation": "Décision explicite de Kenzi dans la conversation du 13 septembre 2026."
+  }
+]

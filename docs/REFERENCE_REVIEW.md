@@ -1,7 +1,10 @@
 # Relecture humaine des références
 
 Ce travail vérifie la fidélité des références aux dialogues fictifs. Il ne constitue pas
-une validation médicale. Les références sont actuellement préparées par IA et non relues.
+une validation médicale. Les références préparées par IA ont été acceptées sans correction
+par Kenzi le 13 septembre 2026. Les événements associés aux empreintes sont conservés
+dans `data/review-events.jsonl`. Les [résultats de relecture](HUMAN_REVIEW_RESULTS.md)
+décrivent les 120 annotations finales et l’amendement v1.1 utilisé pour leur import.
 
 Préparer les documents lisibles, sans modifier le corpus ni geler une campagne :
 

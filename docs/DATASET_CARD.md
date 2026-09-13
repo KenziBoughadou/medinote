@@ -4,6 +4,11 @@ Version 1.0. Langue : français de France. Données exclusivement synthétiques,
 préparées par l’agent IA d’implémentation ; pas de dossier réel ni dataset traduit.
 Provenance dans `data/provenance.v1.json`. Aucune revue humaine initiale.
 
+Le 13 septembre 2026, Kenzi a confirmé sa relecture et l’acceptation des références
+sans correction. Les événements associés aux hashes figurent dans `data/review-events.jsonl`.
+Cette revue ultérieure conserve l’origine IA et les textes initiaux ; aucune validation
+clinique ou relecture indépendante n’est revendiquée.
+
 60 parents principaux : six situations distinctes dans chacune des dix familles prévues,
 deux dev et quatre test. Dix parents stress supplémentaires possèdent chacun une variante
 positive et négative. Les parents stress sont disjoints des parents principaux. Les noms

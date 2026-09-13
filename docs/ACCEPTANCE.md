@@ -262,3 +262,35 @@ manifest gelé v1 intact et aucun événement de revue humaine ajouté. Les troi
 tests vérifient le rejet des brouillons pour finalisation, des extraits ou citations
 incohérents, ainsi que la reproduction sans écrasement des résultats. Aucun changement
 d’architecture ou du runtime public ; ce pilote ne remplace pas l’étude finale prévue.
+
+
+## Relecture confirmée et résultats v1.1 — 13 septembre 2026
+
+Kenzi confirme la relecture des 120 notes, la classification des cinq informations
+restées ouvertes comme facultatives et soutenues, et l’acceptation sans correction
+des références dev, test et stress. Trois événements associés aux hashes sont
+ajoutés à `data/review-events.jsonl`. Les décisions finales, leur clôture et les
+empreintes des archives reçues sont conservées dans `eval/results/reviewed-v1.1/`.
+
+Le rapport utilise le validateur versionné v1.1, sans modification d’aucun fichier
+du manifest gelé. Il conserve 40 paires test et dix paires stress, et réutilise les
+formules et 10 000 tirages bootstrap de v1. Couverture : 345/360 pour A, 333/360 pour B ;
+écart B−A de −3,33 points, IC95 [−5,28 ; −1,39]. Le stress strict donne 0/10 pour
+chaque méthode, avec explication des invariants omis. Les limites de l’auteur comme
+seul annotateur, des faits composés et des contrôles de segmentation sont déclarées.
+
+Le rapport public et le README présentent les mesures effectivement calculées ;
+aucun score test n’est transféré aux douze notes dev. Le mapping est publié après
+clôture pour permettre la reproduction. Aucun nouvel appel fournisseur payant.
+
+Validation locale : Ruff, 141 tests Python, 7 tests frontend et build réussis ;
+reproduction octet pour octet des métriques, du rapport et des indices bootstrap ;
+refus des annotations manquantes, dupliquées, non résolues et des mappings discordants ;
+acceptation d’un rapport humain refusée si une référence manque. Les 28 fichiers
+gelés et les liens Markdown sont vérifiés. Le déploiement reste fondé sur une release
+issue d’une CI réussie, avec vérification publique et conservation de SQLite.
+
+Écart méthodologique explicite : validateur v1.1 amendé après observation pour admettre
+un fait facultatif soutenu sans gold. Les données, prompts, modèle, renderer, formules
+et résultats historiques v1 restent inchangés. La relecture déclarée ne constitue
+ni une validation clinique ni une annotation indépendante.

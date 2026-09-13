@@ -1,0 +1,341 @@
+[
+  {
+    "case_id": "stress-01-negative",
+    "method": "direct",
+    "pair_id": "stress-parent-01",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-01-negative",
+    "method": "structured",
+    "pair_id": "stress-parent-01",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-01-positive",
+    "method": "structured",
+    "pair_id": "stress-parent-01",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-01-positive",
+    "method": "direct",
+    "pair_id": "stress-parent-01",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-02-negative",
+    "method": "direct",
+    "pair_id": "stress-parent-02",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-02-negative",
+    "method": "structured",
+    "pair_id": "stress-parent-02",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-02-positive",
+    "method": "structured",
+    "pair_id": "stress-parent-02",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-02-positive",
+    "method": "direct",
+    "pair_id": "stress-parent-02",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-03-negative",
+    "method": "direct",
+    "pair_id": "stress-parent-03",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-03-negative",
+    "method": "structured",
+    "pair_id": "stress-parent-03",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-03-positive",
+    "method": "structured",
+    "pair_id": "stress-parent-03",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-03-positive",
+    "method": "direct",
+    "pair_id": "stress-parent-03",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-04-negative",
+    "method": "direct",
+    "pair_id": "stress-parent-04",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-04-negative",
+    "method": "structured",
+    "pair_id": "stress-parent-04",
+    "not_preserved": [
+      "signe-cible",
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-04-positive",
+    "method": "structured",
+    "pair_id": "stress-parent-04",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-04-positive",
+    "method": "direct",
+    "pair_id": "stress-parent-04",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-05-negative",
+    "method": "direct",
+    "pair_id": "stress-parent-05",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-05-negative",
+    "method": "structured",
+    "pair_id": "stress-parent-05",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-05-positive",
+    "method": "structured",
+    "pair_id": "stress-parent-05",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-05-positive",
+    "method": "direct",
+    "pair_id": "stress-parent-05",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-06-negative",
+    "method": "direct",
+    "pair_id": "stress-parent-06",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-06-negative",
+    "method": "structured",
+    "pair_id": "stress-parent-06",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-06-positive",
+    "method": "structured",
+    "pair_id": "stress-parent-06",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-06-positive",
+    "method": "direct",
+    "pair_id": "stress-parent-06",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-07-negative",
+    "method": "direct",
+    "pair_id": "stress-parent-07",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-07-negative",
+    "method": "structured",
+    "pair_id": "stress-parent-07",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-07-positive",
+    "method": "structured",
+    "pair_id": "stress-parent-07",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-07-positive",
+    "method": "direct",
+    "pair_id": "stress-parent-07",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-08-negative",
+    "method": "direct",
+    "pair_id": "stress-parent-08",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-08-negative",
+    "method": "structured",
+    "pair_id": "stress-parent-08",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-08-positive",
+    "method": "structured",
+    "pair_id": "stress-parent-08",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-08-positive",
+    "method": "direct",
+    "pair_id": "stress-parent-08",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-09-negative",
+    "method": "direct",
+    "pair_id": "stress-parent-09",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-09-negative",
+    "method": "structured",
+    "pair_id": "stress-parent-09",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-09-positive",
+    "method": "structured",
+    "pair_id": "stress-parent-09",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-09-positive",
+    "method": "direct",
+    "pair_id": "stress-parent-09",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-10-negative",
+    "method": "direct",
+    "pair_id": "stress-parent-10",
+    "not_preserved": [
+      "evaluation",
+      "disponibilite"
+    ]
+  },
+  {
+    "case_id": "stress-10-negative",
+    "method": "structured",
+    "pair_id": "stress-parent-10",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-10-positive",
+    "method": "structured",
+    "pair_id": "stress-parent-10",
+    "not_preserved": [
+      "evaluation"
+    ]
+  },
+  {
+    "case_id": "stress-10-positive",
+    "method": "direct",
+    "pair_id": "stress-parent-10",
+    "not_preserved": [
+      "evaluation"
+    ]
+  }
+]
