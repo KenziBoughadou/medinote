@@ -14,7 +14,7 @@ Les formulaires vierges et le mapping d’annotation restent dans l’état priv
 - `.gitignore`
 - `.node-version`
 - `.python-version`
-- `IMPLEMENTATION_PLAN.md`
+- `docs/EXPERIMENT_PROTOCOL.md`
 - `LICENSE`
 - `Makefile`
 - `README.en.md`

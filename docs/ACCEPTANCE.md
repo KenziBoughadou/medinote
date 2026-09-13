@@ -224,3 +224,21 @@ Validation locale : 127 tests Python réussis, Ruff et `git diff --check` confor
 Les 28 fichiers référencés par le manifest gelé de v1 sont inchangés. Les empreintes
 du script et des artefacts extractifs sont vérifiées. Aucun événement de revue humaine
 n’a été ajouté et aucun appel fournisseur n’a été effectué pour ces corrections.
+
+## Présentation publique et protocole
+
+Le README français est réorganisé autour des résultats disponibles, de la méthode, de la
+démo, de l’architecture et des limites. Le tableau principal sépare les coûts et latences
+mesurés des indicateurs de fidélité en attente ; aucun chiffre illustratif de qualité
+n’est utilisé. Les données proviennent des 40 paires du test principal.
+
+Le document de préparation interne est retiré de la version publique courante à la demande
+de l’auteur, avec conservation locale et sans réécriture de l’historique. Le protocole public
+`docs/EXPERIMENT_PROTOCOL.md` présente les décisions pertinentes. Les liens de documentation,
+le lien de méthodologie dans l’application et le Dockerfile sont adaptés à ce retrait.
+Le script historique de préparation du corpus exige désormais le document éditorial exact
+en argument au lieu de dépendre d’un fichier interne implicite ; la provenance v1 est intacte.
+
+Les données, le code scientifique gelé et les observations archivées ne changent pas.
+La revue humaine des références et des sorties reste la dépendance nécessaire pour publier
+des résultats sémantiques finaux. Cette réorganisation documentaire ne la remplace pas.

@@ -4,6 +4,7 @@
 Les lignes décrivent soixante situations distinctes, pas des paraphrases d'un parent.
 """
 
+import argparse
 from pathlib import Path
 
 from medinote.corpus import DEMO_IDS, FAMILIES
@@ -274,10 +275,11 @@ def create_case(family, index, row, case_id=None, stress=None):
     return case, gold
 
 
-def main():
+def main(editorial_context):
     root = Path(__file__).resolve().parents[1]
     if (root / "eval/frozen-manifest.v1.json").exists() or (root / "data/cases.v1.jsonl").exists():
         raise ValueError("Le corpus existant ne peut pas être écrasé par la préparation initiale")
+    context_hash = sha256_file(editorial_context)
     cases = []
     facts = []
     stress_cases = []
@@ -363,7 +365,7 @@ def main():
                 kind="ai",
                 author_id="Codex implementation agent",
                 created_at=utc_now(),
-                prompt_sha256=sha256_file(root / "IMPLEMENTATION_PLAN.md"),
+                prompt_sha256=context_hash,
                 review="none",
             )
         ],
@@ -373,4 +375,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--editorial-context", type=Path, required=True,
+                        help="Document exact utilisé pour cette préparation initiale")
+    main(parser.parse_args().editorial_context)

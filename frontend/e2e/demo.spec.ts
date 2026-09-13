@@ -8,4 +8,6 @@ test('six cas, A/B, sources et navigation',async({page})=>{
   await page.getByRole('button',{name:'Revenir à la citation'}).click();await expect(citation).toBeFocused()
   await expect(page.getByRole('link',{name:'GitHub'})).toHaveAttribute('href','https://github.com/KenziBoughadou/medinote')
   await page.getByRole('link',{name:'Résultats',exact:true}).click();await expect(page.getByText('Annotation des sorties en attente')).toBeVisible();await expect(page.getByText('Non évalué',{exact:true}).first()).toBeVisible()
+  await page.goto('/?mode=offline#methodology')
+  await expect(page.getByRole('link',{name:'Lire le protocole expérimental'})).toHaveAttribute('href','https://github.com/KenziBoughadou/medinote/blob/main/docs/EXPERIMENT_PROTOCOL.md')
 })

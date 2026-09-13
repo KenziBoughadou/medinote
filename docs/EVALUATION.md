@@ -1,5 +1,9 @@
 # Protocole d’évaluation
 
+La [présentation de l’expérience](EXPERIMENT_PROTOCOL.md) rassemble la question de recherche,
+les cohortes, les paramètres et les conditions de publication. Les règles ci-dessous
+décrivent l’exécution et le calcul des mesures.
+
 Le protocole machine est `eval/protocol.v1.json`, le guide humain
 `eval/annotation-guide.v1.md`. Les artefacts réels sont sous `eval/results/v1/` ;
 la revue humaine et les métriques sémantiques restent en attente.

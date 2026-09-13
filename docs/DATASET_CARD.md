@@ -7,7 +7,8 @@ Provenance dans `data/provenance.v1.json`. Aucune revue humaine initiale.
 60 parents principaux : six situations distinctes dans chacune des dix familles prévues,
 deux dev et quatre test. Dix parents stress supplémentaires possèdent chacun une variante
 positive et négative. Les parents stress sont disjoints des parents principaux. Les noms
-de familles et les six IDs de démonstration sont exactement ceux du plan.
+de familles sont définis dans `backend/src/medinote/corpus.py` ; les six IDs de démonstration
+sont conservés dans `data/demo_ids.v1.json`.
 
 Chaque dialogue comporte douze tours, neuf faits attendus et un fait facultatif sourcé.
 Les formulations d’entretien récurrentes sont explicites : ce corpus présente une diversité

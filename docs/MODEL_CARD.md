@@ -12,8 +12,9 @@ sont explicitement présents. Aucun résultat invalide n’est réparé silencie
 
 Une requête estimée au-delà de 6 000 tokens ou de 24 000 octets est refusée.
 Chaque tentative est limitée à 25 secondes ; deadline publique 55 secondes.
-Une seule reprise publique est possible pour certains statuts fournisseur transitoires,
-sous les conditions du plan, avec nouvelle réservation. Les campagnes n’ont aucune reprise.
+Une seule reprise publique est possible sur les statuts 429, 502, 503 ou 504, si le délai
+`Retry-After` est absent ou inférieur ou égal à deux secondes, avec nouvelle réservation.
+Les campagnes n’ont aucune reprise.
 
 La fidélité sémantique, les erreurs de négation et les ajouts nécessitent l’annotation
 des notes finales. Aucune précision clinique, confiance ou amélioration chiffrée n’est

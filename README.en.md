@@ -14,7 +14,7 @@ final semantic results still require human review.
 - **B — structured extraction:** one LLM call → typed facts → deterministic Python rendering.
 
 This compares complete pipelines, including different writing methods. B is not assumed
-to outperform A. [Français](README.md) · [Locked implementation plan](IMPLEMENTATION_PLAN.md) ·
+to outperform A. [Français](README.md) · [Experiment protocol](docs/EXPERIMENT_PROTOCOL.md) ·
 [Actual acceptance status](docs/ACCEPTANCE.md) · [Three-minute video](docs/assets/demo.webm).
 
 [Open the live demo](https://medinote.kbcompany.fr) — HTTPS and browser workflows verified.

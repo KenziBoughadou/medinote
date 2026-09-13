@@ -23,3 +23,6 @@ experiments/
 .release/
 release-*.tar.gz
 docs/assets/temporary/
+
+# Document de travail local ; le protocole public est sous docs/.
+/IMPLEMENTATION_PLAN.md

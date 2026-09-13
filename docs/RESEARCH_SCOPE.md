@@ -16,7 +16,7 @@ expérience clinique n’est revendiqué.
 | Absence de baseline simple | Lead-5 et TF-IDF centroid-5 implémentés, testés et exécutés sur les 80 consultations. | La qualité des 160 extraits reste à annoter ; ils ne suivent pas les sept rubriques A/B. |
 | Un seul modèle, aucune répétition | Ce périmètre est explicite ; aucun essai isolé n’est présenté comme mesure de variance. | Comparaison entre modèles et répétitions non exécutées, faute de budget défini. |
 | Ingénierie plus visible que l’évaluation | README recentré sur question, observations, statut de revue et méthodes. | Les tests logiciels ne deviennent pas des résultats scientifiques. |
-| Consignes de configuration de l’assistant dans le plan | Ligne de configuration retirée, objectif reformulé, statut initial contextualisé. | Historique conservé ; provenance IA des données et absence de revue humaine toujours déclarées. |
+| Document de construction interne trop présent | Plan retiré de la version publique courante et conservé localement ; décisions utiles présentées dans `EXPERIMENT_PROTOCOL.md` et `ARCHITECTURE.md`. | Historique conservé ; provenance IA des données et absence de revue humaine toujours déclarées. |
 
 ## Deux comparateurs sans dépenses d’API
 

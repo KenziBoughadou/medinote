@@ -1,6 +1,7 @@
 # Architecture implémentée
 
-Le [plan verrouillé](../IMPLEMENTATION_PLAN.md) reste la source de vérité.
+Les choix expérimentaux sont décrits dans le [protocole](EXPERIMENT_PROTOCOL.md).
+Ce document présente leur implémentation dans l’application et les outils d’évaluation.
 
 ```mermaid
 flowchart LR
@@ -25,7 +26,8 @@ route publique d’administration ou d’annotation.
 La couche fournisseur capture usage, statut et sortie brute avant validation. Les pipelines
 ne persistent rien. `GenerationService` réserve chaque tentative via `UsageStore`, applique
 le bail global et régularise le coût, même si la sortie est invalide. La réponse live ne
-reçoit aucune métrique d’une ancienne note. B applique les gabarits littéraux du plan.
+reçoit aucune métrique d’une ancienne note. B applique les gabarits fixes de
+`backend/src/medinote/rendering.py`, dont l’empreinte est conservée dans le manifest v1.
 
 SQLite utilise WAL et BEGIN IMMEDIATE. Les appels réseau restent hors transaction.
 Un crash ne rembourse pas la réservation ; le bail expire après 75 secondes. Les quotas
@@ -37,6 +39,7 @@ homonyme du navigateur. L’API est uniquement sur le réseau privé et Uvicorn 
 proxy headers. L’absence d’IP Cloudflare en production interdit uniquement les appels payants.
 Les sources ne sont jamais journalisées. Les headers CSP et de sécurité sont centralisés dans nginx.
 
-Les sorties publiques illustratives sont des artefacts éditoriaux IA. Les générations
-scientifiques et leurs annotations ne seront créées qu’après exécution effective. Les
-contrôles techniques n’interprètent jamais la fidélité clinique.
+Le bundle public contient douze générations dev réelles archivées. Les illustrations
+historiques sont conservées séparément. Les 132 générations de v1 sont enregistrées,
+mais leur annotation humaine reste à réaliser. Les contrôles techniques n’interprètent
+jamais la fidélité clinique.

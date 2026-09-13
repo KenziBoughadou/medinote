@@ -1,230 +1,81 @@
-# MediNote : résumer une consultation sans en changer le sens
+# MediNote
 
 [![CI](https://github.com/KenziBoughadou/medinote/actions/workflows/ci.yml/badge.svg)](https://github.com/KenziBoughadou/medinote/actions/workflows/ci.yml)
 
-**MediNote est une étude de NLP appliqué et d’évaluation de modèles de langage.** À partir d’une consultation fictive, je compare deux façons de produire une note de synthèse : demander un résumé directement au modèle, ou lui faire extraire des faits qu’un programme met ensuite en forme. L’application permet de comparer les notes et de retrouver leurs sources.
+**Comparer la fidélité de deux pipelines de résumé avec un modèle de langage.** À partir d’une consultation fictive, je compare une note rédigée directement par l’IA et une note construite à partir de faits extraits. Je cherche à mesurer ce que chaque méthode conserve, oublie ou transforme, ainsi que son coût.
 
-La question étudiée est : **lequel de ces deux pipelines conserve le mieux les informations du dialogue, et à quel coût ?** Comme la mise en forme change aussi, cette expérience ne permet pas d’isoler l’effet de l’extraction seule.
+C’est un projet de **NLP appliqué et d’évaluation de LLM**. Le modèle est déjà entraîné. Les notes sont des brouillons à relire, sans validation clinique.
 
-Le travail porte sur l’évaluation : définir les erreurs à chercher, garder des cas à part pour le test, vérifier les sources et conserver les résultats pour pouvoir les réexaminer. Les **132 générations sont enregistrées**, avec leurs coûts et leurs durées. Leur relecture humaine reste à terminer : je n’annonce donc pas encore de méthode gagnante. Le modèle utilisé est déjà entraîné ; MediNote ne présente pas un entraînement de réseau de neurones.
+| L’expérience en quelques chiffres | |
+|---|---|
+| Données | 80 consultations fictives en français, 800 faits de référence |
+| Test principal | 40 consultations réservées au test, après 20 cas de développement |
+| Stress | 10 paires testant une inversion de négation |
+| Méthodes | 2 pipelines LLM et 2 comparateurs sans modèle génératif |
+| Sorties archivées | 132 générations LLM et, séparément, 160 extraits |
+| Évaluation | Annotation humaine en attente ; bootstrap apparié prévu |
+| Application | React, TypeScript, Python, FastAPI et API OpenAI |
 
-Toutes les consultations sont fictives. MediNote n’a pas été validé pour le soin et n’est pas destiné à établir un diagnostic. Les notes restent des brouillons à relire.
+[Résultats](#résultats) · [Méthode](#méthode) · [Démo](#démo) · [Architecture](#architecture) · [Limites et suite](#limites-et-suite) · [English](README.en.md)
 
-[Voir le projet en ligne](https://medinote.kbcompany.fr) · [Consulter l’expérience](eval/results/v1/README.md) · [Présentation technique en anglais](README.en.md)
+## Résultats
 
-![Le dialogue fictif à gauche, le résumé direct au centre et la note issue des faits extraits à droite.](docs/assets/readme-comparison.png)
+**L’expérience est exécutée, mais sa conclusion sur la fidélité reste à établir.** Les 132 générations respectent le format attendu. Cela ne prouve pas que leur contenu soit correct : les références et les notes doivent encore être relues.
 
-*L’application affiche ici de vraies générations enregistrées. La mention « Non évalué humainement » signifie que leur contenu attend encore une relecture.*
+Les coûts et délais ci-dessous proviennent des **40 mêmes consultations test**, avec une génération par méthode et par cas.
 
-## Pourquoi travailler sur ce sujet ?
+| Mesure | Direct A | Structuré B | Comparaison B / A | IC 95 % |
+|---|---:|---:|---:|---|
+| Couverture fidèle des faits attendus | Non évaluée | Non évaluée | En attente | En attente |
+| Contradictions et ajouts non soutenus | Non évalués | Non évalués | En attente | En attente |
+| Soutien sémantique des citations | Non évalué | Non évalué | En attente | En attente |
+| Coût moyen par note | 0,00079 $ | 0,00158 $ | ×2,00 | Non calculé |
+| Latence médiane | 2,29 s | 4,98 s | ×2,17 | Non calculé |
 
-Une IA peut produire un texte clair et convaincant tout en changeant le sens de ce qu’on lui a donné. Dans une consultation, quelques mots peuvent faire toute la différence. Une absence de fièvre peut devenir une fièvre, un traitement pris par un proche peut être attribué au patient, ou une hypothèse peut être présentée comme une certitude.
+B coûte et prend environ deux fois plus dans cette campagne. **Je ne sais pas encore si ce surcoût apporte une meilleure fidélité.** Après annotation, les différences de qualité seront présentées en points de pourcentage, avec leurs intervalles bootstrap.
 
-Par exemple, si le dialogue contient « Je tousse depuis trois jours, mais je n’ai pas de fièvre », le résumé doit garder la toux, sa durée et l’absence de fièvre. Oublier la durée et affirmer une fièvre sont deux erreurs différentes. Pour comparer des méthodes, il faut pouvoir les distinguer.
+Les 132 appels représentent **0,153097 $ estimés**, hors essais de développement, hébergement et temps de relecture. Les prix utilisés sont archivés dans le [fichier de tarification v1](eval/pricing.v1.json) ; ce ne sont pas une promesse de tarif futur. Lire les résultats enregistrés ne coûte aucun appel API.
 
-C’est cette question de fidélité qui m’intéresse dans MediNote. Le but est de comprendre ce que chaque méthode conserve, oublie ou transforme. Je n’ai pas encore étudié le temps qu’un professionnel pourrait gagner en utilisant l’outil.
+[Relevé d’exécution et coûts](eval/results/v1/report.md) · [Sorties brutes](eval/results/v1/) · [Résultats des comparateurs extractifs](eval/results/extractive-posthoc-1/report.md)
 
-## Ce que cela pourrait apporter dans le monde du travail
+## Méthode
 
-L’usage que j’imagine est assez concret : une personne dispose déjà du texte d’un échange et doit en faire un compte rendu. MediNote pourrait lui proposer un premier brouillon organisé, qu’elle reprendrait avant de le valider. L’intérêt serait de consacrer moins de temps à remettre les informations en forme et davantage à vérifier ce qu’elles disent. C’est une possibilité à évaluer, pas un gain de temps démontré par le projet.
+**A rédige directement.** Le modèle reçoit le dialogue et produit une note en sept rubriques, avec des références aux passages utilisés.
 
-### Avoir une base pour rédiger
+**B extrait puis met en forme.** Le même modèle relève les faits avec leur sujet, leur négation, leur temporalité et leur degré de certitude. Un programme Python les transforme ensuite en note selon des règles fixes, sans second appel à l’IA.
 
-À partir d’un dialogue écrit, l’application rassemble les informations dans les mêmes sept rubriques. Une personne pourrait ainsi commencer sa relecture avec les symptômes, les traitements et les actions annoncées déjà regroupés. Elle devrait ensuite corriger les erreurs, compléter les oublis et décider de ce qui mérite d’être conservé. Si ces corrections demandent autant de travail qu’une rédaction manuelle, l’outil n’aura pas rempli cet objectif.
+Je compare donc **deux pipelines complets**. Comme le mécanisme de rédaction change aussi, un éventuel écart ne pourra pas être attribué à la seule extraction.
 
-### Faciliter la lecture et la transmission
+Les deux comparateurs gratuits fournissent un repère plus simple : Lead-5 garde les cinq premiers tours de parole ; TF-IDF choisit cinq passages proches du vocabulaire global du dialogue. Ils recopient le texte et les locuteurs, sans utiliser les faits de référence pour sélectionner les extraits. Cet ajout est exploratoire, réalisé après v1. Sa qualité reste à annoter ; la longueur conservée ne mesure pas la couverture des faits.
 
-Un compte rendu sert aussi à quelqu’un qui n’a pas assisté à l’échange. Retrouver les informations au même endroit pourrait faciliter cette lecture et la transmission entre collègues. Par exemple, distinguer une hypothèse d’une action annoncée permettrait de mieux comprendre ce qui a été envisagé et ce qui a été décidé. Encore faut-il que la note respecte cette distinction : c’est justement l’un des points que je cherche à vérifier.
+Pour chaque note, la relecture doit distinguer omissions, contradictions, ajouts sans source et citations insuffisantes. Le code, les données, les consignes et le modèle ont été gelés avant le test. Le protocole prévoit 10 000 tirages bootstrap appariés sur les 40 consultations ; les paires de négation restent séparées.
 
-### Pouvoir contrôler ce que l’IA propose
+[Protocole expérimental](docs/EXPERIMENT_PROTOCOL.md) · [Règles d’évaluation](docs/EVALUATION.md) · [Guide d’annotation](eval/annotation-guide.v1.md)
 
-Les citations donnent un point de départ pour la relecture. Si une phrase semble ambiguë, on peut revenir au passage du dialogue dont elle est issue. Cela pourrait faciliter la recherche d’une erreur ou la compréhension d’une reformulation. Il reste nécessaire de relire l’ensemble, car une information oubliée n’aura aucune citation sur laquelle cliquer.
+## Démo
 
-Le projet porte sur des consultations fictives. Il ne permet pas aujourd’hui de traiter de vrais dossiers de patients. Un usage professionnel demanderait notamment une évaluation avec les personnes concernées et un cadre adapté à la confidentialité des données.
+[Ouvrir MediNote](https://medinote.kbcompany.fr) pour comparer les notes sur six consultations fictives, retrouver les sources et exporter un brouillon. Les douze notes affichées sont des générations réellement enregistrées. Une relance est possible dans les quotas ; aucune consultation personnelle ne peut être saisie.
 
-Je vois aussi une piste au-delà du médical : préparer des comptes rendus de réunion ou des synthèses d’entretiens à partir d’un texte, en gardant un lien avec les propos d’origine. Le principe pourrait être réutilisé, mais il faudrait adapter les rubriques, les consignes et les critères de vérification. Ces usages ne sont pas implémentés dans MediNote.
+![Dialogue fictif et comparaison des deux notes avec leurs références.](docs/assets/readme-comparison.png)
 
-## Les deux méthodes comparées
+*Une citation permet de retrouver un passage. Son existence ne garantit pas qu’il soutienne la phrase : il faut le lire.*
 
-Les deux méthodes utilisent exactement le même dialogue et la même version du modèle. Elles effectuent chacune un seul appel à l’IA.
+Dans un cadre professionnel, l’usage envisagé serait de préparer un compte rendu organisé, puis de le vérifier et le corriger. Des rubriques communes et un retour aux sources pourraient faciliter la transmission entre collègues. **Aucun gain de temps en situation de travail n’a été mesuré.** Il faudrait comparer le temps total de rédaction et de relecture, ainsi que les erreurs restantes.
 
-### Méthode A : demander directement une note
+## Architecture
 
-La première méthode demande à l’IA de rédiger le résumé dans sept rubriques, en indiquant les passages du dialogue qui justifient ses phrases. Le texte obtenu est ensuite affiché dans l’application.
+React et TypeScript affichent les dialogues et les notes. Python, FastAPI et Pydantic préparent les requêtes, contrôlent les formats et construisent la note B. Les deux méthodes utilisent `gpt-4.1-mini-2025-04-14` via l’API OpenAI. SQLite conserve le budget et les quotas ; Docker et GitHub Actions servent à tester et publier les releases.
 
-Cette approche laisse au modèle de la liberté pour reformuler. Elle peut donner une note plus naturelle à lire, mais cette liberté peut aussi conduire à perdre un détail ou à préciser une information qui ne l’était pas dans le dialogue.
+Le travail logiciel rend les résultats inspectables et reproductibles. Les tests de l’application ne remplacent pas l’évaluation de son contenu.
 
-### Méthode B : passer d’abord par une liste de faits
+[Architecture détaillée](docs/ARCHITECTURE.md) · [Fiche du système](docs/MODEL_CARD.md) · [Fiche des données](docs/DATASET_CARD.md)
 
-La seconde méthode demande à l’IA de relever les informations séparément. Pour chaque fait, elle doit préciser ce qui est décrit, la personne concernée, la présence ou l’absence du fait, le moment, le degré de certitude et la source.
+## Limites et suite
 
-Un programme Python transforme ensuite cette liste en note, avec des règles de rédaction fixes. Il n’y a pas de second appel à l’IA. L’idée est de rendre certaines informations plus faciles à contrôler, notamment les négations et les personnes concernées.
+Les dialogues et les références ont été préparés par IA. Ils sont courts, réguliers et peu représentatifs de consultations réelles. L’étude utilise un seul modèle et une seule génération par méthode et par cas. Le style de B peut révéler sa méthode malgré l’annotation en aveugle. Aucune validation clinique, revue indépendante ou supériorité de B n’est revendiquée.
 
-Cette méthode a aussi ses limites. Si l’IA extrait mal un fait ou l’oublie, le programme ne le corrigera pas. Il mettra en forme les informations reçues, même si elles sont incomplètes.
+La priorité est de terminer la relecture des références et des 120 notes de test et de stress. L’atelier hors ligne est prêt : douze lots de dix notes, avec export et reprise du travail. Cette étape réutilise les sorties existantes, sans nouvelle dépense de génération.
 
-Les deux notes suivent les mêmes rubriques : motif de consultation, symptômes, antécédents, traitements et allergies, observations, hypothèses exprimées et actions annoncées.
+Ensuite, je pourrai comparer la fidélité des baselines, analyser les erreurs et concevoir une nouvelle expérience sur un jeu réservé. Un deuxième modèle, des répétitions ou un entraînement complémentaire demanderaient un budget et des données adaptés. Avec les moyens actuels, je privilégie la relecture avant de multiplier les appels.
 
-**Je ne pars pas du principe que B est meilleure que A.** Les deux méthodes changent aussi la manière de rédiger. Un éventuel écart ne pourra donc pas être attribué uniquement à l’extraction des faits.
-
-### Retrouver l’origine d’une phrase
-
-Les références comme `s006` correspondent à des passages du dialogue. En cliquant dessus, on retrouve le texte utilisé pour justifier une phrase de la note.
-
-Ce lien aide à vérifier le résultat, mais il ne suffit pas à prouver qu’une phrase est juste. Le programme peut vérifier qu’un passage existe. Il faut encore le lire pour savoir s’il soutient réellement ce que la note affirme.
-
-<details>
-<summary>Voir un exemple de vérification dans l’application</summary>
-
-![Le passage s006 est sélectionné : « Je ne rapporte pas de vomissement ». Les deux notes peuvent être comparées à cette source.](docs/assets/readme-citation.png)
-
-Le passage surligné parle à la fois de l’absence de vomissement et d’une appendicectomie. Une même source peut donc justifier plusieurs informations, qu’il faut examiner séparément.
-
-</details>
-
-## Où en est le projet ?
-
-La première campagne a été exécutée le **12 septembre 2026**. Les réponses du modèle ont été enregistrées avec leurs sources, leur durée, leur consommation et leur coût estimé.
-
-| Ensemble | Utilisation | Notes enregistrées |
-|---|---|---:|
-| Six consultations de démonstration | Montrer les deux méthodes dans l’application. Ces cas viennent du développement. | 12 |
-| Quarante consultations de test | Comparer A et B sur des cas qui n’ont pas servi à ajuster les consignes. | 80 |
-| Dix paires de stress | Observer ce qui change lorsqu’on inverse une négation, en gardant les autres faits identiques. Chaque paire contient deux variantes. | 40 |
-| **Total** | Les essais de mise au point sont comptés séparément. | **132** |
-
-Les 132 sorties respectent le format attendu et ont pu être transformées en notes. **Cela ne veut pas dire que les 132 notes sont fidèles au dialogue.** La relecture humaine des références et des notes reste à faire. Je ne peux donc pas encore annoncer de taux d’omission, de contradiction ou de précision.
-
-L’application permet déjà de consulter les douze notes de démonstration, de suivre leurs citations et de les exporter. Leur lecture ne déclenche aucun nouvel appel à l’IA. Il est aussi possible de relancer une génération, dans la limite des quotas. Le site ne permet pas de saisir une consultation personnelle.
-
-Les [réponses archivées](eval/results/v1/), le [relevé d’exécution](eval/results/v1/report.md) et les [essais de développement](docs/DEV_TRIALS.md) permettent de suivre ce qui a réellement été réalisé.
-
-### Comparer aussi à des méthodes simples
-
-J’ai ajouté deux points de comparaison sans modèle génératif. Le premier garde les cinq premiers tours de parole. Le second choisit cinq passages à partir des mots qu’ils contiennent, avec une pondération appelée *TF-IDF*. Il cherche les passages proches du vocabulaire global de l’échange, puis les replace dans leur ordre d’origine. Les deux conservent les locuteurs et recopient le texte sans reformulation.
-
-Ces méthodes ont produit **160 extraits sur les 80 consultations**, sans appel API. Elles donnent une base pour se demander ce que le modèle apporte par rapport à une simple sélection de texte. Leurs [sorties et leur relevé](eval/results/extractive-posthoc-1/report.md) sont conservés séparément : cet ajout vient après l’expérience v1 et ne fait pas partie de son test initial.
-
-Il reste à comparer la fidélité de ces extraits aux notes A/B avec une annotation adaptée. Pour l’instant, je mesure seulement la quantité de texte conservée. Une question copiée sans sa réponse peut induire en erreur, et une information rare peut être importante : recopier les mots ne suffit donc pas à garantir le sens.
-
-<details>
-<summary>Voir les deux comparateurs sans appel IA</summary>
-
-![Extraits d’une consultation fictive sélectionnés par les méthodes lead et TF-IDF. Les locuteurs et les phrases originales sont conservés.](docs/assets/readme-baselines.png)
-
-Capture des sorties réellement calculées. Aucun score de fidélité n’est déduit de cette image.
-
-</details>
-
-## Comment j’ai organisé l’expérience
-
-### Garder des cas à part pour le test
-
-Le corpus, qui désigne l’ensemble des dialogues utilisés, contient **80 consultations fictives en français**. Soixante couvrent dix familles de situations. Parmi elles, vingt servent à mettre au point les consignes données au modèle, aussi appelées *prompts*, et quarante sont réservées au test principal. Les vingt variantes restantes forment les dix paires de stress.
-
-Cette séparation évite d’ajuster une méthode sur les exemples qui serviront ensuite à annoncer ses résultats. Les données, les consignes, le modèle et les règles de traitement ont été figés avant les générations de test. Des empreintes numériques permettent de vérifier que les fichiers n’ont pas changé depuis.
-
-Les erreurs rencontrées pendant la mise au point sont conservées dans l’historique. Elles ne sont pas présentées comme des réussites de la campagne finale.
-
-### Vérifier le contenu des notes
-
-Les dialogues sont accompagnés de **800 faits de référence**, dont 720 sont considérés comme attendus dans les notes. Les dialogues et ces références ont été préparés par IA. Il faut donc aussi relire les références, car elles peuvent contenir des erreurs.
-
-L’annotation consiste à examiner chaque information de la note et à expliquer pourquoi elle est correcte ou non. Une **omission** correspond à une information attendue qui manque. Une **contradiction** apparaît lorsque la note change une information, par exemple la personne concernée ou une négation. Un **ajout non soutenu** est une affirmation que le dialogue ne permet pas d’établir.
-
-Les citations sont vérifiées séparément. Un passage peut exister sans justifier la phrase qui lui est attribuée. C’est ce que le protocole considère comme une **citation insuffisante**.
-
-Les 120 notes de test et de stress sont préparées pour être relues sans afficher le nom de la méthode. Le style peut malgré tout permettre de reconnaître B. La première version prévoit une relecture par l’auteur du projet ; une seconde lecture indépendante serait une amélioration utile, mais elle n’a pas encore eu lieu.
-
-### Ne pas se limiter à une moyenne
-
-Chaque consultation test possède une note A et une note B. Les méthodes seront donc comparées sur les mêmes situations, en tenant compte du nombre d’informations à restituer. Les échecs techniques restent eux aussi comptés parmi les tentatives.
-
-Après annotation, le protocole prévoit de rééchantillonner les quarante consultations 10 000 fois. Cette méthode, appelée *bootstrap*, sert à estimer l’incertitude autour des écarts observés. Les résultats sur les paires de négation seront présentés séparément. Je souhaite conserver plusieurs mesures plutôt que de tout ramener à un score unique qui pourrait cacher certains types d’erreurs.
-
-Le [protocole détaillé](docs/EVALUATION.md) et le [guide d’annotation](eval/annotation-guide.v1.md) décrivent les règles retenues.
-
-## Combien cela coûte ?
-
-MediNote utilise **GPT-4.1 mini**, dans la version `gpt-4.1-mini-2025-04-14`. Le programme communique avec le modèle grâce à l’API d’OpenAI. Il n’utilise pas l’abonnement ChatGPT du visiteur et je n’ai pas entraîné de modèle spécialement pour ce projet.
-
-Le prix dépend des *tokens*, qui sont des morceaux de texte lus ou générés. Pour cette campagne, l’estimation utilise **0,40 $ par million de tokens en entrée et 1,60 $ en sortie**, sans déduire les réductions liées au cache. Ces prix sont conservés dans le [fichier de tarification v1](eval/pricing.v1.json). Il faudra revérifier les [tarifs OpenAI](https://developers.openai.com/api/docs/pricing) avant une nouvelle campagne.
-
-| Partie de l’expérience | Coût API estimé, hors taxes |
-|---|---:|
-| Douze notes de démonstration | 0,014175 $ |
-| Quatre-vingts notes du test principal | 0,094630 $ |
-| Quarante notes de stress | 0,044292 $ |
-| **Total, hors essais de développement** | **0,153097 $** |
-
-Sur les quarante cas du test principal, une note A coûte en moyenne environ **0,00079 $**, contre **0,00158 $** pour B. La durée médiane est de **2,29 secondes** pour A et **4,98 secondes** pour B. Autrement dit, la moitié des appels est plus rapide que cette durée et l’autre moitié plus lente.
-
-Dans cette expérience, B demande donc davantage de temps et de tokens. La relecture devra permettre de savoir si cette différence s’accompagne d’une meilleure fidélité. Pour l’instant, je peux comparer les coûts et les délais, mais pas conclure sur la qualité du contenu.
-
-Avec des dialogues et des tarifs comparables, **1 000 comparaisons A/B représenteraient environ 2,37 $ d’API**. C’est un calcul à partir de la campagne actuelle, pas un test réalisé à cette échelle. Des textes plus longs, un autre modèle ou des tentatives supplémentaires modifieraient le montant.
-
-L’API n’est cependant qu’une partie du coût. Il faut aussi compter l’hébergement, la maintenance et le temps de relecture. Par exemple, **si** une note demandait 10 à 20 minutes d’annotation, les 120 notes représenteraient 20 à 40 heures de travail, sans compter la vérification des références. Il s’agit d’une hypothèse pour organiser la suite, pas d’une durée mesurée.
-
-Pour garder la démonstration dans un budget raisonnable, le service dispose d’un plafond de **10 $ estimés par mois**, partagé entre les visiteurs et les expériences. Les relances publiques sont limitées à six tentatives par visiteur et trente au total par jour, avec une seule génération à la fois. Les notes enregistrées restent consultables lorsque les relances ne sont plus disponibles.
-
-## Les limites que je garde en tête
-
-La première limite concerne les données. Les dialogues sont courts, fictifs et construits avec des formulations assez régulières. Ils ne représentent pas toute la diversité d’une consultation, avec ses hésitations, ses interruptions ou ses ambiguïtés. Même de bons résultats sur ce corpus ne permettraient pas de conclure que l’outil est adapté à un usage clinique.
-
-Les références ont également leurs limites. Comme elles ont été préparées par IA, elles peuvent contenir des erreurs ou des choix discutables sur les informations à retenir. La qualité de l’évaluation dépendra de leur relecture autant que de celle des notes générées.
-
-L’expérience porte sur un seul modèle et une seule génération par méthode et par cas. Elle ne permet pas encore de savoir à quel point les résultats changeraient si l’on relançait plusieurs fois la même consultation. Elle ne permet pas non plus de généraliser à d’autres modèles.
-
-Il faut aussi distinguer le format et le contenu. Pendant le développement, une sortie attribuait le label d’un proche au sujet « patient ». La contrainte a été corrigée dans le schéma envoyé au modèle. Cela empêche cette combinaison incohérente, mais ne suffit pas à vérifier que le bon sujet a été choisi dans chaque phrase. Le [détail de ce problème](docs/DEV_TRIALS.md) est conservé dans l’historique.
-
-Enfin, MediNote travaille uniquement sur du texte. Il ne transcrit pas d’audio, ne se connecte pas à un dossier patient et n’a pas été évalué dans un parcours de soin. Je ne présente donc aucun bénéfice clinique ni gain de temps réel comme acquis.
-
-## Ce que je voudrais améliorer ensuite
-
-### Terminer la relecture humaine
-
-La première étape est de relire les références puis d’annoter les 120 notes de test et de stress. C’est ce qui permettra de mesurer les erreurs au lieu de s’en tenir à quelques exemples. Les sorties sont déjà enregistrées : cette étape demande surtout du temps humain, sans nécessiter de nouveaux appels de génération.
-
-Pour rendre ce travail plus accessible, j’ai préparé un atelier de relecture hors ligne en douze lots de dix notes. On peut examiner chaque information, revenir au dialogue, indiquer une erreur, puis exporter son travail et le reprendre plus tard. Un contrôle vérifie les empreintes et la cohérence des annotations terminées. Il ne juge pas leur justesse à la place du relecteur. Le [guide de relecture](docs/REFERENCE_REVIEW.md) explique le parcours.
-
-<details>
-<summary>Voir le formulaire de relecture</summary>
-
-![Atelier local de relecture avec le dialogue et la note. Les décisions doivent être renseignées par le relecteur.](docs/assets/readme-review.png)
-
-Ce formulaire est vierge : sa préparation et sa capture ne constituent pas une annotation humaine.
-
-</details>
-
-### Rendre les dialogues plus variés
-
-J’aimerais ensuite élargir les situations étudiées, avec davantage de corrections dans le dialogue, de proches mentionnés et d’informations incertaines. Une relecture avec un professionnel du domaine aiderait à mieux construire les cas et leurs références. Le travail à prévoir concerne surtout la préparation des données et leur annotation, puis le coût d’une nouvelle campagne.
-
-### Améliorer les méthodes à partir des erreurs observées
-
-Une fois les erreurs identifiées, il sera possible de modifier une consigne ou une règle de traitement, puis de vérifier l’effet de ce changement. Il faudra utiliser un nouveau jeu de test réservé. Les cas de v1, dont les sorties sont désormais accessibles, ne pourront plus servir de test indépendant pour une amélioration conçue à partir de leurs erreurs.
-
-L’objectif serait de savoir précisément ce qu’une modification améliore, mais aussi ce qu’elle peut dégrader. Les anciennes versions et les éventuelles corrections des références devront rester documentées.
-
-### Comparer la qualité, le coût et le temps de réponse
-
-Comparer d’autres modèles et répéter certaines générations permettrait d’aller plus loin. Avec le budget actuel, je donne la priorité à la relecture des sorties existantes et aux comparateurs gratuits. Un essai isolé avec un autre modèle montrerait surtout sa faisabilité ; il ne suffirait pas à mesurer sa variabilité. Il serait aussi intéressant de mesurer le temps nécessaire à une personne pour vérifier chaque type de note. Une note produite plus rapidement n’est pas forcément plus rapide à relire.
-
-Pour savoir si l’outil aide vraiment au travail, je voudrais comparer une rédaction manuelle et une rédaction avec assistance sur des tâches comparables. Je mesurerais le temps total jusqu’à la validation, relecture et corrections comprises, ainsi que les erreurs qui restent dans la note finale. Les retours des participants permettraient aussi de comprendre ce qui les aide ou les gêne. Le coût utile à comparer serait alors celui d’une note vérifiée, en comptant le temps humain, et pas seulement le prix de l’appel à l’IA. Cette étude d’usage reste à construire, séparément de la campagne actuelle.
-
-Ces essais demanderaient un budget défini à l’avance, des appels supplémentaires et une relecture comparable entre les méthodes. Selon les modèles choisis, il faudrait aussi prendre en compte un éventuel coût d’hébergement.
-
-### Envisager un entraînement complémentaire
-
-Adapter un modèle au projet pourrait devenir pertinent si certaines erreurs reviennent malgré de meilleures consignes et de meilleurs contrôles. Cela demanderait des exemples corrigés pour l’apprentissage, séparés des données de test, puis une nouvelle évaluation.
-
-Je n’ai pas encore de chiffrage fiable pour cette piste. Le coût dépendrait du modèle, des données disponibles, de l’entraînement et de son hébergement. Avant d’y consacrer du temps, je veux surtout disposer d’une mesure sérieuse des erreurs de la version actuelle.
-
-Ces pistes décrivent la suite envisagée. Elles ne sont pas encore réalisées et ne changent pas les résultats enregistrés pour v1.
-
-## Le travail réalisé autour du modèle
-
-Le modèle de langage est un service externe. Le travail dans MediNote consiste à organiser son utilisation pour pouvoir observer, comparer et vérifier les résultats. Cela comprend les deux méthodes, la préparation des données, le protocole, les citations, l’archivage, l’interface et le suivi du budget.
-
-L’interface utilise React et TypeScript pour afficher les dialogues et les notes. Le serveur repose sur Python, FastAPI et Pydantic pour préparer les requêtes, contrôler les formats et construire la note B. SQLite conserve la comptabilité des appels, y compris après un redémarrage. GitHub Actions et Docker servent à tester et à déployer des versions identifiables du projet.
-
-La version publiée avec les résultats a passé **95 tests backend, 7 tests frontend et 8 scénarios navigateur**, dont les contrôles d’accessibilité. Ces tests vérifient le fonctionnement du logiciel. La fidélité des notes reste une question distincte, à laquelle la relecture humaine doit encore répondre.
+[Commencer la relecture](docs/REFERENCE_REVIEW.md) · [Périmètre des expériences complémentaires](docs/RESEARCH_SCOPE.md)

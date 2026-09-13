@@ -27,3 +27,4 @@ experiments/
 frontend/test-results/
 frontend/playwright-report/
 docs/assets/
+/IMPLEMENTATION_PLAN.md

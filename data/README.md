@@ -15,6 +15,10 @@ les références ; elles ne mesurent pas les performances d'un modèle. La prép
 initiale est conservée dans `scripts/prepare_corpus.py`. Ne pas la réexécuter pour
 corriger silencieusement v1. Une modification après gel exige un amendement.
 
+Le script de préparation historique exige un `--editorial-context` explicite pour toute
+nouvelle préparation initiale. Il enregistre le hash de ce document et refuse d’écraser
+un corpus existant ou gelé. Les données et la provenance v1 archivées ne sont pas régénérées.
+
 Revue éditoriale et sémantique humaine en attente. Les annotations humaines doivent
 porter sur les empreintes exactes et provenir d'un relecteur identifié.
 
