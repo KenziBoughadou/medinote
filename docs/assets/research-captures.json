@@ -1,0 +1,13 @@
+{
+  "captured_at": "2026-09-13T09:51:07.762Z",
+  "sources": [
+    "eval/results/extractive-posthoc-1/comparison.html",
+    "private local review pack, blank form"
+  ],
+  "images": {
+    "docs/assets/readme-baselines.png": "ebd5dceb6540a312b79789b5e3b7fa5daa30887c4fe2d86f5cd86a661d95be62",
+    "docs/assets/readme-review.png": "5800294d935f8fef4b1de660459aea192445266d99a8f0012c7328ef3cd1018c"
+  },
+  "new_provider_calls": 0,
+  "human_annotations": 0
+}

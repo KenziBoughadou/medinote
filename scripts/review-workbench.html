@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; form-action 'none'; base-uri 'none'">
+<title>MediNote : atelier de relecture</title>
+<style>
+body{font:17px/1.5 system-ui;color:#192b26;background:#f7f9f8;margin:0;padding:24px}
+main{max-width:1400px;margin:auto}h1{font-size:1.7rem}h2{font-size:1.3rem}
+button,input,select,textarea{font:inherit;max-width:100%;padding:10px;box-sizing:border-box}
+button{min-height:48px;cursor:pointer}label{display:block;margin:12px 0}textarea{display:block;width:100%;min-height:80px}
+input[type=number]{width:100px}select[multiple]{width:100%;min-height:110px}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:24px}.card{background:white;border:1px solid #bdccc7;padding:16px;margin:16px 0}
+fieldset{border:1px solid #bdccc7;margin:16px 0}legend{font-weight:600}pre{white-space:pre-wrap;overflow-wrap:anywhere}
+:focus-visible{outline:3px solid #227c70;outline-offset:3px}small{display:block}#notice{padding:12px;background:#e6f1ed}
+@media(max-width:850px){.columns{grid-template-columns:1fr}body{padding:12px}}
+</style>
+<main>
+<h1>Relire une note, information par information</h1>
+<p>Consultations fictives. Aucune revue n’est préremplie. Une phrase peut contenir plusieurs informations : créez alors plusieurs entrées. Si une information se répète, ajoutez ses passages à une même entrée.</p>
+<p>Le formulaire conserve les modifications dans cet onglet. <strong>Exportez avant de fermer ou recharger.</strong> Le fichier téléchargé permet de reprendre la relecture. Aucun accès réseau.</p>
+<label>Votre nom ou identifiant de relecteur <input id="reviewer" autocomplete="off"></label>
+<label>Note à relire <select id="picker"></select></label>
+<button id="download" type="button">Exporter ce lot en JSONL</button>
+<label>Reprendre un export de ce lot <input id="upload" type="file" accept=".jsonl"></label>
+<p id="notice" role="status">Aucune annotation humaine effectuée par la préparation de ce document.</p>
+<div class="columns"><section id="source"></section><section>
+<div id="note"></div><h2>Informations de la note</h2><div id="claims"></div>
+<h2>Vérifier les faits attendus</h2><p>Pour chaque référence, choisissez son état. Les liens aux informations viennent de vos sélections ci-dessus ; aucun état n’est déduit automatiquement.</p><div id="gold"></div>
+<label><input id="segmented" type="checkbox"> J’ai vérifié toute la note, y compris les phrases sans citation, et regroupé les répétitions.</label>
+<label>État de mon travail <select id="status"><option value="draft">Brouillon</option><option value="complete">Relecture terminée par moi</option></select></label>
+<label>Remarques <textarea id="comments"></textarea></label>
+<p>« Terminée » est votre déclaration. Le contrôle Python doit encore valider les empreintes et la cohérence avant tout calcul de résultat.</p>
+</section></div>
+</main>
+<script id="data" type="application/json">__REVIEW_DATA__</script>
+<script>
+'use strict';
+const rows=JSON.parse(document.querySelector('#data').textContent);
+const forms=rows.map(row=>structuredClone(row.form));
+let index=0;
+const $=selector=>document.querySelector(selector);
+const doc=()=>rows[index].document;
+const form=()=>forms[index];
+const assertions=()=>doc().note.sections.flatMap(s=>s.assertions);
+const chars=text=>Array.from(text);
+const labels=[['unresolved','À examiner'],['supported_expected','Correct, fait attendu'],['supported_optional','Correct, fait facultatif'],['contradiction','Contredit le dialogue'],['unsupported','Non soutenu par le dialogue']];
+function node(tag,text,parent){const el=document.createElement(tag);if(text!==null)el.textContent=text;if(parent)parent.append(el);return el;}
+function input(parent,title,value,change,type='text'){
+  const label=node('label',title,parent);const el=node(type==='textarea'?'textarea':'input',null,label);
+  if(type!=='textarea')el.type=type;el.value=value;el.addEventListener('input',()=>change(el.value));return el;
+}
+function select(parent,title,options,value,change,multiple=false){
+  const label=node('label',title,parent),el=node('select',null,label);el.multiple=multiple;
+  for(const [v,t] of options){const o=node('option',t,el);o.value=v;o.selected=multiple?value.includes(v):v===value;}
+  el.addEventListener('change',()=>change(multiple?Array.from(el.selectedOptions,o=>o.value):el.value));return el;
+}
+function button(parent,text,action){const el=node('button',text,parent);el.type='button';el.addEventListener('click',action);return el;}
+function syncLinks(){for(const assessment of form().gold_assessments)assessment.claim_ids=form().claims.filter(c=>c.gold_ids.includes(assessment.gold_id)).map(c=>c.claim_id);}
+function citeChecks(claim){
+  const ids=new Set(claim.spans.map(s=>s.assertion_id));
+  const citations=assertions().filter(a=>ids.has(a.assertion_id)).flatMap(a=>a.citations);
+  const previous=new Map(claim.citation_assessments.map(a=>[a.citation_id,a]));
+  claim.citation_assessments=Array.from(new Map(citations.map(c=>[c.citation_id,c])).values(),c=>previous.get(c.citation_id)||{
+    claim_id:claim.claim_id,citation_id:c.citation_id,resolvable:c.resolvable,supports_claim:null,justification:''
+  });
+}
+function addSpan(claim,assertion){
+  claim.spans.push({assertion_id:assertion.assertion_id,start:0,end:chars(assertion.text).length,quote:assertion.text});citeChecks(claim);
+}
+function addClaim(assertion){
+  const claim={claim_id:'claim-'+crypto.randomUUID(),spans:[],normalized_text:assertion.text,label:'unresolved',gold_ids:[],evidence:[],contradiction_types:[],citation_assessments:[],justification:''};
+  addSpan(claim,assertion);form().claims.push(claim);renderClaims();
+}
+function renderClaims(){
+  $('#claims').replaceChildren();
+  form().claims.forEach((claim,ci)=>{
+    const box=node('fieldset',null,$('#claims'));node('legend','Information '+(ci+1),box);
+    input(box,'Information à évaluer (une seule idée)',claim.normalized_text,v=>claim.normalized_text=v,'textarea');
+    for(const [si,span] of claim.spans.entries()){
+      const a=assertions().find(a=>a.assertion_id===span.assertion_id);
+      const part=node('div',null,box);node('p','Passage : '+span.assertion_id,part);
+      const preview=node('pre',span.quote,part);
+      const update=()=>{span.quote=chars(a.text).slice(span.start,span.end).join('');preview.textContent=span.quote;};
+      input(part,'Début du passage (0 = premier caractère)',span.start,v=>{span.start=Number(v);update();},'number');
+      input(part,'Fin exclue',span.end,v=>{span.end=Number(v);update();},'number');
+      button(part,'Retirer ce passage',()=>{claim.spans.splice(si,1);citeChecks(claim);renderClaims();});
+    }
+    const extra=select(box,'Ajouter un autre passage de la même information',[['','Choisir'],...assertions().map(a=>[a.assertion_id,a.assertion_id+' : '+a.text])],'',()=>{});
+    button(box,'Associer ce passage',()=>{const a=assertions().find(a=>a.assertion_id===extra.value);if(a){addSpan(claim,a);renderClaims();}});
+    select(box,'Votre décision',labels,claim.label,v=>claim.label=v);
+    select(box,'Références associées (Ctrl/Cmd pour plusieurs)',doc().gold.map(g=>[g.fact_id,g.fact_id+' : '+g.label]),claim.gold_ids,v=>{claim.gold_ids=v;syncLinks();},true);
+    select(box,'Types de contradiction', [['polarity','Négation'],['value','Valeur'],['subject','Personne'],['temporality','Temps'],['certainty','Certitude'],['other','Autre']],claim.contradiction_types,v=>claim.contradiction_types=v,true);
+    select(box,'Passages du dialogue qui justifient votre décision',doc().source.segments.map(s=>[s.segment_id,s.segment_id+' : '+s.text]),claim.evidence.map(e=>e.segment_id),v=>{
+      claim.evidence=v.map(id=>{const s=doc().source.segments.find(s=>s.segment_id===id);return {segment_id:id,start:0,end:chars(s.text).length,quote:s.text};});
+    },true);
+    for(const assessment of claim.citation_assessments){
+      const c=assertions().flatMap(a=>a.citations).find(c=>c.citation_id===assessment.citation_id);
+      node('p','Citation '+c.segment_id+' : '+(c.quote??'Source introuvable'),box);
+      select(box,'Cette citation soutient-elle cette information ?', [['','Choisir'],['yes','Oui'],['no','Non']],assessment.supports_claim===null?'':assessment.supports_claim?'yes':'no',v=>assessment.supports_claim=v===''?null:v==='yes');
+      input(box,'Pourquoi, pour cette citation ?',assessment.justification,v=>assessment.justification=v,'textarea');
+    }
+    input(box,'Justification de votre décision',claim.justification,v=>claim.justification=v,'textarea');
+    button(box,'Supprimer cette information',()=>{form().claims.splice(ci,1);syncLinks();renderClaims();});
+  });
+}
+function render(){
+  $('#source').replaceChildren();$('#note').replaceChildren();$('#gold').replaceChildren();
+  node('h2','Dialogue intégral',$('#source'));
+  for(const s of doc().source.segments){const p=node('p',null,$('#source'));node('strong',s.segment_id+' · '+s.speaker,p);node('br',null,p);node('span',s.text,p);}
+  node('h2','Faits de référence à vérifier',$('#source'));
+  for(const g of doc().gold){const details=node('details',null,$('#source'));node('summary',g.fact_id+' : '+g.label,details);node('pre',JSON.stringify(g,null,2),details);}
+  node('h2','Note '+form().blind_output_id,$('#note'));
+  for(const s of doc().note.sections){node('h3',s.title,$('#note'));for(const a of s.assertions){const box=node('div',null,$('#note'));box.className='card';node('p',a.text,box);node('small',a.assertion_id,box);button(box,'Ajouter une information à examiner',()=>addClaim(a));}}
+  for(const g of doc().gold){
+    let assessment=form().gold_assessments.find(a=>a.gold_id===g.fact_id);
+    if(!assessment){assessment={gold_id:g.fact_id,status:'',claim_ids:[],justification:''};form().gold_assessments.push(assessment);}
+    const box=node('fieldset',null,$('#gold'));node('legend',g.fact_id,box);node('p',g.label+' · '+(g.expected_in_note?'attendu':'facultatif'),box);
+    select(box,'État dans la note',[['','Choisir'],['covered','Correctement repris'],['contradicted','Contredit'],['omitted','Oublié'],['not_required','Facultatif']],assessment.status,v=>assessment.status=v);
+    input(box,'Justification pour ce fait',assessment.justification,v=>assessment.justification=v,'textarea');
+  }
+  $('#segmented').checked=form().segmentation_review_complete;$('#status').value=form().status;$('#comments').value=form().comments;
+  renderClaims();
+}
+rows.forEach(row=>{const option=node('option',row.form.blind_output_id,$('#picker'));option.value=row.form.blind_output_id;});
+$('#picker').addEventListener('change',()=>{index=rows.findIndex(r=>r.form.blind_output_id===$('#picker').value);render();});
+$('#segmented').addEventListener('change',()=>form().segmentation_review_complete=$('#segmented').checked);
+$('#status').addEventListener('change',()=>form().status=$('#status').value);
+$('#comments').addEventListener('input',()=>form().comments=$('#comments').value);
+$('#download').addEventListener('click',()=>{
+  const reviewer=$('#reviewer').value.trim();
+  if(!reviewer){$('#notice').textContent='Renseignez votre identifiant avant d’exporter.';return;}
+  syncLinks();
+  for(const f of forms){f.annotator={kind:'human',id:reviewer,model_snapshot:null,prompt_sha256:null};}
+  const blob=new Blob([forms.map(f=>JSON.stringify(f)).join('\n')+'\n'],{type:'application/x-ndjson'});
+  const url=URL.createObjectURL(blob),a=node('a',null);a.href=url;a.download='annotations-'+forms[0].blind_output_id+'.jsonl';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  $('#notice').textContent='Lot exporté. Conservez le fichier pour reprendre et faites vérifier les notes terminées par la commande Python.';
+});
+$('#upload').addEventListener('change',async()=>{
+  try{
+    const file=$('#upload').files[0];if(!file)return;
+    if(file.size>5*1024*1024)throw Error('Fichier trop volumineux.');
+    const incoming=(await file.text()).trim().split('\n').map(line=>JSON.parse(line));
+    if(incoming.length!==forms.length||new Set(incoming.map(f=>f.blind_output_id)).size!==forms.length)throw Error('Le fichier doit contenir exactement ce lot.');
+    const verified=rows.map(row=>{
+      const f=incoming.find(f=>f.blind_output_id===row.form.blind_output_id);
+      if(!f||['annotation_id','note_sha256','gold_sha256','guide_sha256'].some(key=>f[key]!==row.form[key]))throw Error('Fichier d’un autre lot ou empreintes différentes.');
+      if(f.annotator?.kind!=='human'||f.annotator.model_snapshot!==null||f.annotator.prompt_sha256!==null)throw Error('Ce formulaire ne transforme pas une annotation IA en annotation humaine.');
+      if(!['draft','complete'].includes(f.status)||!Array.isArray(f.claims)||!Array.isArray(f.gold_assessments))throw Error('Format incompatible.');
+      for(const c of f.claims){if(!Array.isArray(c.spans)||!Array.isArray(c.gold_ids)||!Array.isArray(c.evidence)||!Array.isArray(c.citation_assessments)||!Array.isArray(c.contradiction_types)||c.spans.some(s=>!row.document.note.sections.flatMap(s=>s.assertions).some(a=>a.assertion_id===s.assertion_id)))throw Error('Passages incompatibles.');}
+      return f;
+    });
+    if(new Set(verified.map(f=>f.annotator.id)).size!==1)throw Error('Le lot contient plusieurs relecteurs : conservez leurs fichiers séparés.');
+    forms.splice(0,forms.length,...verified);$('#reviewer').value=forms[0].annotator.id;render();$('#notice').textContent='Export rechargé. Aucune validation automatique du contenu.';
+  }catch(error){$('#notice').textContent='Import refusé : '+error.message;}
+});
+render();
+</script>
+</html>

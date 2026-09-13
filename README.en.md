@@ -5,6 +5,11 @@
 Compare two AI/NLP pipelines on fictional French consultations and inspect the source
 of each assertion. **Drafts for review, without clinical validation.**
 
+This is an applied NLP and LLM evaluation project, not a neural-network training project.
+The main question concerns the fidelity and cost of two complete pipelines. It does not
+isolate the causal effect of extraction alone. There are 132 archived model generations;
+final semantic results still require human review.
+
 - **A — direct summary:** one consultation → one LLM call → structured note.
 - **B — structured extraction:** one LLM call → typed facts → deterministic Python rendering.
 
@@ -17,6 +22,12 @@ No account is required; live AI generation is available within quotas. The local
 without an API key. Its twelve archived notes are **actual model generations**, with raw responses,
 tokens, latency and estimated cost. Semantic performance metrics await annotation.
 Screenshots and the video show the earlier illustrative release.
+
+Two additional extractive comparators, lead-5 and TF-IDF centroid-5, now produce 160
+archived excerpts without provider calls. This is a separate, post hoc experiment:
+[outputs and limitations](eval/results/extractive-posthoc-1/report.md). Selection never
+uses gold facts. Length retention is reported, not semantic quality. Offline review packs
+and partial annotation checks are described in [the review guide](docs/REFERENCE_REVIEW.md).
 
 ## Run locally
 

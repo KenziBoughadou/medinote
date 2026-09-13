@@ -2,9 +2,11 @@
 
 [![CI](https://github.com/KenziBoughadou/medinote/actions/workflows/ci.yml/badge.svg)](https://github.com/KenziBoughadou/medinote/actions/workflows/ci.yml)
 
-**MediNote est un projet d’étude qui compare deux façons de transformer un dialogue médical en une note de synthèse avec une IA.** On peut lire le dialogue de départ, comparer les deux notes et retrouver les passages sur lesquels elles s’appuient.
+**MediNote est une étude de NLP appliqué et d’évaluation de modèles de langage.** À partir d’une consultation fictive, je compare deux façons de produire une note de synthèse : demander un résumé directement au modèle, ou lui faire extraire des faits qu’un programme met ensuite en forme. L’application permet de comparer les notes et de retrouver leurs sources.
 
-Avec ce projet, je cherche à répondre à une question : **est-ce qu’une IA respecte mieux les informations d’une consultation lorsqu’on lui demande de les extraire avant de rédiger ?** J’ai construit une application pour observer les différences et un protocole pour pouvoir les mesurer.
+La question étudiée est : **lequel de ces deux pipelines conserve le mieux les informations du dialogue, et à quel coût ?** Comme la mise en forme change aussi, cette expérience ne permet pas d’isoler l’effet de l’extraction seule.
+
+Le travail porte sur l’évaluation : définir les erreurs à chercher, garder des cas à part pour le test, vérifier les sources et conserver les résultats pour pouvoir les réexaminer. Les **132 générations sont enregistrées**, avec leurs coûts et leurs durées. Leur relecture humaine reste à terminer : je n’annonce donc pas encore de méthode gagnante. Le modèle utilisé est déjà entraîné ; MediNote ne présente pas un entraînement de réseau de neurones.
 
 Toutes les consultations sont fictives. MediNote n’a pas été validé pour le soin et n’est pas destiné à établir un diagnostic. Les notes restent des brouillons à relire.
 
@@ -96,6 +98,23 @@ L’application permet déjà de consulter les douze notes de démonstration, de
 
 Les [réponses archivées](eval/results/v1/), le [relevé d’exécution](eval/results/v1/report.md) et les [essais de développement](docs/DEV_TRIALS.md) permettent de suivre ce qui a réellement été réalisé.
 
+### Comparer aussi à des méthodes simples
+
+J’ai ajouté deux points de comparaison sans modèle génératif. Le premier garde les cinq premiers tours de parole. Le second choisit cinq passages à partir des mots qu’ils contiennent, avec une pondération appelée *TF-IDF*. Il cherche les passages proches du vocabulaire global de l’échange, puis les replace dans leur ordre d’origine. Les deux conservent les locuteurs et recopient le texte sans reformulation.
+
+Ces méthodes ont produit **160 extraits sur les 80 consultations**, sans appel API. Elles donnent une base pour se demander ce que le modèle apporte par rapport à une simple sélection de texte. Leurs [sorties et leur relevé](eval/results/extractive-posthoc-1/report.md) sont conservés séparément : cet ajout vient après l’expérience v1 et ne fait pas partie de son test initial.
+
+Il reste à comparer la fidélité de ces extraits aux notes A/B avec une annotation adaptée. Pour l’instant, je mesure seulement la quantité de texte conservée. Une question copiée sans sa réponse peut induire en erreur, et une information rare peut être importante : recopier les mots ne suffit donc pas à garantir le sens.
+
+<details>
+<summary>Voir les deux comparateurs sans appel IA</summary>
+
+![Extraits d’une consultation fictive sélectionnés par les méthodes lead et TF-IDF. Les locuteurs et les phrases originales sont conservés.](docs/assets/readme-baselines.png)
+
+Capture des sorties réellement calculées. Aucun score de fidélité n’est déduit de cette image.
+
+</details>
+
 ## Comment j’ai organisé l’expérience
 
 ### Garder des cas à part pour le test
@@ -165,6 +184,17 @@ Enfin, MediNote travaille uniquement sur du texte. Il ne transcrit pas d’audio
 
 La première étape est de relire les références puis d’annoter les 120 notes de test et de stress. C’est ce qui permettra de mesurer les erreurs au lieu de s’en tenir à quelques exemples. Les sorties sont déjà enregistrées : cette étape demande surtout du temps humain, sans nécessiter de nouveaux appels de génération.
 
+Pour rendre ce travail plus accessible, j’ai préparé un atelier de relecture hors ligne en douze lots de dix notes. On peut examiner chaque information, revenir au dialogue, indiquer une erreur, puis exporter son travail et le reprendre plus tard. Un contrôle vérifie les empreintes et la cohérence des annotations terminées. Il ne juge pas leur justesse à la place du relecteur. Le [guide de relecture](docs/REFERENCE_REVIEW.md) explique le parcours.
+
+<details>
+<summary>Voir le formulaire de relecture</summary>
+
+![Atelier local de relecture avec le dialogue et la note. Les décisions doivent être renseignées par le relecteur.](docs/assets/readme-review.png)
+
+Ce formulaire est vierge : sa préparation et sa capture ne constituent pas une annotation humaine.
+
+</details>
+
 ### Rendre les dialogues plus variés
 
 J’aimerais ensuite élargir les situations étudiées, avec davantage de corrections dans le dialogue, de proches mentionnés et d’informations incertaines. Une relecture avec un professionnel du domaine aiderait à mieux construire les cas et leurs références. Le travail à prévoir concerne surtout la préparation des données et leur annotation, puis le coût d’une nouvelle campagne.
@@ -177,7 +207,7 @@ L’objectif serait de savoir précisément ce qu’une modification améliore, 
 
 ### Comparer la qualité, le coût et le temps de réponse
 
-Comparer d’autres modèles et répéter certaines générations permettrait d’aller plus loin. Il serait aussi intéressant de mesurer le temps nécessaire à une personne pour vérifier chaque type de note. Une note produite plus rapidement n’est pas forcément plus rapide à relire.
+Comparer d’autres modèles et répéter certaines générations permettrait d’aller plus loin. Avec le budget actuel, je donne la priorité à la relecture des sorties existantes et aux comparateurs gratuits. Un essai isolé avec un autre modèle montrerait surtout sa faisabilité ; il ne suffirait pas à mesurer sa variabilité. Il serait aussi intéressant de mesurer le temps nécessaire à une personne pour vérifier chaque type de note. Une note produite plus rapidement n’est pas forcément plus rapide à relire.
 
 Pour savoir si l’outil aide vraiment au travail, je voudrais comparer une rédaction manuelle et une rédaction avec assistance sur des tâches comparables. Je mesurerais le temps total jusqu’à la validation, relecture et corrections comprises, ainsi que les erreurs qui restent dans la note finale. Les retours des participants permettraient aussi de comprendre ce qui les aide ou les gêne. Le coût utile à comparer serait alors celui d’une note vérifiée, en comptant le temps humain, et pas seulement le prix de l’appel à l’IA. Cette étude d’usage reste à construire, séparément de la campagne actuelle.
 

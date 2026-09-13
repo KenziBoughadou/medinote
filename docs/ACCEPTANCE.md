@@ -195,3 +195,32 @@ Le filtrage réseau est conservé à la demande de l’opérateur. L’accès SS
 GitHub reste indisponible ; le déploiement depuis le serveur est documenté comme adaptation
 du transport prévu à l’étape 11. Aucun changement des données, dépenses, images actives,
 services voisins ou résultats scientifiques n’est nécessaire à cette synchronisation.
+
+## Renforcement de l’évaluation — 13 septembre 2026
+
+La demande de correction de l’analyse critique est traitée sans dépenses d’inférence.
+La présentation porte désormais explicitement sur deux pipelines complets, et les consignes
+de configuration de l’assistant sont retirées du plan. La provenance des données reste exacte.
+
+Deux comparateurs extractifs ont produit 160 sorties sur les 80 consultations : lead-5 et
+TF-IDF centroid-5. Aucun gold n’est lu par leur script. Leur manifest enregistre les hashes
+d’entrée, de code et de sortie ; la campagne reste séparée de v1, ajoutée après sa publication,
+avec métriques sémantiques absentes. Les proportions de mots conservés ne sont pas des scores
+de couverture des faits.
+
+Les 120 notes aveugles ont été préparées en douze lots HTML locaux de dix notes sous
+`.state/relecture-v1`. Le formulaire permet segmentation, alignement, jugement des citations,
+export et reprise. Le contrôle partiel réutilise les validateurs v1 ; les brouillons restent
+non évalués. Les essais navigateur vérifient ajout, export, reprise, refus d’empreinte altérée,
+absence de requête réseau et largeur mobile. Leurs exports sont des fixtures isolées sous
+`.state/review-ui-test`, jamais des annotations expérimentales.
+
+Les captures de l’atelier vierge et des comparateurs montrent leur fonctionnement réel.
+La revue humaine, une comparaison de qualité avec ces baselines, un second modèle,
+les répétitions et un entraînement restent non réalisés. Voir `docs/RESEARCH_SCOPE.md`
+pour la correspondance entre chaque critique, la correction et la limite restante.
+
+Validation locale : 127 tests Python réussis, Ruff et `git diff --check` conformes.
+Les 28 fichiers référencés par le manifest gelé de v1 sont inchangés. Les empreintes
+du script et des artefacts extractifs sont vérifiées. Aucun événement de revue humaine
+n’a été ajouté et aucun appel fournisseur n’a été effectué pour ces corrections.

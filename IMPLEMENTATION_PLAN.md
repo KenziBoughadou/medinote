@@ -1,8 +1,8 @@
 # MediNote — plan d’implémentation verrouillé
 
-Version : 1.0 — 11 septembre 2026.
+Version : 1.1 — 13 septembre 2026. Les décisions expérimentales v1 du 11 septembre restent figées ; cette révision ajoute les outils de relecture et les comparateurs exploratoires décrits en annexe D.
 
-Statut : spécification d’implémentation, application non créée. Ce document est le seul fichier produit par la mission d’architecture. Aucun code applicatif, configuration de production, secret, dépôt GitHub ou enregistrement DNS n’a été modifié.
+Statut : spécification initiale conservée pour retracer les décisions de v1. L’application est maintenant déployée ; les états d’exécution datés figurent en annexe D et dans `docs/ACCEPTANCE.md`. Les descriptions de préparation ci-dessous correspondent au début du projet.
 
 Emplacement de préparation : `/home/kenzi/IMPLEMENTATION_PLAN.md`. À l’étape 01, copier ce document dans la racine du nouveau dépôt sous le même nom. Le répertoire `/opt` n’est pas inscriptible par `kenzi` ; sa préparation est une opération administrateur explicitée à l’étape 11.
 
@@ -12,7 +12,7 @@ Les décisions ci-dessous sont verrouillées. Une indisponibilité de clé, de p
 
 ### 1.1 Objectif et livrables
 
-MediNote transforme une consultation fictive écrite en français en brouillon clinique structuré dont les assertions renvoient aux passages de la consultation. Le projet vise un portfolio d’ingénieur IA/NLP.
+MediNote transforme une consultation fictive écrite en français en brouillon clinique structuré dont les assertions renvoient aux passages de la consultation. Le projet étudie la fidélité de deux pipelines de génération, leur coût et leurs limites sur des données synthétiques.
 
 Deux pipelines sont comparés :
 
@@ -57,7 +57,6 @@ Le dossier `/opt/medinote` est absent. La requête GitHub pour `KenziBoughadou/m
 - Secret runtime : `/opt/secrets/medinote.env`, monté en lecture seule dans l’API à `/run/secrets/medinote.env`.
 - Frontend : React 19, TypeScript 5, Vite 7, Tailwind CSS 4 avec `@tailwindcss/vite`, `@phosphor-icons/react`, police Geist embarquée via `@fontsource/geist`.
 - Runtime de build : Node 22, version minimale 22.12. Aucun remplacement du Node système du VPS.
-- Préférence de travail de l’utilisateur : l’agent d’implémentation est demandé en GPT-6 Astra avec effort High. Ce réglage de l’outil de développement est distinct du modèle `gpt-4.1-mini-2025-04-14` utilisé par l’application et n’en modifie pas le budget.
 - Backend : Python 3.12, FastAPI, Pydantic 2, `pydantic-settings`, SDK Python OpenAI, `httpx`, `tiktoken` et Uvicorn.
 - Outils Python : `uv` et `uv.lock` ; groupes de dépendances `dev` et `eval`. Groupe `eval` : NumPy et Matplotlib. Pas de pandas requis.
 - Outils frontend : npm et `package-lock.json`, ESLint, Vitest, Testing Library, Playwright et `@axe-core/playwright`.
@@ -786,3 +785,15 @@ Il conserve les archives exactes de CI, les contrôles, le verrou, le déploieme
 de l’étape 11, et enregistre leur résultat réel dans GitHub. Écart opérationnel explicite :
 le lancement reste côté serveur, sans automatisation du transport SSH depuis GitHub et sans
 modification du pare-feu. L’application et le protocole expérimental restent inchangés.
+
+13 septembre 2026 — révision 1.1 demandée après analyse critique : recentrer la présentation
+sur le NLP appliqué et l’évaluation de pipelines, retirer la préférence de configuration
+de l’assistant, et ajouter deux comparateurs extractifs gratuits dans une expérience séparée.
+`scripts/extractive_baselines.py` produit lead-5 et TF-IDF centroid-5 sans gold ni fournisseur ;
+les sorties sont archivées sous `eval/results/extractive-posthoc-1/`, explicitement post hoc.
+`scripts/annotation_review.py` et son formulaire HTML préparent la revue de v1 par lots et
+valident des annotations partielles avec les règles existantes. Ils ne créent aucune revue
+humaine ni métrique finale. Aucun contrat public, fichier gelé, modèle ou renderer v1 ne change.
+Le budget supplémentaire étant très limité, aucun entraînement, nouveau fournisseur,
+téléchargement de poids sur le VPS ou appel payant ne fait partie de cette révision.
+Les limites non résolues et leurs dépendances sont précisées dans `docs/RESEARCH_SCOPE.md`.
