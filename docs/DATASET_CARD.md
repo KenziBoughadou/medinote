@@ -1,11 +1,11 @@
 # Fiche du corpus
 
 Version 1.0. Langue : français de France. Données exclusivement synthétiques,
-préparées par l’agent IA d’implémentation ; pas de dossier réel ni dataset traduit.
-Provenance dans `data/provenance.v1.json`. Aucune revue humaine initiale.
+préparées par IA ; pas de dossier réel ni dataset traduit.
+Provenance dans `data/provenance.v1.json`.
 
-Le 13 septembre 2026, Kenzi a confirmé sa relecture et l’acceptation des références
-sans correction. Les événements associés aux hashes figurent dans `data/review-events.jsonl`.
+Le 13 septembre 2026, on a terminé la relecture des références et on les a
+conservées sans correction. Les événements associés aux hashes figurent dans `data/review-events.jsonl`.
 Cette revue ultérieure conserve l’origine IA et les textes initiaux ; aucune validation
 clinique ou relecture indépendante n’est revendiquée.
 

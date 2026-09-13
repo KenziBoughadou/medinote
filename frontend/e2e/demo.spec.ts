@@ -7,7 +7,7 @@ test('six cas, A/B, sources et navigation',async({page})=>{
   await citation.click();await expect(page.locator('#source-s002')).toBeFocused();await expect(page.getByText('Source sélectionnée')).toBeVisible()
   await page.getByRole('button',{name:'Revenir à la citation'}).click();await expect(citation).toBeFocused()
   await expect(page.getByRole('link',{name:'GitHub'})).toHaveAttribute('href','https://github.com/KenziBoughadou/medinote')
-  await page.getByRole('link',{name:'Résultats',exact:true}).click();await expect(page.getByText('Références et sorties revues humainement')).toBeVisible()
+  await page.getByRole('link',{name:'Résultats',exact:true}).click();await expect(page.getByText('Évaluation terminée : références vérifiées et notes annotées')).toBeVisible()
   const coverage=page.getByRole('row').filter({has:page.getByRole('rowheader',{name:'Couverture fidèle',exact:true})})
   await expect(coverage).toContainText('95,8');await expect(coverage).toContainText('92,5')
   await expect(coverage.getByRole('cell').last()).toHaveText('-3,3 points · [-5,3 points ; -1,4 points]')

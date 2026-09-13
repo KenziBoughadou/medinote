@@ -20,7 +20,7 @@ C’est un projet de **NLP appliqué et d’évaluation de LLM**. Le modèle est
 
 ## Résultats
 
-**Sur ce corpus, A conserve davantage de faits attendus que B, pour un coût inférieur.** Les 120 notes de test et de stress ont été relues par Kenzi, qui a aussi accepté les références sans correction. Les résultats ci-dessous sont calculés à partir de ses annotations, avec le [validateur amendé v1.1](docs/ANNOTATION_AMENDMENT_V1_1.md). Il s’agit d’une relecture par l’auteur, sans validation indépendante ou clinique.
+**Sur ce corpus, A conserve davantage de faits attendus que B, pour un coût inférieur.** On a relu les 120 notes de test et de stress, puis vérifié les références sans les modifier. Les résultats ci-dessous reposent sur ces annotations et sur les [règles d’alignement v1.1](docs/ANNOTATION_AMENDMENT_V1_1.md). La relecture a été réalisée par l’auteur du projet, sans second avis indépendant ni validation clinique.
 
 Les mesures portent sur les **40 mêmes consultations test**, avec une génération par méthode et par cas. Les différences de qualité sont exprimées en points de pourcentage ; les coûts et délais sont comparés par un rapport.
 
@@ -34,7 +34,7 @@ Les mesures portent sur les **40 mêmes consultations test**, avec une générat
 | Coût moyen par note | 0,00079 $ | 0,00158 $ | ×2,00 | Non calculé |
 | Latence médiane | 2,29 s | 4,98 s | ×2,17 | Non calculé |
 
-A reprend **345 des 360 faits attendus**, contre **333 pour B**. B compte 26 omissions et une contradiction, contre 15 omissions et aucune contradiction pour A. Aucun ajout non soutenu n’a été étiqueté dans cette relecture : cela ne prouve pas une absence générale d’hallucinations. Les intervalles bootstrap ne couvrent pas les erreurs possibles de l’annotateur.
+A reprend **345 des 360 faits attendus**, contre **333 pour B**. B compte 26 omissions et une contradiction, contre 15 omissions et aucune contradiction pour A. Aucun ajout non soutenu n’a été étiqueté dans cette relecture : cela ne prouve pas une absence générale d’hallucinations. Les intervalles donnent une idée de la variation entre les consultations, mais ne tiennent pas compte des erreurs possibles de relecture.
 
 Le test de stress reste séparé : **0 paire sur 10 réussie pour chaque méthode** au critère strict, qui exige les deux polarités et tous les faits invariants. L’incertitude sur l’origine de la plainte est omise dans les 40 notes de stress ; ce résultat ne signifie pas que toutes les négations sont erronées. [Méthodologie, dénominateurs et limites](docs/HUMAN_REVIEW_RESULTS.md).
 
@@ -52,7 +52,7 @@ Je compare donc **deux pipelines complets**. Comme le mécanisme de rédaction c
 
 Les deux comparateurs gratuits fournissent un repère plus simple : Lead-5 garde les cinq premiers tours de parole ; TF-IDF choisit cinq passages proches du vocabulaire global du dialogue. Ils recopient le texte et les locuteurs, sans utiliser les faits de référence pour sélectionner les extraits. Cet ajout est exploratoire, réalisé après v1. Sa qualité reste à annoter ; la longueur conservée ne mesure pas la couverture des faits.
 
-La relecture distingue omissions, contradictions, ajouts sans source et citations insuffisantes. Le code, les données, les consignes et le modèle ont été gelés avant le test. L’amendement v1.1, ajouté après la relecture, autorise les faits facultatifs sourcés absents du gold sans modifier les faits attendus. Les 10 000 tirages bootstrap appariés sont calculés sur les 40 consultations ; les paires de négation restent séparées.
+La relecture distingue omissions, contradictions, ajouts sans source et citations insuffisantes. Le code, les données, les consignes et le modèle ont été gelés avant le test. L’amendement v1.1, ajouté après la relecture, autorise les faits facultatifs sourcés absents des références sans modifier les faits attendus. Les 10 000 tirages bootstrap appariés sont calculés sur les 40 consultations ; les paires de négation restent séparées.
 
 [Protocole expérimental](docs/EXPERIMENT_PROTOCOL.md) · [Règles d’évaluation](docs/EVALUATION.md) · [Guide d’annotation](eval/annotation-guide.v1.md)
 
@@ -82,4 +82,4 @@ La priorité suivante est une seconde relecture, en particulier des faits compos
 
 Ensuite, je pourrai comparer la fidélité des baselines, analyser les erreurs et concevoir une nouvelle expérience sur un jeu réservé. Un deuxième modèle, des répétitions ou un entraînement complémentaire demanderaient un budget et des données adaptés. Avec les moyens actuels, je privilégie la relecture avant de multiplier les appels.
 
-[Commencer la relecture](docs/REFERENCE_REVIEW.md) · [Périmètre des expériences complémentaires](docs/RESEARCH_SCOPE.md)
+[Guide de relecture](docs/REFERENCE_REVIEW.md) · [Périmètre des expériences complémentaires](docs/RESEARCH_SCOPE.md)

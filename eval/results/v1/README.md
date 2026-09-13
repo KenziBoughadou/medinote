@@ -1,4 +1,4 @@
-# Campagne réelle v1 — annotation humaine en attente
+# Sorties brutes de la campagne v1
 
 132 tentatives exécutées le 12 septembre 2026 sur le snapshot
 `gpt-4.1-mini-2025-04-14`, dans l’API de production avec le budget partagé.
@@ -13,16 +13,20 @@ techniquement valides ; cela ne mesure pas leur fidélité sémantique.
 - Code des générateurs figé au commit `3138ec963c32c6c5acfac93ffddbf0490f5c08ca`.
   Les commits de publication ultérieurs ne changent pas ces générateurs.
 
-Les références sont préparées par IA, non relues humainement. Aucun fichier d’annotation
-complétée, métrique sémantique, bootstrap ou figure statistique n’est créé avant la revue.
-La campagne est exploratoire et n’est pas une validation clinique.
+**L’évaluation est terminée.** On a annoté les 120 notes de test et de stress et
+conservé les références après relecture. Les [résultats v1.1](../reviewed-v1.1/)
+rassemblent les scores, les annotations et les intervalles de confiance. La
+[méthodologie](../../../docs/HUMAN_REVIEW_RESULTS.md) explique comment on les calcule.
 
-Les 120 formulaires vierges et documents d’annotation sont dans l’état privé du serveur,
-`/var/lib/medinote/experiments/v1/blind/`, avec une copie de travail locale ignorée par Git
-dans `.state/annotation-v1/`. Le mapping méthode–note reste dans `study/private/` sur le
-serveur jusqu’à la clôture de l’annotation. La forme du texte peut révéler la méthode B.
-Le relecteur doit suivre [le guide](../../annotation-guide.v1.md), puis utiliser les
-commandes d’import et de rapport décrites dans [l’exploitation](../../../docs/DEPLOYMENT.md).
+Ce dossier conserve les réponses du modèle au moment de la génération. Les statuts
+inscrits dans ses manifests décrivent cet état initial, avant l’annotation. Les
+résultats de l’évaluation sont archivés séparément pour garder cette chronologie.
+Les douze notes de démonstration ne font pas partie des 120 notes évaluées.
+
+La correspondance entre les identifiants des notes et les méthodes, masquée pendant
+l’annotation, est maintenant [disponible](../reviewed-v1.1/blind-mapping.json).
+Le corpus a été préparé par IA et reste entièrement fictif. L’évaluation a été faite
+par l’auteur du projet, sans second avis indépendant ni validation clinique.
 
 Vérifier les archives sans nouvel appel :
 

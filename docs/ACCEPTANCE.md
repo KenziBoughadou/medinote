@@ -1,4 +1,15 @@
-# Recette MediNote — 12 septembre 2026
+# Recette MediNote
+
+État actuel : application déployée, 120 notes annotées et résultats v1.1 publiés.
+La [méthode et les limites](HUMAN_REVIEW_RESULTS.md) accompagnent les scores.
+La CI de la release `b7261c3b9fab6a334a2a5f785b909b8a80b61e0f` a validé
+141 tests Python, 7 tests frontend et 8 parcours navigateur. Son déploiement GitHub
+6427164554 a réussi et le site a été vérifié en HTTPS.
+
+Les entrées ci-dessous décrivent les étapes successives. Les mentions « en attente »
+concernent la date de chaque entrée, pas l’état actuel de l’évaluation.
+
+## État initial — 12 septembre 2026
 
 Application : implémentée, validations locale et CI réussies, images publiées et accessibles anonymement.
 Publication : GitHub/GHCR, DNS, certificat et site HTTPS vérifiés ; supervision et accès SSH du runner à confirmer.
@@ -266,9 +277,9 @@ d’architecture ou du runtime public ; ce pilote ne remplace pas l’étude fin
 
 ## Relecture confirmée et résultats v1.1 — 13 septembre 2026
 
-Kenzi confirme la relecture des 120 notes, la classification des cinq informations
-restées ouvertes comme facultatives et soutenues, et l’acceptation sans correction
-des références dev, test et stress. Trois événements associés aux hashes sont
+On a terminé la relecture des 120 notes, classé les cinq informations
+restées ouvertes comme facultatives et soutenues, et conservé sans correction
+les références dev, test et stress. Trois événements associés aux hashes sont
 ajoutés à `data/review-events.jsonl`. Les décisions finales, leur clôture et les
 empreintes des archives reçues sont conservées dans `eval/results/reviewed-v1.1/`.
 

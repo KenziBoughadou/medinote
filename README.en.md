@@ -8,7 +8,7 @@ of each assertion. **Drafts for review, without clinical validation.**
 This is an applied NLP and LLM evaluation project, not a neural-network training project.
 The main question concerns the fidelity and cost of two complete pipelines. It does not
 isolate the causal effect of extraction alone. There are 132 archived model generations;
-the 120 test/stress notes have now been reviewed by Kenzi, the project author.
+the 120 test/stress notes have now been reviewed by the project author.
 
 - **A — direct summary:** one consultation → one LLM call → structured note.
 - **B — structured extraction:** one LLM call → typed facts → deterministic Python rendering.
@@ -34,7 +34,7 @@ See the [review methodology](docs/HUMAN_REVIEW_RESULTS.md) and
 A separate [AI annotation pilot](docs/ANNOTATION_PILOT.md) examines ten archived notes.
 Five forms are complete and five retain unresolved decisions, including partially
 covered reference facts. The pilot reports concrete omissions and protocol limitations,
-without claiming human review or estimating full-cohort performance.
+without estimating performance across the full cohort.
 Screenshots and the video show the earlier illustrative release.
 
 Two additional extractive comparators, lead-5 and TF-IDF centroid-5, now produce 160
@@ -77,7 +77,7 @@ semantic faithfulness.
 80 synthetic dialogues: 60 main parents in ten families (20 development, 40 test), plus
 ten independent negation stress pairs. Six development cases are public. Source spans
 use Unicode code points. Texts and gold references were prepared by AI, then accepted
-without corrections by Kenzi. All 120 test/stress annotations are complete under the
+without corrections during the author’s review. All 120 test/stress annotations are complete under the
 versioned v1.1 validator. The earlier AI pilot remains a separate historical artifact.
 
 ```bash

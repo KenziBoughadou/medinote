@@ -10,13 +10,13 @@ expérience clinique n’est revendiqué.
 | Point soulevé | Changement réalisé | Limite restante |
 |---|---|---|
 | Positionnement trop proche d’un projet d’entraînement | Introduction française et anglaise centrée sur le NLP appliqué et l’évaluation de LLM. | Aucun modèle entraîné, aucune compétence d’optimisation de réseau revendiquée. |
-| Résultats humains absents | Atelier local, douze lots de dix notes, export/reprise, vérification partielle avec les règles v1. | Aucune annotation humaine terminée par la préparation des outils. |
+| Résultats initialement absents | Annotation des 120 notes terminée ; scores et intervalles publiés en v1.1. | Une seule relecture par l’auteur du projet, sans second avis indépendant. |
 | Corpus artificiel et gold préparé par IA | Provenance conservée, références accessibles pendant la relecture, empreintes contrôlées. | Le corpus reste synthétique et petit. Ajouter des dialogues générés ne résoudrait pas ce biais. |
 | A/B change plusieurs facteurs | Question principale corrigée pour porter sur les pipelines complets. | Aucun effet causal de l’extraction seule n’est mesuré. |
 | Absence de baseline simple | Lead-5 et TF-IDF centroid-5 implémentés, testés et exécutés sur les 80 consultations. | La qualité des 160 extraits reste à annoter ; ils ne suivent pas les sept rubriques A/B. |
 | Un seul modèle, aucune répétition | Ce périmètre est explicite ; aucun essai isolé n’est présenté comme mesure de variance. | Comparaison entre modèles et répétitions non exécutées, faute de budget défini. |
 | Ingénierie plus visible que l’évaluation | README recentré sur question, observations, statut de revue et méthodes. | Les tests logiciels ne deviennent pas des résultats scientifiques. |
-| Document de construction interne trop présent | Plan retiré de la version publique courante et conservé localement ; décisions utiles présentées dans `EXPERIMENT_PROTOCOL.md` et `ARCHITECTURE.md`. | Historique conservé ; provenance IA des données et absence de revue humaine toujours déclarées. |
+| Document de construction interne trop présent | Plan retiré de la version publique courante et conservé localement ; décisions utiles présentées dans `EXPERIMENT_PROTOCOL.md` et `ARCHITECTURE.md`. | Historique conservé ; provenance des données et limites de l’annotation documentées. |
 
 ## Deux comparateurs sans dépenses d’API
 
@@ -50,8 +50,8 @@ La proportion de mots conservés mesure la compression, pas les omissions de fai
 
 ## Ce qui demande encore une expérience
 
-Mise à jour après réception des lots : les 120 notes ont été relues par Kenzi et les
-références acceptées sans correction. Les [résultats v1.1](HUMAN_REVIEW_RESULTS.md)
+On a terminé l’annotation des 120 notes et conservé les
+références après relecture. Les [résultats v1.1](HUMAN_REVIEW_RESULTS.md)
 réutilisent les générations existantes sans nouvelle dépense API. La relecture reste
 celle de l’auteur ; une seconde annotation indépendante et une référence plus atomique
 restent nécessaires pour étudier les désaccords et la couverture partielle.
@@ -62,10 +62,10 @@ que le schéma v1 représente mal la couverture partielle d’un fait composé o
 sourcé sans référence dédiée. Ces constats sont documentés sans modifier le gold gelé
 ni publier de pourcentage sur les seuls formulaires faciles à finaliser.
 
-La priorité avec le budget actuel est la relecture de v1. Un premier lot permet d’estimer
-le temps réel d’annotation ; ses résultats restent partiels et ne sont pas extrapolés à
-la cohorte. Un autre relecteur sur les mêmes notes permettrait ensuite de rechercher les
-désaccords, sans prétendre à une indépendance tant qu’elle n’a pas été réalisée.
+Avec le budget actuel, la prochaine étape serait de faire relire les mêmes notes
+par une autre personne pour comparer les décisions. On pourrait commencer par un
+lot limité pour estimer le temps nécessaire, sans extrapoler ses résultats à toute
+la cohorte.
 
 Pour mieux contrôler le rôle de la rédaction, une expérience ultérieure pourrait réutiliser
 exactement les faits déjà extraits par B et comparer leur rendu Python à une rédaction par

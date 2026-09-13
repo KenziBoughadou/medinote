@@ -1,6 +1,6 @@
 # MediNote — rapport reproductible
 
-Statut : human_reviewed.
+Évaluation terminée : références vérifiées et notes annotées.
 
 Mesures micro bout en bout ; résultats conditionnels et dénominateurs dans metrics.json.
 
@@ -27,7 +27,7 @@ Mesures micro bout en bout ; résultats conditionnels et dénominateurs dans met
 - Comparaison des pipelines complets ; le mode de rédaction change aussi.
 - Les coûts connus sont majorants sans déduction du cache ; les usages manquants restent inconnus.
 - Alignement v1.1 amendé après observation : faits facultatifs sourcés admis hors références.
-- Décisions de Kenzi, relecteur unique ; les contrôles logiciels ne vérifient pas leur justesse sémantique.
+- Une seule personne a annoté les notes ; les contrôles logiciels ne vérifient pas la justesse de chaque décision.
 - Faits de référence parfois composés et segmentation déclarée : une couverture partielle peut être surestimée.
 - Les intervalles bootstrap mesurent la variabilité entre cas, pas l’incertitude de l’annotation.
 

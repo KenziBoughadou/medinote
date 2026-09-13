@@ -4,15 +4,15 @@ La [présentation de l’expérience](EXPERIMENT_PROTOCOL.md) rassemble la quest
 les cohortes, les paramètres et les conditions de publication. Les règles ci-dessous
 décrivent l’exécution et le calcul des mesures.
 
-Le protocole machine est `eval/protocol.v1.json`, le guide humain
+Le protocole machine est `eval/protocol.v1.json`, le guide d’annotation
 `eval/annotation-guide.v1.md`. Les artefacts réels sont sous `eval/results/v1/` ;
-les [résultats après relecture de Kenzi](HUMAN_REVIEW_RESULTS.md), les annotations et
+les [résultats après annotation](HUMAN_REVIEW_RESULTS.md), les annotations et
 les intervalles sont archivés séparément dans `eval/results/reviewed-v1.1/`.
 Ils utilisent l’amendement d’alignement v1.1 ; les artefacts gelés v1 sont conservés.
 Les fixtures de tests sont artificielles et distinctes des observations scientifiques.
 
 Le [dossier de relecture des références](REFERENCE_REVIEW.md) permet de préparer les
-dialogues et preuves dans un format lisible, sans créer d’événement humain.
+dialogues et preuves dans un format lisible, sans enregistrer de décision de relecture.
 
 Avant tout appel réel : publication technique de la release, clé MediNote autorisée,
 comptabilité persistante partagée, vérification du snapshot et du prix. Ajuster les prompts
@@ -34,8 +34,8 @@ Les annotations finales doivent couvrir toutes les notes valides exportées, tou
 sémantiques et toutes les associations claim–citation. Les répétitions sont un claim à
 plusieurs spans ; les phrases multifaits sont segmentées. Aucun `unresolved` n’est admissible.
 Une contradiction prime sur une affirmation simultanée. Une référence facultative sourcée
-n’est pas un ajout injustifié. Les imports créent un nouveau fichier, sans réétiqueter une
-annotation IA en revue humaine.
+n’est pas un ajout injustifié. Les imports créent un nouveau fichier, en conservant
+l’origine des annotations.
 
 E=C+K+O : couverture fidèle, contradiction, omission. P : assertions sémantiques uniques ;
 U/P : ajouts ; D/P : contradictions. La négation inversée reste un sous-ensemble des
@@ -50,7 +50,8 @@ intervalle null si moins de 95 % des tirages définissent le ratio. Le stress a 
 dénominateur de dix paires et n’est pas fusionné au test principal. Pas de p-value ou de
 score global de supériorité.
 
-Le rapport peut être exploratoire `ai_annotated`. Le statut `human_reviewed` exige références
-figées revues humainement, cohortes complètes et annotations finales humaines. Une revue
-ultérieure référence les hashes figés et n’altère pas les données. Les figures sont des
-exports Matplotlib SVG, jamais des valeurs inventées pour remplir une page vide.
+On distingue les annotations exploratoires produites par IA de la relecture finale.
+Pour publier cette dernière, il faut des références vérifiées et des annotations
+complètes sur l’ensemble prévu. Les événements de relecture sont associés aux
+empreintes des fichiers, sans modifier les données gelées. Les figures sont générées
+avec Matplotlib à partir des mesures calculées.
