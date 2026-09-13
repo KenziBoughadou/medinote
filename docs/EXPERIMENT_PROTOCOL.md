@@ -29,7 +29,9 @@ par famille. Les parents des paires stress sont distincts. Les 800 faits de réf
 dont 720 attendus dans les notes, sont liés à des extraits exacts du dialogue.
 Les positions sont exprimées en points de code Unicode.
 
-Textes et références sont préparés par IA. Leur relecture humaine reste à effectuer.
+Textes et références sont préparés par IA. Kenzi a confirmé leur relecture et leur
+acceptation sans correction le 13 septembre 2026 ; les événements de revue sont
+associés aux empreintes exactes, sans modification des références gelées.
 Le générateur reçoit seulement le dialogue, jamais les références attendues ni les tags
 expérimentaux. La [fiche du corpus](DATASET_CARD.md) précise ses limites et sa provenance.
 
@@ -117,3 +119,8 @@ des informations facultatives sourcées qui ne figurent pas dans les référence
 Il conserve les fichiers gelés et ne clôture aucune décision ouverte à la place
 du relecteur. Son enregistrement dans `eval/amendments.jsonl` distingue cette
 préparation d’un recalcul et d’une publication de résultats.
+
+Après confirmation des cinq décisions restantes par Kenzi, cet amendement est appliqué
+aux [120 annotations finales](HUMAN_REVIEW_RESULTS.md). Les résultats et indices bootstrap
+sont archivés séparément dans `eval/results/reviewed-v1.1/`. Le gel et les résultats
+historiques v1 restent conservés ; la revue par l’auteur n’est pas indépendante.

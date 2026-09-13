@@ -6,7 +6,9 @@ décrivent l’exécution et le calcul des mesures.
 
 Le protocole machine est `eval/protocol.v1.json`, le guide humain
 `eval/annotation-guide.v1.md`. Les artefacts réels sont sous `eval/results/v1/` ;
-la revue humaine et les métriques sémantiques restent en attente.
+les [résultats après relecture de Kenzi](HUMAN_REVIEW_RESULTS.md), les annotations et
+les intervalles sont archivés séparément dans `eval/results/reviewed-v1.1/`.
+Ils utilisent l’amendement d’alignement v1.1 ; les artefacts gelés v1 sont conservés.
 Les fixtures de tests sont artificielles et distinctes des observations scientifiques.
 
 Le [dossier de relecture des références](REFERENCE_REVIEW.md) permet de préparer les

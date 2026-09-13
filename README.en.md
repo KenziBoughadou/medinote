@@ -8,7 +8,7 @@ of each assertion. **Drafts for review, without clinical validation.**
 This is an applied NLP and LLM evaluation project, not a neural-network training project.
 The main question concerns the fidelity and cost of two complete pipelines. It does not
 isolate the causal effect of extraction alone. There are 132 archived model generations;
-final semantic results still require human review.
+the 120 test/stress notes have now been reviewed by Kenzi, the project author.
 
 - **A — direct summary:** one consultation → one LLM call → structured note.
 - **B — structured extraction:** one LLM call → typed facts → deterministic Python rendering.
@@ -20,7 +20,16 @@ to outperform A. [Français](README.md) · [Experiment protocol](docs/EXPERIMENT
 [Open the live demo](https://medinote.kbcompany.fr) — HTTPS and browser workflows verified.
 No account is required; live AI generation is available within quotas. The local demo also works
 without an API key. Its twelve archived notes are **actual model generations**, with raw responses,
-tokens, latency and estimated cost. Semantic performance metrics await annotation.
+tokens, latency and estimated cost. The test report uses the author's confirmed annotations;
+its scores are not transferred to the twelve development examples.
+
+On the 40 paired test consultations, coverage is **95.83% for A and 92.50% for B**:
+B−A = −3.33 percentage points, paired bootstrap 95% CI [−5.28; −1.39]. A covers 345/360
+expected facts versus 333/360 for B. Both methods pass 0/10 strict stress pairs, primarily
+because all stress notes omit a required invariant. These results depend on one reviewer,
+synthetic references and a post hoc alignment amendment; they are not clinical validation.
+See the [review methodology](docs/HUMAN_REVIEW_RESULTS.md) and
+[versioned results](eval/results/reviewed-v1.1/report/report.md).
 
 A separate [AI annotation pilot](docs/ANNOTATION_PILOT.md) examines ten archived notes.
 Five forms are complete and five retain unresolved decisions, including partially
@@ -67,8 +76,9 @@ semantic faithfulness.
 
 80 synthetic dialogues: 60 main parents in ten families (20 development, 40 test), plus
 ten independent negation stress pairs. Six development cases are public. Source spans
-use Unicode code points. Texts and gold references were prepared by AI; **human reference
-review and final annotations remain pending; actual generations are archived**. Missing metrics are null.
+use Unicode code points. Texts and gold references were prepared by AI, then accepted
+without corrections by Kenzi. All 120 test/stress annotations are complete under the
+versioned v1.1 validator. The earlier AI pilot remains a separate historical artifact.
 
 ```bash
 uv run medinote corpus validate --root .

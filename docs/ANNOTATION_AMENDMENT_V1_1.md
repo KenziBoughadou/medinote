@@ -31,6 +31,12 @@ validateur ne modifie pas ces décisions : leur clôture reste une action du rel
 Le premier envoi et les corrections sont conservés séparément ; aucune substitution
 silencieuse d’une annotation antérieure n’est effectuée.
 
+Le 13 septembre 2026, Kenzi a confirmé explicitement les cinq informations comme
+facultatives et soutenues, et accepté les références sans correction. La clôture
+est enregistrée dans `eval/results/reviewed-v1.1/adjudication.json`, avec les décisions
+avant et après confirmation. Le [rapport de relecture](HUMAN_REVIEW_RESULTS.md) applique
+la règle aux 120 notes, sans écraser les résultats v1.
+
 Tout futur calcul utilisant cette règle doit identifier la version v1.1, enregistrer
 son empreinte et celles des annotations, puis contrôler toute la cohorte. Il ne doit
 ni écraser le rapport historique v1 ni présenter 115 notes valides comme 120 notes

@@ -50,6 +50,12 @@ La proportion de mots conservés mesure la compression, pas les omissions de fai
 
 ## Ce qui demande encore une expérience
 
+Mise à jour après réception des lots : les 120 notes ont été relues par Kenzi et les
+références acceptées sans correction. Les [résultats v1.1](HUMAN_REVIEW_RESULTS.md)
+réutilisent les générations existantes sans nouvelle dépense API. La relecture reste
+celle de l’auteur ; une seconde annotation indépendante et une référence plus atomique
+restent nécessaires pour étudier les désaccords et la couverture partielle.
+
 Le [premier pilote d’annotation](ANNOTATION_PILOT.md) examine dix notes par IA et archive
 103 informations distinguées. Cinq formulaires restent en brouillon, notamment parce
 que le schéma v1 représente mal la couverture partielle d’un fait composé ou un propos

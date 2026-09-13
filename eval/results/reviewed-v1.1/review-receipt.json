@@ -1,0 +1,19 @@
+{
+  "confirmed_at": "2026-09-13T19:44:23.475072+00:00",
+  "reviewer_id": "Kenzi",
+  "review_kind": "human",
+  "basis": "Relecture de toutes les notes et acceptation des références sans correction déclarées par Kenzi. Cinq informations facultatives explicitement confirmées dans la conversation.",
+  "identity_verification": "Déclaration du relecteur dans cette session ; pas de vérification indépendante.",
+  "notes": 120,
+  "reference_hashes": {
+    "data/cases.v1.jsonl": "d16548896cad5f9e9bf7edbe4747fbc362d55d32cc74ddcb212a53200118cfc0",
+    "data/gold.v1.jsonl": "64b41a73c0ef1ebf5a611a96deee2649c4f5356d8557d6d743465ccadebbff45",
+    "data/stress.v1.jsonl": "d4e97ea2b45a0719c609989a149ebdf24bf18a0074dffd1f7560e3951ca9bf3a"
+  },
+  "annotations_sha256": "2102d41d645dccc9be51a6981bcfb781c0474eae3238176af0535fc05c4b8870",
+  "prepared_input_sha256": "a8f30b1a1ba74a49d5934d3541004ffe265df0aed9bad828333cffca73f92f5f",
+  "first_archive_sha256": "7437d9c2bdea473c03efcd613d24b08cdb65513a7c0906429a195855b9d356f2",
+  "corrected_archive_sha256": "6e1968824e1b5ba2c93b704653c3d1516ed7e8d1b7af23c8e0d1c7b44fe1609b",
+  "amended_validator_sha256": "6740641deb630e15609305044c10ac1ce50cf67753c4bf722da44aa67baf3323",
+  "provider_calls": 0
+}
