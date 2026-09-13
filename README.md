@@ -22,6 +22,26 @@ Par exemple, si le dialogue contient « Je tousse depuis trois jours, mais je n�
 
 C’est cette question de fidélité qui m’intéresse dans MediNote. Le but est de comprendre ce que chaque méthode conserve, oublie ou transforme. Je n’ai pas encore étudié le temps qu’un professionnel pourrait gagner en utilisant l’outil.
 
+## Ce que cela pourrait apporter dans le monde du travail
+
+L’usage que j’imagine est assez concret : une personne dispose déjà du texte d’un échange et doit en faire un compte rendu. MediNote pourrait lui proposer un premier brouillon organisé, qu’elle reprendrait avant de le valider. L’intérêt serait de consacrer moins de temps à remettre les informations en forme et davantage à vérifier ce qu’elles disent. C’est une possibilité à évaluer, pas un gain de temps démontré par le projet.
+
+### Avoir une base pour rédiger
+
+À partir d’un dialogue écrit, l’application rassemble les informations dans les mêmes sept rubriques. Une personne pourrait ainsi commencer sa relecture avec les symptômes, les traitements et les actions annoncées déjà regroupés. Elle devrait ensuite corriger les erreurs, compléter les oublis et décider de ce qui mérite d’être conservé. Si ces corrections demandent autant de travail qu’une rédaction manuelle, l’outil n’aura pas rempli cet objectif.
+
+### Faciliter la lecture et la transmission
+
+Un compte rendu sert aussi à quelqu’un qui n’a pas assisté à l’échange. Retrouver les informations au même endroit pourrait faciliter cette lecture et la transmission entre collègues. Par exemple, distinguer une hypothèse d’une action annoncée permettrait de mieux comprendre ce qui a été envisagé et ce qui a été décidé. Encore faut-il que la note respecte cette distinction : c’est justement l’un des points que je cherche à vérifier.
+
+### Pouvoir contrôler ce que l’IA propose
+
+Les citations donnent un point de départ pour la relecture. Si une phrase semble ambiguë, on peut revenir au passage du dialogue dont elle est issue. Cela pourrait faciliter la recherche d’une erreur ou la compréhension d’une reformulation. Il reste nécessaire de relire l’ensemble, car une information oubliée n’aura aucune citation sur laquelle cliquer.
+
+Le projet porte sur des consultations fictives. Il ne permet pas aujourd’hui de traiter de vrais dossiers de patients. Un usage professionnel demanderait notamment une évaluation avec les personnes concernées et un cadre adapté à la confidentialité des données.
+
+Je vois aussi une piste au-delà du médical : préparer des comptes rendus de réunion ou des synthèses d’entretiens à partir d’un texte, en gardant un lien avec les propos d’origine. Le principe pourrait être réutilisé, mais il faudrait adapter les rubriques, les consignes et les critères de vérification. Ces usages ne sont pas implémentés dans MediNote.
+
 ## Les deux méthodes comparées
 
 Les deux méthodes utilisent exactement le même dialogue et la même version du modèle. Elles effectuent chacune un seul appel à l’IA.
@@ -158,6 +178,8 @@ L’objectif serait de savoir précisément ce qu’une modification améliore, 
 ### Comparer la qualité, le coût et le temps de réponse
 
 Comparer d’autres modèles et répéter certaines générations permettrait d’aller plus loin. Il serait aussi intéressant de mesurer le temps nécessaire à une personne pour vérifier chaque type de note. Une note produite plus rapidement n’est pas forcément plus rapide à relire.
+
+Pour savoir si l’outil aide vraiment au travail, je voudrais comparer une rédaction manuelle et une rédaction avec assistance sur des tâches comparables. Je mesurerais le temps total jusqu’à la validation, relecture et corrections comprises, ainsi que les erreurs qui restent dans la note finale. Les retours des participants permettraient aussi de comprendre ce qui les aide ou les gêne. Le coût utile à comparer serait alors celui d’une note vérifiée, en comptant le temps humain, et pas seulement le prix de l’appel à l’IA. Cette étude d’usage reste à construire, séparément de la campagne actuelle.
 
 Ces essais demanderaient un budget défini à l’avance, des appels supplémentaires et une relecture comparable entre les méthodes. Selon les modèles choisis, il faudrait aussi prendre en compte un éventuel coût d’hébergement.
 

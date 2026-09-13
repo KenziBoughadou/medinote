@@ -175,3 +175,23 @@ Les critères logiciels et d’exécution de l’étape 09 sont remplis. Le crit
 finaux reste en attente de revue humaine complète. Les figures, bootstrap et métriques
 sémantiques ne sont donc pas créés. La publication de la release de résultats réutilise
 la CI et le déploiement par archive validée. Les anciennes captures montrent les illustrations.
+
+## Filtrage réseau conservé et suivi GitHub
+
+Le 12 septembre 2026 à 23:19 UTC, la release active
+`05731da8e0a661e111826ca27bca0b2adc16b028` a été vérifiée depuis le serveur : archive exacte
+de la CI `34722752889`, deux conteneurs conformes et healthy, santé et version HTTPS.
+Le déploiement GitHub `6415505357` enregistre cette vérification avec l’opération
+`verify_current`. Il ne représente pas un nouveau transfert ni un succès de l’ancien
+workflow SSH. Le reçu est conservé sous `/opt/medinote/deployments/6415505357.json`.
+
+La commande `scripts/deploy_from_server.py` prépare aussi les prochains déploiements par
+HTTPS sortant, avec contrôle de CI et d’archive puis réutilisation des scripts de release.
+Les tests ciblés de ce mode et des contrôles existants de release/déploiement passent :
+40 tests. Le chemin d’enregistrement de la release active a été exécuté sur le serveur ;
+le lancement d’une nouvelle release par cette commande est couvert par simulation.
+
+Le filtrage réseau est conservé à la demande de l’opérateur. L’accès SSH entrant du runner
+GitHub reste indisponible ; le déploiement depuis le serveur est documenté comme adaptation
+du transport prévu à l’étape 11. Aucun changement des données, dépenses, images actives,
+services voisins ou résultats scientifiques n’est nécessaire à cette synchronisation.

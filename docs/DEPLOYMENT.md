@@ -46,6 +46,44 @@ depuis la session serveur autorisée, extraite par `unpack_release.py`, puis app
 `deploy.sh`. Images, digests, configuration, verrou, contrôles et activation sont identiques
 au workflow. Cette adaptation concerne uniquement le transport de l’archive.
 
+## Déployer en conservant le filtrage SSH
+
+Le filtrage actuel autorise SSH depuis l’adresse de l’opérateur. Le runner GitHub hébergé
+ne dispose pas de cet accès. Le mode opérateur ci-dessous utilise uniquement des connexions
+HTTPS sortantes depuis la session serveur autorisée. Il n’installe aucun runner sur le VPS,
+ne modifie pas le pare-feu et ne nécessite pas de nouvelle clé.
+
+Depuis le serveur, avec l’utilisateur `kenzi`, Python 3 et une session `gh` authentifiée
+ayant accès aux artefacts et le droit d’écrire les déploiements du dépôt :
+
+```bash
+python3 /home/kenzi/medinote/scripts/deploy_from_server.py --sha COMMIT_SHA_COMPLET
+```
+
+Remplacer `COMMIT_SHA_COMPLET` par le SHA complet de la version souhaitée. La commande
+vérifie son appartenance à `main`, sa CI réussie et son artefact non expiré. Elle récupère
+l’archive exacte, valide son contenu et réutilise le déploiement et le rollback de la release,
+sous le même verrou que les autres commandes de déploiement. Une release locale existante
+doit correspondre octet pour octet à l’archive CI. Aucun build n’est exécuté sur le VPS.
+
+Le suivi GitHub passe à `success` uniquement après vérification des deux conteneurs actifs,
+de leurs images, de leur santé et du SHA servi en HTTPS. Un reçu sans secret est conservé
+dans `/opt/medinote/deployments/<deployment_id>.json`. Un échec d’enregistrement GitHub après
+validation de la production laisse le reçu `pending` ; il ne déclenche pas de rollback.
+La commande refuse de contourner des protections ajoutées à l’environnement GitHub.
+
+Pour vérifier et enregistrer une version déjà active sans relancer le déploiement :
+
+```bash
+python3 /home/kenzi/medinote/scripts/deploy_from_server.py --record-current
+```
+
+Ce mode crée une nouvelle entrée explicitement identifiée comme vérification de la release
+active. Il ne transforme pas l’ancien workflow SSH échoué en réussite et ne supprime pas
+l’historique. La CI continue à fonctionner sur GitHub, mais le lancement du déploiement
+reste une action depuis le serveur. Le workflow SSH reste disponible pour un futur accès
+réseau autorisé ; son bouton ne peut pas déployer avec le filtrage actuel.
+
 ## CI et release
 
 La CI installe les dépendances verrouillées, teste Python/frontend/corpus/contrats,

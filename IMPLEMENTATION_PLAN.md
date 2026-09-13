@@ -779,3 +779,10 @@ Le runner GitHub étant bloqué en connexion SSH, son archive exacte a été app
 la session serveur autorisée avec le script prévu. Aucun changement global du pare-feu
 ou des autres projets. Supervision, accès distant du runner, appels réels et revue humaine
 restent explicitement suivis dans `docs/ACCEPTANCE.md`.
+
+13 septembre 2026 — choix opérateur : conserver le filtrage réseau SSH actuel. Le transport
+depuis la session serveur autorisée est rendu reproductible par `scripts/deploy_from_server.py`.
+Il conserve les archives exactes de CI, les contrôles, le verrou, le déploiement et le rollback
+de l’étape 11, et enregistre leur résultat réel dans GitHub. Écart opérationnel explicite :
+le lancement reste côté serveur, sans automatisation du transport SSH depuis GitHub et sans
+modification du pare-feu. L’application et le protocole expérimental restent inchangés.
