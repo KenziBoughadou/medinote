@@ -42,6 +42,18 @@ Les 132 appels représentent **0,153097 $ estimés**, hors essais de développem
 
 [Rapport et intervalles v1.1](eval/results/reviewed-v1.1/report/report.md) · [Relevé d’exécution et coûts](eval/results/v1/report.md) · [Sorties brutes](eval/results/v1/) · [Résultats des comparateurs extractifs](eval/results/extractive-posthoc-1/report.md)
 
+## Ce que les erreurs montrent
+
+On a examiné [neuf erreurs et points à revoir](docs/ERROR_ANALYSIS.md) dans huit notes.
+On retrouve notamment une négation portée deux fois dans B, une action de suivi oubliée,
+un objectif précis perdu dans le résumé et une citation qui ne soutient qu’une partie
+de la phrase. Un autre passage transforme « moins pendant les promenades » en une
+absence de symptôme : l’annotation actuelle ne le compte pas comme contradiction,
+ce qui en fait un cas utile pour une seconde relecture.
+
+Cette analyse explique les scores sans les modifier. Les améliorations proposées
+restent à tester sur de nouveaux cas, après avoir clarifié les désaccords d’annotation.
+
 ## Méthode
 
 **A rédige directement.** Le modèle reçoit le dialogue et produit une note en sept rubriques, avec des références aux passages utilisés.
@@ -80,6 +92,10 @@ Les dialogues et les références ont été préparés par IA. Ils sont courts, 
 
 La priorité suivante est une seconde relecture, en particulier des faits composés et des couvertures partielles repérés pendant le [pilote exploratoire](docs/ANNOTATION_PILOT.md). Un formulaire accepté par le logiciel ne garantit pas que chaque décision soit juste. Les références et annotations actuelles restent consultables pour discuter ces désaccords sans effacer les résultats.
 
-Ensuite, je pourrai comparer la fidélité des baselines, analyser les erreurs et concevoir une nouvelle expérience sur un jeu réservé. Un deuxième modèle, des répétitions ou un entraînement complémentaire demanderaient un budget et des données adaptés. Avec les moyens actuels, je privilégie la relecture avant de multiplier les appels.
+Ensuite, je pourrai comparer la fidélité des baselines, tester les pistes issues de l’analyse des erreurs et concevoir une nouvelle expérience sur un jeu réservé. Un deuxième modèle, des répétitions ou un entraînement complémentaire demanderaient un budget et des données adaptés. Avec les moyens actuels, je privilégie la relecture avant de multiplier les appels.
 
 [Guide de relecture](docs/REFERENCE_REVIEW.md) · [Périmètre des expériences complémentaires](docs/RESEARCH_SCOPE.md)
+
+La [release v1](https://github.com/KenziBoughadou/medinote/releases/tag/v1) rassemble
+le code, les résultats et l’analyse. Elle utilise l’évaluation amendée v1.1 ;
+le numéro de release ne change pas la version du protocole.

@@ -31,6 +31,16 @@ synthetic references and a post hoc alignment amendment; they are not clinical v
 See the [review methodology](docs/HUMAN_REVIEW_RESULTS.md) and
 [versioned results](eval/results/reviewed-v1.1/report/report.md).
 
+We also examined [nine errors and review questions](docs/ERROR_ANALYSIS.md) across
+eight notes. Examples include duplicated negation in B, an omitted follow-up action,
+a lost specific objective and a citation that supports only part of an assertion.
+One output turns “less during walks” into an absent symptom, although the current
+annotation does not count it as a contradiction. That case needs a second review;
+it is not silently added to the published scores.
+
+The analysis is a qualitative selection made after evaluation, not a frequency estimate.
+Proposed improvements still need new test cases and clearer annotation decisions.
+
 A separate [AI annotation pilot](docs/ANNOTATION_PILOT.md) examines ten archived notes.
 Five forms are complete and five retain unresolved decisions, including partially
 covered reference facts. The pilot reports concrete omissions and protocol limitations,
@@ -113,3 +123,7 @@ one concurrent generation. Unknown usage remains charged conservatively. Version
 do not deduct caching discounts. No fabricated scientific results are included.
 
 Code: [MIT](LICENSE). Original corpus and annotations: [CC BY 4.0](data/LICENSE), with provenance.
+
+The [v1 release](https://github.com/KenziBoughadou/medinote/releases/tag/v1) packages
+the code, results and error analysis. It uses the amended v1.1 evaluation;
+the release tag does not rename the experimental protocol.

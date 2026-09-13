@@ -5,6 +5,7 @@ et les 40 sorties de stress de la campagne v1. Les références ont été accept
 correction. Les fichiers gelés et les résultats historiques v1 sont conservés.
 
 [Méthodologie et limites](../../../docs/HUMAN_REVIEW_RESULTS.md) ·
+[Analyse de neuf erreurs et points à revoir](../../../docs/ERROR_ANALYSIS.md) ·
 [Rapport chiffré](report/report.md) · [Métriques et dénominateurs](report/metrics.json) ·
 [Annotations](annotations.jsonl) · [Clôture des cinq décisions](adjudication.json) ·
 [Traçabilité de la relecture](review-receipt.json) · [Manifest](manifest.json)
