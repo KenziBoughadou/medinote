@@ -111,3 +111,9 @@ Un [pilote d’annotation exploratoire par IA](ANNOTATION_PILOT.md) examine les 
 notes du lot aveugle existant. Ses annotations et décisions ouvertes sont archivées
 séparément. Il ne modifie ni les références gelées ni les conditions de publication
 ci-dessus et ne produit pas de score global sur une cohorte partielle.
+
+L’[amendement d’alignement v1.1](ANNOTATION_AMENDMENT_V1_1.md) prépare la prise en compte
+des informations facultatives sourcées qui ne figurent pas dans les références.
+Il conserve les fichiers gelés et ne clôture aucune décision ouverte à la place
+du relecteur. Son enregistrement dans `eval/amendments.jsonl` distingue cette
+préparation d’un recalcul et d’une publication de résultats.
