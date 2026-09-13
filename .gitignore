@@ -17,6 +17,8 @@ frontend/test-results/
 frontend/playwright-report/
 experiments/
 **/blind-mapping*.json
+# Mapping publié après confirmation et clôture des 120 annotations.
+!/eval/results/reviewed-v1.1/blind-mapping.json
 *.tsbuildinfo
 
 .state/
