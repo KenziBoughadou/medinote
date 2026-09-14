@@ -71,6 +71,25 @@ ni l’incertitude des jugements du relecteur ni la généralisation à des cons
 réelles. Un intervalle [0 ; 0] pour les ajouts signifie simplement qu’aucun ajout
 n’a été étiqueté dans ces données ; ce n’est pas une garantie de risque nul.
 
+## Intervalles du coût et de la latence
+
+Un [complément descriptif](../eval/results/cost-latency-v1/) ajoute les intervalles qui
+manquaient pour le coût moyen et la latence médiane. Il reprend les mêmes 40 consultations
+et les mêmes 10 000 tirages appariés que le bootstrap de fidélité. Pour chaque tirage,
+on recalcule la moyenne des coûts et la médiane des durées pour A et B, puis leur
+différence et leur rapport. On utilise les percentiles 2,5 et 97,5 pour les bornes.
+
+L’écart de coût B−A est de 0,00078665 $, IC 95 % [0,000748975 ; 0,000825800625] $.
+L’écart entre les médianes de latence est de 2,69 s, IC 95 % [2,197 ; 2,8595125] s.
+La différence des deux médianes n’est pas la médiane des différences entre appels.
+Les données détaillées conservent aussi les intervalles de chaque méthode et des rapports.
+
+Les 80 appels du test sont inclus, sans coût manquant. Les coûts restent les estimations
+aux tarifs archivés, sans déduction du cache, hébergement ni temps de relecture.
+Ce calcul est ajouté après observation ; les résultats de fidélité initiaux ne changent
+pas. Il décrit la variabilité entre cas dans cette campagne et ne mesure pas la
+variabilité entre répétitions d’un même appel ou entre périodes d’exploitation.
+
 ## Pourquoi le stress donne 0 sur 10
 
 Le critère de réussite d’une paire exige que les deux variantes restituent le fait
