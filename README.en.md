@@ -31,6 +31,19 @@ synthetic references and a post hoc alignment amendment; they are not clinical v
 See the [review methodology](docs/HUMAN_REVIEW_RESULTS.md) and
 [versioned results](eval/results/reviewed-v1.1/report/report.md).
 
+The [cost and latency confidence intervals](eval/results/cost-latency-v1/) were added
+after the original evaluation, using the same 10,000 paired bootstrap samples.
+
+| Measure | A | B | B/A | 95% CI for B−A |
+|---|---:|---:|---:|---|
+| Mean cost per note | $0.00079 | $0.00158 | ×2.00 | [$0.000749; $0.000826] |
+| Median latency | 2.29 s | 4.98 s | ×2.17 | [2.20; 2.86] s |
+
+The B−A estimates are $0.000787 and 2.69 seconds. Ratio intervals are [1.95; 2.05]
+for cost and [1.94; 2.29] for latency. These describe variation across consultations
+within this campaign, conditional on the archived prices and calls. They do not
+measure repeated-call stability, future prices or an expected service-level guarantee.
+
 We also examined [nine errors and review questions](docs/ERROR_ANALYSIS.md) across
 eight notes. Examples include duplicated negation in B, an omitted follow-up action,
 a lost specific objective and a citation that supports only part of an assertion.

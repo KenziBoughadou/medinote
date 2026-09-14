@@ -31,8 +31,15 @@ Les mesures portent sur les **40 mêmes consultations test**, avec une générat
 | Contradictions dans la note | 0,00 % | 0,23 % | 0,23 points | [0,00 ; 0,71] points |
 | Ajouts non soutenus | 0,00 % | 0,00 % | 0,00 points | [0,00 ; 0,00] points |
 | Soutien sémantique des citations | 99,73 % | 99,54 % | -0,19 points | [-0,95 ; 0,60] points |
-| Coût moyen par note | 0,00079 $ | 0,00158 $ | ×2,00 | Non calculé |
-| Latence médiane | 2,29 s | 4,98 s | ×2,17 | Non calculé |
+| Coût moyen par note | 0,00079 $ | 0,00158 $ | ×2,00 | [0,000749 ; 0,000826] $ |
+| Latence médiane | 2,29 s | 4,98 s | ×2,17 | [2,20 ; 2,86] s |
+
+Pour le coût et la latence, la dernière colonne donne l’intervalle de **l’écart B−A**,
+en dollars et en secondes. Les écarts sont de 0,000787 $ et 2,69 s. Les rapports B/A
+ont aussi été calculés : ×2,00 [1,95 ; 2,05] pour le coût et ×2,17 [1,94 ; 2,29] pour
+la latence. Ce [complément après coup](eval/results/cost-latency-v1/) réutilise les
+10 000 tirages appariés. Il décrit la variation entre consultations de cette campagne,
+pas l’évolution des tarifs ni la stabilité du service entre plusieurs exécutions.
 
 A reprend **345 des 360 faits attendus**, contre **333 pour B**. B compte 26 omissions et une contradiction, contre 15 omissions et aucune contradiction pour A. Aucun ajout non soutenu n’a été étiqueté dans cette relecture : cela ne prouve pas une absence générale d’hallucinations. Les intervalles donnent une idée de la variation entre les consultations, mais ne tiennent pas compte des erreurs possibles de relecture.
 
