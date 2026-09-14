@@ -327,3 +327,22 @@ comptages existants. Les README français et anglais présentent cette analyse.
 Le tag de livraison `v1` désigne la version du projet. Les artefacts scientifiques
 conservent leurs versions : campagne v1 et évaluation amendée v1.1. La release
 est publiée après validation de son commit par la CI.
+
+## Limites méthodologiques et diagnostic du stress — 14 septembre 2026
+
+Les README français et anglais, la méthodologie et le guide d’entretien expliquent
+les quatre limites : corpus synthétique, modèle unique sans répétition, alignement
+amendé après observation et effet de plancher du stress strict.
+
+`scripts/analyze_stress_v1.py` contrôle les annotations complètes et les sorties gelées,
+puis sépare le fait cible et les neuf invariants sur les 40 notes de stress. Le dossier
+`eval/results/stress-diagnostic-v1/` conserve le détail, le rapport et les empreintes.
+Le complément est identifié comme descriptif et post hoc, avec tous les dénominateurs.
+Il confirme 10/10 et 9/10 paires conservant le fait cible pour A et B, tout en reproduisant
+0/10 pour les deux méthodes au score strict. Aucun nouvel intervalle ni appel API.
+
+Onze tests ciblés passent, dont cinq nouveaux contrôles du diagnostic : distinction
+cible/invariant, refus des doublons et paires incomplètes, invariants cohérents,
+reproduction des artefacts et refus d’écraser un résultat. Les liens, les empreintes
+et les fichiers gelés ont été vérifiés. Les annotations, métriques et tag v1 initiaux
+restent inchangés ; le rapport public ajoute seulement un lien vers le complément.

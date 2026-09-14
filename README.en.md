@@ -41,6 +41,15 @@ it is not silently added to the published scores.
 The analysis is a qualitative selection made after evaluation, not a frequency estimate.
 Proposed improvements still need new test cases and clearer annotation decisions.
 
+A separate [post hoc stress diagnostic](eval/results/stress-diagnostic-v1/) keeps the
+original strict score and reports each dimension. The target fact is preserved in
+both variants in 10/10 pairs for A and 9/10 for B. The uncertainty statement is missing
+from all 20 notes per method; the scheduling preference appears in 2/20 A notes and
+20/20 B notes. All nine invariants are reported, including those that fail. Target
+preservation concerns the whole fact, not only its polarity. The variants belong to
+ten pairs and are not twenty independent cases. This analysis was added after v1;
+it is descriptive and does not replace the original benchmark.
+
 A separate [AI annotation pilot](docs/ANNOTATION_PILOT.md) examines ten archived notes.
 Five forms are complete and five retain unresolved decisions, including partially
 covered reference facts. The pilot reports concrete omissions and protocol limitations,
@@ -115,8 +124,32 @@ image sizes and rollback without restoring the usage database. Releases use full
 and image digests. Administrator setup, SSH host verification, Cloudflare and monitoring
 must be completed explicitly.
 
-The corpus is synthetic and initially AI-authored. No clinical validation or independent
-annotation is claimed. B’s style may reveal its identity during blinded annotation.
+**Synthetic corpus.** Both dialogues and references were prepared by AI. Their regular
+style limits how well they represent real work. More generated cases would not remove
+this bias. A new, separately authored fictional dataset and independent reference review
+would be a stronger next step.
+
+**One model, one generation per case and method.** The comparison describes this precise
+configuration. The bootstrap estimates variation across consultations, not variation
+across repeated generations. Testing that would require repetitions and another model,
+with the protocol and budget set before the campaign.
+
+**Post hoc alignment amendment.** Five sourced optional facts exposed a validator issue.
+Version 1.1 fixes it while keeping the dialogues, references and generations unchanged.
+Recording the change makes it traceable, not preregistered. A future campaign should
+exercise the rule on development cases and freeze it before generating test outputs.
+
+**An overly aggregated stress score.** One shared omission makes every strict pair fail.
+The separate diagnostic explains why, but is itself post hoc. A future experiment
+should define target preservation, invariant preservation and omissions in advance,
+check their sensitivity on development cases and retain strict success as a secondary
+check. The existing v1 score remains unchanged.
+
+The author is the only reviewer; B’s style may reveal its identity during annotation.
+Independent review, clinical validation and time saved in real work remain unestablished.
+With the current budget, reference quality and a second annotation take priority over
+additional API calls.
+
 The shared ceiling is USD 10 estimated before tax per UTC month. Each attempt reserves
 USD 0.025; public limits are six attempts per visitor and thirty total per UTC day, with
 one concurrent generation. Unknown usage remains charged conservatively. Versioned prices

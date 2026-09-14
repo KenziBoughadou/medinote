@@ -26,9 +26,29 @@ On peut développer l’usage envisagé au travail : préparer un compte rendu o
 puis vérifier ses sources avant de le transmettre. Le gain de temps reste à mesurer.
 On présente ensuite les deux méthodes, leur coût et les erreurs observées.
 
-Les limites à expliquer sont le corpus fictif, la relecture par une seule personne,
-le choix d’un seul modèle et l’absence de validation clinique. Une seconde annotation
-permettrait de comparer les décisions avant de lancer une nouvelle expérience.
+## Quatre limites à expliquer en entretien
+
+« Les dialogues et les références sont synthétiques et préparés par IA. Ils permettent
+une comparaison contrôlée, mais ils ne représentent pas la diversité des situations
+réelles. La suite serait de faire rédiger et relire un nouveau jeu séparément. »
+
+« J’ai testé un seul modèle avec une seule génération par méthode et par cas. Mes
+résultats décrivent cette configuration. Le bootstrap renseigne la variation entre
+les consultations, pas la stabilité du modèle entre plusieurs appels. »
+
+« J’ai corrigé une règle d’alignement après avoir rencontré cinq informations
+facultatives sourcées. Les notes et les références sont restées identiques et la
+correction est versionnée. Elle reste faite après observation : il faudra figer cette
+règle avant un nouveau test. »
+
+« Le stress strict donne 0/10 aux deux méthodes parce qu’une même information manque
+partout. Il ne permet donc pas de les départager ici. Le diagnostic séparé montre que
+le fait cible est conservé dans les deux variantes pour 10/10 paires avec A et 9/10
+avec B. Ce complément est exploratoire ; il ne remplace pas le score initial. »
+
+On peut conclure en expliquant la priorité : une seconde annotation et des références
+plus simples avant de payer davantage d’appels. La relecture actuelle a été faite par
+l’auteur, et aucun usage clinique ni gain de temps au travail n’a été validé.
 
 ## Enregistrement local
 

@@ -84,3 +84,15 @@ une provenance et des droits clairs, puis un nouveau jeu réservé. Les consulta
 restent hors du périmètre actuel. Le fine-tuning attend des données corrigées, un objectif
 mesurable, des ressources hors du VPS et un budget explicite. Un squelette d’entraînement
 non exécuté ne serait pas une preuve supplémentaire.
+
+## Diagnostic complémentaire du stress
+
+Le [diagnostic du stress v1](../eval/results/stress-diagnostic-v1/) sépare la
+conservation du fait cible et celle des neuf invariants. Il utilise les annotations
+existantes, conserve le score strict et indique tous les dénominateurs. C’est une
+analyse descriptive après observation, sans nouvel appel et sans remplacement de v1.
+
+Cette amélioration traite la lisibilité du stress. Elle ne supprime pas les trois
+autres limites : corpus synthétique, modèle unique sans répétition et règle corrigée
+après observation. Les résoudre demanderait de nouvelles données et une nouvelle
+campagne préparée avant le test, pas seulement une reformulation du README.
