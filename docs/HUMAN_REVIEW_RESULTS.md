@@ -85,6 +85,31 @@ note. Les [détails par variante](../eval/results/reviewed-v1.1/stress-details.j
 permettent de distinguer ces causes. Ce résultat strict n’est pas fusionné avec le test
 principal et ne permet pas de conclure que toutes les négations sont erronées.
 
+## Un diagnostic séparé pour comprendre le stress
+
+Le score strict a un effet de plancher : puisque le même invariant manque partout,
+il ne distingue plus une paire qui conserve le fait cible d’une paire qui le déforme.
+C’est une limite de cette mesure sur ce corpus, pas une raison d’effacer son résultat.
+
+Le [diagnostic complémentaire](../eval/results/stress-diagnostic-v1/) réutilise les
+annotations v1.1 et présente séparément le fait cible et les neuf invariants.
+Les deux variantes conservent le fait cible dans 10/10 paires pour A et 9/10 pour B.
+La préférence horaire est conservée dans 2/20 notes pour A et 20/20 pour B ; l’évaluation
+exprimée manque dans les 20 notes de chaque méthode. Les autres invariants sont
+conservés dans toutes les notes selon les annotations.
+
+Ces nombres décrivent les jugements existants. La conservation du fait cible exige
+qu’il soit couvert dans son ensemble ; une omission ou une erreur sur un autre attribut
+peut également faire échouer ce critère. Les deux variantes appartiennent à la même
+paire. On ne les traite pas comme des observations indépendantes et on ne produit pas
+de nouvel intervalle de confiance à partir de ce découpage exploratoire.
+
+Le script contrôle les annotations, leurs empreintes et les sorties originales. Il
+vérifie aussi que la décomposition restitue exactement le score strict initial. Les
+résultats sont archivés séparément et identifiés comme ajoutés après observation.
+La prochaine campagne devrait définir ces dimensions avant les appels, puis les
+éprouver sur le développement avant de figer le nouveau jeu de test.
+
 ## Ce qui peut influencer les résultats
 
 Les références synthétiques contiennent parfois plusieurs informations dans un même

@@ -36,7 +36,26 @@ Les mesures portent sur les **40 mêmes consultations test**, avec une générat
 
 A reprend **345 des 360 faits attendus**, contre **333 pour B**. B compte 26 omissions et une contradiction, contre 15 omissions et aucune contradiction pour A. Aucun ajout non soutenu n’a été étiqueté dans cette relecture : cela ne prouve pas une absence générale d’hallucinations. Les intervalles donnent une idée de la variation entre les consultations, mais ne tiennent pas compte des erreurs possibles de relecture.
 
-Le test de stress reste séparé : **0 paire sur 10 réussie pour chaque méthode** au critère strict, qui exige les deux polarités et tous les faits invariants. L’incertitude sur l’origine de la plainte est omise dans les 40 notes de stress ; ce résultat ne signifie pas que toutes les négations sont erronées. [Méthodologie, dénominateurs et limites](docs/HUMAN_REVIEW_RESULTS.md).
+Le test de stress reste séparé : **0 paire sur 10 réussie pour chaque méthode** au
+critère strict, qui exige le fait cible et tous les faits invariants dans les deux
+variantes. L’incertitude sur l’origine de la plainte est omise dans les 40 notes :
+ce score ne permet donc pas de départager les méthodes sur ce corpus.
+
+On a ajouté un [diagnostic après coup](eval/results/stress-diagnostic-v1/) pour
+séparer les dimensions, sans remplacer le résultat initial :
+
+| Diagnostic du stress, selon les annotations | A | B |
+|---|---:|---:|
+| Paires réussies au critère strict initial | 0 / 10 | 0 / 10 |
+| Paires où le fait cible est conservé dans les deux variantes | 10 / 10 | 9 / 10 |
+| Notes conservant l’incertitude sur l’origine de la plainte | 0 / 20 | 0 / 20 |
+| Notes conservant la préférence horaire | 2 / 20 | 20 / 20 |
+
+Le fait cible est celui dont la polarité change. Sa conservation est jugée sur le
+fait entier : il ne s’agit pas d’un taux pur de bonnes négations. Les 20 notes par
+méthode viennent de dix paires, et ce diagnostic exploratoire ne constitue pas un
+nouveau test indépendant. Tous les invariants sont détaillés dans le rapport.
+[Méthodologie, dénominateurs et limites](docs/HUMAN_REVIEW_RESULTS.md).
 
 Les 132 appels représentent **0,153097 $ estimés**, hors essais de développement, hébergement et temps de relecture. Les prix utilisés sont archivés dans le [fichier de tarification v1](eval/pricing.v1.json) ; ce ne sont pas une promesse de tarif futur. Lire les résultats enregistrés ne coûte aucun appel API.
 
@@ -88,14 +107,41 @@ Le travail logiciel rend les résultats inspectables et reproductibles. Les test
 
 ## Limites et suite
 
-Les dialogues et les références ont été préparés par IA. Ils sont courts, réguliers et peu représentatifs de consultations réelles. L’étude utilise un seul modèle et une seule génération par méthode et par cas. Le style de B peut révéler sa méthode malgré l’annotation en aveugle. Aucune validation clinique, revue indépendante ou supériorité de B n’est revendiquée.
+**Le corpus reste artificiel.** Les dialogues et les références ont été préparés par
+IA. Leur style régulier facilite certaines tâches et ne représente pas la diversité
+des situations de travail. Ajouter davantage de dialogues générés ne suffirait pas.
+Pour aller plus loin, il faudrait un nouveau jeu fictif rédigé séparément, des faits
+de référence plus simples et une seconde relecture indépendante.
 
-La priorité suivante est une seconde relecture, en particulier des faits composés et des couvertures partielles repérés pendant le [pilote exploratoire](docs/ANNOTATION_PILOT.md). Un formulaire accepté par le logiciel ne garantit pas que chaque décision soit juste. Les références et annotations actuelles restent consultables pour discuter ces désaccords sans effacer les résultats.
+**Le résultat vaut pour une configuration précise.** On compare A et B avec un seul
+modèle, un seul réglage et une génération par méthode et par cas. Le bootstrap mesure
+les variations entre consultations, pas entre plusieurs générations du même modèle.
+Une prochaine campagne pourrait répéter les appels et utiliser un second modèle,
+avec un protocole et un budget définis avant de commencer.
 
-Ensuite, je pourrai comparer la fidélité des baselines, tester les pistes issues de l’analyse des erreurs et concevoir une nouvelle expérience sur un jeu réservé. Un deuxième modèle, des répétitions ou un entraînement complémentaire demanderaient un budget et des données adaptés. Avec les moyens actuels, je privilégie la relecture avant de multiplier les appels.
+**Une règle a changé après observation.** Cinq informations facultatives sourcées ont
+mis en évidence un problème dans le validateur. L’amendement v1.1 le corrige sans
+modifier les dialogues, les références ou les générations. Cette transparence permet
+de suivre le changement, mais ne le rend pas prévu à l’avance. Il faudrait tester la
+règle sur le développement puis la figer avant une nouvelle campagne.
+
+**Le score de stress était trop agrégé.** Une seule omission commune suffit à produire
+0/10 partout. Le diagnostic séparé rend ce résultat plus lisible, mais a lui aussi été
+ajouté après coup. Pour un prochain test, on définirait avant les appels des mesures
+distinctes pour le fait cible, les invariants et les omissions, en gardant le score
+strict comme contrôle complémentaire. On vérifierait sur le développement que ces
+mesures réagissent aux erreurs qu’on cherche à observer.
+
+La relecture actuelle est celle de l’auteur du projet, et le style de B peut révéler
+la méthode. Les cas ambigus de l’[analyse des erreurs](docs/ERROR_ANALYSIS.md) méritent
+un second avis. Aucune validation clinique ni économie de temps au travail n’est
+établie. Avec le budget actuel, la priorité reste d’améliorer les références et
+l’annotation avant de multiplier les appels.
 
 [Guide de relecture](docs/REFERENCE_REVIEW.md) · [Périmètre des expériences complémentaires](docs/RESEARCH_SCOPE.md)
 
 La [release v1](https://github.com/KenziBoughadou/medinote/releases/tag/v1) rassemble
 le code, les résultats et l’analyse. Elle utilise l’évaluation amendée v1.1 ;
 le numéro de release ne change pas la version du protocole.
+
+Le diagnostic du stress a été ajouté après cette release et reste séparé des résultats figés de v1.
