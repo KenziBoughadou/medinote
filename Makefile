@@ -26,6 +26,6 @@ corpus:
 benchmark:
 	@echo 'Exécuter la CLI dans la release active ; voir docs/DEPLOYMENT.md.'
 report:
-	uv run medinote plan-status --root .
+	uv run medinote study-status --root .
 record-demo:
 	npm --prefix frontend run record:demo

@@ -15,7 +15,7 @@ the 120 test/stress notes have now been reviewed by the project author.
 
 This compares complete pipelines, including different writing methods. B is not assumed
 to outperform A. [Français](README.md) · [Experiment protocol](docs/EXPERIMENT_PROTOCOL.md) ·
-[Actual acceptance status](docs/ACCEPTANCE.md) · [Three-minute video](docs/assets/demo.webm).
+[Evaluation results](docs/HUMAN_REVIEW_RESULTS.md) · [Three-minute video](docs/assets/demo.webm).
 
 [Open the live demo](https://medinote.kbcompany.fr) — HTTPS and browser workflows verified.
 No account is required; live AI generation is available within quotas. The local demo also works
@@ -114,7 +114,7 @@ versioned v1.1 validator. The earlier AI pilot remains a separate historical art
 
 ```bash
 uv run medinote corpus validate --root .
-uv run medinote plan-status --root .
+uv run medinote study-status --root .
 make check
 npm --prefix frontend exec -- playwright install chromium
 npm --prefix frontend run test:e2e
@@ -131,7 +131,7 @@ Real calls run inside the active production release and share its budget ledger;
 
 [Architecture](docs/ARCHITECTURE.md), [dataset card](docs/DATASET_CARD.md),
 [model card](docs/MODEL_CARD.md), [evaluation](docs/EVALUATION.md),
-[deployment/rollback](docs/DEPLOYMENT.md), [demo script](docs/DEMO_SCRIPT.md).
+[deployment/rollback](docs/DEPLOYMENT.md), [demo guide](docs/DEMO.md).
 CI runs offline tests and builds production images on GitHub, including container integration,
 image sizes and rollback without restoring the usage database. Releases use full commit SHAs
 and image digests. Administrator setup, SSH host verification, Cloudflare and monitoring

@@ -32,8 +32,8 @@ projet ou du Compose global n’est modifié.
 6. Uptime Kuma existant : deux contrôles HTTP `/healthz` et `/api/health/ready`, intervalle
    60 secondes, trois échecs consécutifs, statut attendu 200, notifications opérateur existantes.
 
-Le bootstrap et les raccordements externes ne sont pas réalisés par le code. Leur statut
-vérifié se trouve dans [ACCEPTANCE.md](ACCEPTANCE.md).
+Le bootstrap et les raccordements externes nécessitent une intervention sur le serveur.
+Les exécutions de la CI sont consultables dans [GitHub Actions](https://github.com/KenziBoughadou/medinote/actions).
 
 La première mise en ligne HTTPS a été vérifiée le 12 septembre 2026. Le bootstrap et le DNS
 ont été réalisés par l’opérateur. Les quatre secrets GitHub de l’environnement `production`

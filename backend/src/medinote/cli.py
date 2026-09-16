@@ -9,12 +9,11 @@ from medinote.errors import ServiceError
 from medinote.serialization import canonical_json
 
 
-def plan_status(root):
+def study_status(root):
     from medinote.publication import load_public
 
     bundle, report = load_public(root)
     return {
-        "software": "implemented_verification_see_docs/ACCEPTANCE.md",
         "data": CorpusRepository(root).load().validate_corpus(),
         "real_demo_outputs": sum(
             r.origin == "llm_recorded"
@@ -35,7 +34,7 @@ def parser():
     sub = p.add_subparsers(dest="command", required=True)
     corpus = sub.add_parser("corpus").add_subparsers(dest="action", required=True)
     corpus.add_parser("validate").add_argument("--root", type=Path, required=True)
-    status = sub.add_parser("plan-status")
+    status = sub.add_parser("study-status")
     status.add_argument("--root", type=Path, required=True)
     ev = sub.add_parser("eval").add_subparsers(dest="action", required=True)
     freeze = ev.add_parser("freeze")
@@ -121,8 +120,8 @@ def main(argv=None):
             for case in repo.cases.values():
                 for method in Method:
                     build_generation_request(case, method)
-        elif args.command == "plan-status":
-            result = plan_status(root)
+        elif args.command == "study-status":
+            result = study_status(root)
         elif args.command == "publish":
             result = _publish(settings, args)
         elif args.action == "freeze":
