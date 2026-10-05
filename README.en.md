@@ -2,174 +2,146 @@
 
 [![CI](https://github.com/KenziBoughadou/medinote/actions/workflows/ci.yml/badge.svg)](https://github.com/KenziBoughadou/medinote/actions/workflows/ci.yml)
 
-Compare two AI/NLP pipelines on fictional French consultations and inspect the source
-of each assertion. **Drafts for review, without clinical validation.**
+**When summarizing a medical consultation with an LLM, is it better to write
+the note directly or to extract the facts first?**
 
-This is an applied NLP and LLM evaluation project, not a neural-network training project.
-The main question concerns the fidelity and cost of two complete pipelines. It does not
-isolate the causal effect of extraction alone. There are 132 archived model generations;
-the 120 test/stress notes have now been reviewed by the project author.
+I compare two ways of producing a consultation note from a fictional French
+dialogue, using the same language model. I measure what each note keeps, omits
+or distorts, and what it costs. A web application lets you compare both notes
+and trace every sentence back to its source.
 
-- **A — direct summary:** one consultation → one LLM call → structured note.
-- **B — structured extraction:** one LLM call → typed facts → deterministic Python rendering.
+Personal academic project · applied NLP and LLM evaluation · Python, FastAPI,
+React, TypeScript · **not for clinical use**
 
-This compares complete pipelines, including different writing methods. B is not assumed
-to outperform A. [Français](README.md) · [Experiment protocol](docs/EXPERIMENT_PROTOCOL.md) ·
-[Evaluation results](docs/HUMAN_REVIEW_RESULTS.md) · [Three-minute video](docs/assets/demo.webm).
+[Live demo](https://medinote.kbcompany.fr) · [Detailed results](docs/HUMAN_REVIEW_RESULTS.md) ·
+[Protocol](docs/EXPERIMENT_PROTOCOL.md) · [Français](README.md)
 
-[Open the live demo](https://medinote.kbcompany.fr) — HTTPS and browser workflows verified.
-No account is required; live AI generation is available within quotas. The local demo also works
-without an API key. Its twelve archived notes are **actual model generations**, with raw responses,
-tokens, latency and estimated cost. The test report uses the author's confirmed annotations;
-its scores are not transferred to the twelve development examples.
+## At a glance
 
-On the 40 paired test consultations, coverage is **95.83% for A and 92.50% for B**:
-B−A = −3.33 percentage points, paired bootstrap 95% CI [−5.28; −1.39]. A covers 345/360
-expected facts versus 333/360 for B. Both methods pass 0/10 strict stress pairs, primarily
-because all stress notes omit a required invariant. These results depend on one reviewer,
-synthetic references and a post hoc alignment amendment; they are not clinical validation.
-See the [review methodology](docs/HUMAN_REVIEW_RESULTS.md) and
-[versioned results](eval/results/reviewed-v1.1/report/report.md).
+- **Extracting facts first does not make the note more faithful, on this corpus.**
+  Direct writing (A) keeps 95.8% of the expected facts, versus 92.5% for structured
+  extraction (B). The −3.3 point gap is clear: its 95% confidence interval runs
+  from −5.3 to −1.4 points.
+- **B costs twice as much and takes twice as long**: 2.3 s versus 5.0 s median
+  latency per note.
+- **No unsupported information** was found in the 80 reviewed test notes. Errors
+  are mostly omissions: 15 missed facts for A, 26 for B, out of 360 each.
 
-The [cost and latency confidence intervals](eval/results/cost-latency-v1/) were added
-after the original evaluation, using the same 10,000 paired bootstrap samples.
+![Fictional dialogue and side-by-side comparison of both notes with their sources](docs/assets/readme-comparison.png)
 
-| Measure | A | B | B/A | 95% CI for B−A |
-|---|---:|---:|---:|---|
-| Mean cost per note | $0.00079 | $0.00158 | ×2.00 | [$0.000749; $0.000826] |
-| Median latency | 2.29 s | 4.98 s | ×2.17 | [2.20; 2.86] s |
+*The demo shows the dialogue, then both notes. Each sentence links to the
+passage of the dialogue that supports it. The interface is in French.*
 
-The B−A estimates are $0.000787 and 2.69 seconds. Ratio intervals are [1.95; 2.05]
-for cost and [1.94; 2.29] for latency. These describe variation across consultations
-within this campaign, conditional on the archived prices and calls. They do not
-measure repeated-call stability, future prices or an expected service-level guarantee.
+## What I take away
 
-We also examined [nine errors and review questions](docs/ERROR_ANALYSIS.md) across
-eight notes. Examples include duplicated negation in B, an omitted follow-up action,
-a lost specific objective and a citation that supports only part of an assertion.
-One output turns “less during walks” into an absent symptom, although the current
-annotation does not count it as a contradiction. That case needs a second review;
-it is not silently added to the published scores.
+- **Structure does not guarantee faithfulness.** B produces more items than A
+  (432 versus 364) but loses more expected facts. By splitting the dialogue into
+  isolated facts, extraction drops details: an announced follow-up action,
+  an observation without a number.
+- **The two methods do not lose the same things.** In the negation test, B keeps
+  the patient's scheduling preference in 20 notes out of 20, A in 2 out of 20.
+  Structure seems to help keep point details, which direct writing tends to summarize.
+- **A strict format can make an error very visible.** B produced "absence of
+  medical treatment — negated": the format is valid and the citation points to
+  the right passage, but the meaning is reversed.
+- **A correct citation does not prove the sentence is right.** You still have to
+  read the cited passage; the demo makes that easier but does not replace it.
 
-The analysis is a qualitative selection made after evaluation, not a frequency estimate.
-Proposed improvements still need new test cases and clearer annotation decisions.
+## Results
 
-A separate [post hoc stress diagnostic](eval/results/stress-diagnostic-v1/) keeps the
-original strict score and reports each dimension. The target fact is preserved in
-both variants in 10/10 pairs for A and 9/10 for B. The uncertainty statement is missing
-from all 20 notes per method; the scheduling preference appears in 2/20 A notes and
-20/20 B notes. All nine invariants are reported, including those that fail. Target
-preservation concerns the whole fact, not only its polarity. The variants belong to
-ten pairs and are not twenty independent cases. This analysis was added after v1;
-it is descriptive and does not replace the original benchmark.
+40 test consultations, one note per method and per consultation. I reviewed
+them one by one, under neutral identifiers that hid the method.
 
-A separate [AI annotation pilot](docs/ANNOTATION_PILOT.md) examines ten archived notes.
-Five forms are complete and five retain unresolved decisions, including partially
-covered reference facts. The pilot reports concrete omissions and protocol limitations,
-without estimating performance across the full cohort.
-Screenshots and the video show the earlier illustrative release.
+| Measure | A, direct | B, structured | B−A gap [95% CI] |
+|---|---:|---:|---|
+| Expected facts correctly kept | 95.83% | 92.50% | −3.33 points [−5.28; −1.39] |
+| Expected facts omitted | 4.17% | 7.22% | +3.06 points [+1.11; +5.00] |
+| Contradictory information in the note | 0.00% | 0.23% | +0.23 points [0.00; +0.71] |
+| Unsupported information in the note | 0.00% | 0.00% | 0.00 points |
+| Mean cost per note | $0.00079 | $0.00158 | ×2.00 [1.95; 2.05] |
+| Median latency | 2.29 s | 4.98 s | ×2.17 [1.94; 2.29] |
 
-Two additional extractive comparators, lead-5 and TF-IDF centroid-5, now produce 160
-archived excerpts without provider calls. This is a separate, post hoc experiment:
-[outputs and limitations](eval/results/extractive-posthoc-1/report.md). Selection never
-uses gold facts. Length retention is reported, not semantic quality. Offline review packs
-and partial annotation checks are described in [the review guide](docs/REFERENCE_REVIEW.md).
+Intervals come from a paired bootstrap over the 40 consultations (10,000 samples).
+All 132 model calls cost about $0.15 in total.
 
-## Run locally
+**Negation test.** Ten pairs of dialogues differ only by one negation ("I report
+a fever" / "I do not report a fever"). Both methods keep the flipped fact (10 pairs
+out of 10 for A, 9 out of 10 for B). Neither passes the strict criterion, which
+also requires every other fact: all 40 notes omit that the origin of the complaint
+remains to be clarified. This overly aggregated criterion therefore does not separate
+the methods; the [detailed diagnostic](eval/results/stress-diagnostic-v1/) reports
+each dimension separately.
 
-Use Python 3.12, uv and Node 22.12 or newer within the Node 22 family.
+The [analysis of nine errors](docs/ERROR_ANALYSIS.md) (in French) shows concrete
+cases with the dialogue, the note and the annotation.
 
-```bash
-uv sync --frozen --group dev --group eval
-npm --prefix frontend ci
-make demo
-```
+## Method
 
-Open `http://127.0.0.1:5173/?mode=offline`. The bundled consultations, citations, methodology,
-results and local Markdown/JSON exports work without the backend. Generation is disabled.
-For local API integration, start the following in separate terminals:
+- **A, direct writing**: the model reads the dialogue and writes a note in seven
+  sections, with a reference to the source passage for each sentence.
+- **B, extraction then rendering**: the model extracts typed facts (subject,
+  negation, timing, certainty), then a Python program renders them with fixed
+  rules, without a second model call.
+- **Model**: `gpt-4.1-mini` through the OpenAI API, JSON outputs constrained by
+  a schema, one generation per method and per case.
+- **Data**: 80 fictional consultations in French (20 development, 40 test,
+  10 negation pairs), with 800 reference facts linked to their source passage.
+- **Evaluation**: for each note, I label every piece of information as correct,
+  contradictory or unsupported, then list the expected facts that were omitted.
 
-```bash
-uv run uvicorn medinote.main:create_app --factory --host 127.0.0.1 --port 8000 --no-proxy-headers --no-access-log
-npm --prefix frontend run dev
-```
+The code, data, prompts and model were
+[frozen](https://github.com/KenziBoughadou/medinote/commit/3138ec963c32c6c5acfac93ffddbf0490f5c08ca)
+before the test campaign. Since the writing step also differs between A and B,
+the observed gap cannot be attributed to the extraction step alone.
 
-Live calls are disabled by default. The public API only accepts an allowed case ID and
-method, never free consultation text. Never copy production secrets into the checkout.
+[Evaluation rules](docs/EVALUATION.md) · [Annotation guide](eval/annotation-guide.v1.md) ·
+[Extractive baselines without an LLM](eval/results/extractive-posthoc-1/report.md)
 
-## Stack and protocol
+## Demo
 
-React 19, TypeScript 5, Vite 7, Tailwind 4 and bundled Geist; FastAPI, Pydantic 2,
-OpenAI Responses and SQLite. Two unprivileged containers: nginx and a single-worker API.
-Both methods use `gpt-4.1-mini-2025-04-14`, temperature 0, strict Structured Outputs,
-4,000 maximum output tokens, `store=false` and no SDK retries. No semantic repair or
-fallback between pipelines is performed. Existing source IDs and valid JSON do not prove
-semantic faithfulness.
+[medinote.kbcompany.fr](https://medinote.kbcompany.fr) presents six fictional
+consultations and the twelve notes actually generated for them. You can compare
+the notes, open the passage cited by each sentence, export a draft and request a
+new generation within a quota. No personal data can be entered.
+[Run the demo locally](docs/DEMO.md#lancer-la-démo-en-local)
 
-80 synthetic dialogues: 60 main parents in ten families (20 development, 40 test), plus
-ten independent negation stress pairs. Six development cases are public. Source spans
-use Unicode code points. Texts and gold references were prepared by AI, then accepted
-without corrections during the author’s review. All 120 test/stress annotations are complete under the
-versioned v1.1 validator. The earlier AI pilot remains a separate historical artifact.
+## Architecture
 
-```bash
-uv run medinote corpus validate --root .
-uv run medinote study-status --root .
-make check
-npm --prefix frontend exec -- playwright install chromium
-npm --prefix frontend run test:e2e
-```
+A React and TypeScript interface displays the dialogues and notes. A Python
+backend (FastAPI, Pydantic) prepares requests, validates the model outputs and
+builds note B. SQLite tracks the budget and quotas. Docker and GitHub Actions
+test and publish each release.
 
-Frozen manifests capture corpus, gold, prompts, schemas, renderer, code, protocol, prices
-and lockfile hashes. Immutable campaigns retain failures and unknown costs. Both final
-notes receive semantic claim segmentation, gold alignment and citation assessment.
-Metrics use micro aggregation and 10,000 paired bootstrap samples; stress remains separate.
-Real calls run inside the active production release and share its budget ledger; see
-[deployment commands](docs/DEPLOYMENT.md#campagnes-réelles).
+[Detailed architecture](docs/ARCHITECTURE.md) · [System card](docs/MODEL_CARD.md) ·
+[Dataset card](docs/DATASET_CARD.md)
 
-## Delivery and limitations
+## Limitations
 
-[Architecture](docs/ARCHITECTURE.md), [dataset card](docs/DATASET_CARD.md),
-[model card](docs/MODEL_CARD.md), [evaluation](docs/EVALUATION.md),
-[deployment/rollback](docs/DEPLOYMENT.md), [demo guide](docs/DEMO.md).
-CI runs offline tests and builds production images on GitHub, including container integration,
-image sizes and rollback without restoring the usage database. Releases use full commit SHAs
-and image digests. Administrator setup, SSH host verification, Cloudflare and monitoring
-must be completed explicitly.
+- **Synthetic, highly regular corpus.** The dialogues and references were
+  generated by an LLM, with 12 turns and 9 expected facts each. Both methods
+  therefore come close to the ceiling, and the corpus does not reflect real
+  consultations.
+- **A single reviewer, myself**, without a second opinion. B's style could reveal
+  the method despite the neutral identifiers.
+- **An annotation rule changed after seeing the outputs**, to accept five correct
+  pieces of information missing from the references. The change is
+  [documented](docs/ANNOTATION_AMENDMENT_V1_1.md) and alters neither the dialogues
+  nor the generations.
+- **One model and one generation per case**: the intervals measure variation
+  across consultations, not across generations.
+- **No clinical validation**, and no time savings measured in real practice.
 
-**Synthetic corpus.** Both dialogues and references were prepared by AI. Their regular
-style limits how well they represent real work. More generated cases would not remove
-this bias. A new, separately authored fictional dataset and independent reference review
-would be a stronger next step.
+## Ideas for a v2
 
-**One model, one generation per case and method.** The comparison describes this precise
-configuration. The bootstrap estimates variation across consultations, not variation
-across repeated generations. Testing that would require repetitions and another model,
-with the protocol and budget set before the campaign.
+- Evaluate on more realistic dialogues, for example public annotated consultation
+  corpora (ACI-Bench, MTS-Dialog).
+- Have part of the notes reviewed by a second person from the field and measure
+  inter-annotator agreement.
+- Compare with an open-weight model running locally, better suited to hosting
+  health data.
+- Weight errors by clinical severity: missing an allergy matters more than
+  missing a scheduling preference.
 
-**Post hoc alignment amendment.** Five sourced optional facts exposed a validator issue.
-Version 1.1 fixes it while keeping the dialogues, references and generations unchanged.
-Recording the change makes it traceable, not preregistered. A future campaign should
-exercise the rule on development cases and freeze it before generating test outputs.
-
-**An overly aggregated stress score.** One shared omission makes every strict pair fail.
-The separate diagnostic explains why, but is itself post hoc. A future experiment
-should define target preservation, invariant preservation and omissions in advance,
-check their sensitivity on development cases and retain strict success as a secondary
-check. The existing v1 score remains unchanged.
-
-The author is the only reviewer; B’s style may reveal its identity during annotation.
-Independent review, clinical validation and time saved in real work remain unestablished.
-With the current budget, reference quality and a second annotation take priority over
-additional API calls.
-
-The shared ceiling is USD 10 estimated before tax per UTC month. Each attempt reserves
-USD 0.025; public limits are six attempts per visitor and thirty total per UTC day, with
-one concurrent generation. Unknown usage remains charged conservatively. Versioned prices
-do not deduct caching discounts. No fabricated scientific results are included.
-
-Code: [MIT](LICENSE). Original corpus and annotations: [CC BY 4.0](data/LICENSE), with provenance.
-
-The [v1 release](https://github.com/KenziBoughadou/medinote/releases/tag/v1) packages
-the code, results and error analysis. It uses the amended v1.1 evaluation;
-the release tag does not rename the experimental protocol.
+The [v1 release](https://github.com/KenziBoughadou/medinote/releases/tag/v1)
+packages the code, results and analysis. Code under the [MIT](LICENSE) license;
+corpus and annotations under [CC BY 4.0](data/LICENSE).

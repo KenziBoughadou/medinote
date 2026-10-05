@@ -25,6 +25,36 @@ Les dialogues et références sont synthétiques. La relecture a été réalisé
 l’auteur, sans second avis indépendant. Aucun usage clinique ni gain de temps
 en situation de travail n’a été validé.
 
+## Lancer la démo en local
+
+Avec Python 3.12, uv et Node 22.12 ou plus récent dans la famille Node 22 :
+
+```bash
+uv sync --frozen --group dev --group eval
+npm --prefix frontend ci
+make demo
+```
+
+Ouvrir `http://127.0.0.1:5173/?mode=offline`. Les consultations, citations, résultats
+et exports fonctionnent sans backend ; la génération est désactivée.
+
+Pour tester l'intégration avec l'API, lancer ces deux commandes dans des terminaux séparés :
+
+```bash
+uv run uvicorn medinote.main:create_app --factory --host 127.0.0.1 --port 8000 --no-proxy-headers --no-access-log
+npm --prefix frontend run dev
+```
+
+Les appels réels au modèle sont désactivés par défaut. L'API publique n'accepte qu'un
+identifiant de consultation autorisé et une méthode, jamais un texte libre.
+
+Pour vérifier le corpus et lancer les tests :
+
+```bash
+uv run medinote corpus validate --root .
+make check
+```
+
 ## Enregistrement local
 
 `npm --prefix frontend run record:demo` s’utilise avec le frontend lancé sur le port 5173.
