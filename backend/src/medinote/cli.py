@@ -55,6 +55,22 @@ def parser():
     publish.add_argument("--demo-batch", type=Path, required=True)
     publish.add_argument("--report", type=Path, required=True)
     publish.add_argument("--output", type=Path, required=True)
+    ext = sub.add_parser("external").add_subparsers(dest="action", required=True)
+    commands = {
+        "freeze": ["--root", "--output"],
+        "run": ["--manifest", "--output"],
+        "judge": ["--manifest", "--batch", "--output"],
+        "report": ["--batch", "--judgments", "--second", "--output"],
+    }
+    for name, options in commands.items():
+        command = ext.add_parser(name)
+        for option in options:
+            command.add_argument(option, type=Path, required=True)
+        if name == "run":
+            command.add_argument("--split", choices=["dev", "test"], required=True)
+        if name == "judge":
+            command.add_argument("--role", choices=["primary", "secondary"], default="primary")
+            command.add_argument("--primary", type=Path)
     return p
 
 
@@ -72,6 +88,49 @@ async def _run(settings, args):
         return str(await run_batch(settings.root, args.manifest, args.suite, args.output, service))
     finally:
         await service.close()
+
+
+async def _external_paid(settings, root, args):
+    from medinote.external.campaign import require_production, run_generation, run_judging
+    from medinote.external.llm import ExternalProvider
+    from medinote.usage import UsageStore
+
+    if not settings.live_enabled:
+        raise ServiceError("LIVE_DISABLED", "Clé et live autorisé requis.", 503)
+    require_production(settings)
+    usage = UsageStore(settings.db_path)
+    usage.initialize()
+    provider = ExternalProvider(settings.openai_api_key.get_secret_value())
+    try:
+        if args.action == "run":
+            output = await run_generation(
+                root, args.manifest, args.split, args.output, usage, provider
+            )
+        else:
+            output = await run_judging(
+                root,
+                args.manifest,
+                args.batch,
+                args.output,
+                usage,
+                provider,
+                role=args.role,
+                primary=args.primary,
+            )
+        return str(output)
+    finally:
+        await provider.close()
+
+
+def _external(settings, root, args):
+    from medinote.external import campaign, report
+
+    if args.action == "freeze":
+        return campaign.freeze_external(root, args.output).model_dump(mode="json")
+    if args.action in {"run", "judge"}:
+        return asyncio.run(_external_paid(settings, root, args))
+    built = report.build_report(root, args.batch, args.judgments, args.second, args.output)
+    return {key: built[key] for key in ["split", "consultations", "comparisons", "judge_agreement"]}
 
 
 def _publish(settings, args):
@@ -124,6 +183,8 @@ def main(argv=None):
             result = study_status(root)
         elif args.command == "publish":
             result = _publish(settings, args)
+        elif args.command == "external":
+            result = _external(settings, root, args)
         elif args.action == "freeze":
             from medinote.evaluation.freeze import freeze_manifest
 
@@ -149,7 +210,12 @@ def main(argv=None):
         return 0
     except ServiceError as exc:
         print(canonical_json({"error": exc.code, "message": exc.message}))
-        return 4 if args.command == "eval" and args.action == "run" and args.output.exists() else 3
+        interrupted = (
+            args.command in {"eval", "external"}
+            and args.action in {"run", "judge"}
+            and args.output.exists()
+        )
+        return 4 if interrupted else 3
     except (ValueError, AssertionError, KeyError, OSError) as exc:
         print(canonical_json({"error": "INVALID_INPUT", "message": str(exc)}))
         return 2

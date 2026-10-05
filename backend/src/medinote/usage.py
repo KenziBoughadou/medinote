@@ -104,7 +104,7 @@ class UsageStore:
                 (status, iso(self.clock()), job_id),
             )
 
-    def _budget_available(self, db, month):
+    def _budget_available(self, db, month, amount=RESERVATION):
         if db.execute(
             "SELECT 1 FROM attempts WHERE charged_micro_usd>reserved_micro_usd LIMIT 1"
         ).fetchone():
@@ -113,9 +113,11 @@ class UsageStore:
             "SELECT COALESCE(SUM(COALESCE(charged_micro_usd,reserved_micro_usd)),0) FROM attempts WHERE month_utc=?",
             (month,),
         ).fetchone()[0]
-        return spent + RESERVATION <= MONTHLY_BUDGET
+        return spent + amount <= MONTHLY_BUDGET
 
-    def reserve_attempt(self, job_id, client_key=None, retry=False):
+    def reserve_attempt(self, job_id, client_key=None, retry=False, amount=RESERVATION):
+        if not 0 < amount <= MONTHLY_BUDGET:
+            raise ValueError("Réservation hors budget")
         now = self.clock()
         stamp = iso(now)
         day = stamp[:10]
@@ -131,7 +133,7 @@ class UsageStore:
                 ).fetchone()
             ):
                 raise ServiceError("LEASE_EXPIRED", "Le délai de génération est dépassé.", 504)
-            if not self._budget_available(db, month):
+            if not self._budget_available(db, month, amount):
                 raise ServiceError(
                     "BUDGET_EXHAUSTED", "Les relances sont temporairement indisponibles.", 429
                 )
@@ -183,12 +185,14 @@ class UsageStore:
                     )
             db.execute(
                 "INSERT INTO attempts VALUES(?,?,?,?,?,?,NULL,'reserved',?,NULL,NULL,NULL,NULL)",
-                (aid, job_id, month, day, client_key, RESERVATION, stamp),
+                (aid, job_id, month, day, client_key, amount, stamp),
             )
         return aid
 
-    def settle_attempt(self, attempt_id, input_tokens, output_tokens, error_code=None):
-        charge = estimated_micro_usd(input_tokens, output_tokens)
+    def settle_attempt(
+        self, attempt_id, input_tokens, output_tokens, error_code=None, pricing=estimated_micro_usd
+    ):
+        charge = pricing(input_tokens, output_tokens)
         if charge is None:
             self.mark_unknown(attempt_id, error_code)
             return None

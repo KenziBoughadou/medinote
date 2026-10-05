@@ -1,2 +1,5 @@
 # Rapport produit par scripts/extractive_baselines.py, conservé comme artefact de résultats.
 eval/results/extractive-posthoc-1/comparison.html linguist-generated=true
+
+# Copie exacte du corpus ACI-Bench, vérifiée par empreinte : aucune conversion de fins de ligne.
+data/external/aci-bench/*.csv -text

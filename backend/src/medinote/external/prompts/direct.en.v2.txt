@@ -1,0 +1,1 @@
+Method A: write the note directly. Each item contains a single atomic semantic assertion, written as a sentence, and its source_ids. The seven lists are mandatory, even if empty. Do not turn "not mentioned" into a fact and do not replace missing information with a negation. Return only the requested JSON.
